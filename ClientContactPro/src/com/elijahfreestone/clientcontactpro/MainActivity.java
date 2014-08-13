@@ -12,6 +12,7 @@ package com.elijahfreestone.clientcontactpro;
 
 import java.util.Locale;
 
+import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -19,7 +20,9 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,7 +32,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
+	String TAG = "Main Activity";
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -49,7 +53,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main); 
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -58,6 +62,7 @@ public class MainActivity extends Activity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        
     }
 
 
@@ -96,13 +101,21 @@ public class MainActivity extends Activity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            //return PlaceholderFragment.newInstance(position + 1);
+        	switch (position) { 
+			case 0:
+				return new ClientsFragment();  
+			case 1:
+				return new AppointmentsFragment();
+			} 
+        	
+        	return null; 
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            // Show 2 total pages.
+            return 2;
         }
 
         @Override
@@ -113,8 +126,6 @@ public class MainActivity extends Activity {
                     return getString(R.string.title_section1).toUpperCase(l);
                 case 1:
                     return getString(R.string.title_section2).toUpperCase(l);
-                case 2:
-                    return getString(R.string.title_section3).toUpperCase(l);
             }
             return null;
         }
@@ -152,5 +163,25 @@ public class MainActivity extends Activity {
             return rootView;
         }
     }
+
+	@Override
+	public void onTabSelected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onTabReselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
