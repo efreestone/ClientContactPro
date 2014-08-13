@@ -6,5 +6,9 @@
     <string name="title_section2">Appointments</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    
+    <string name="emailHint">Email</string>
+    <string name="passwordHint">Password</string>
+    <string name="loginButtonString">Sign In</string>
 
 </resources>

@@ -17,6 +17,8 @@ import android.app.ActionBar.Tab;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentActivity;
@@ -27,6 +29,8 @@ import android.view.MenuItem;
 
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
+	Context myContext;
+	public static final String PREFS_NAME = "SharedPrefsFile";
 	String TAG = "Main Activity";
 
     /**
@@ -51,6 +55,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main); 
+        
+        myContext = this;
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -64,21 +70,24 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         myActionBar.setHomeButtonEnabled(false);
         myActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        startActivity(loginIntent);
+        
         for (String tab_name : tabNames) {
         	myActionBar.addTab(myActionBar.newTab().setText(tab_name).setTabListener(this));
 		}
         
-        //
+        //Change tab selected when screen is swiped
         myViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 			
-			@Override
+			@Override 
 			public void onPageSelected(int position) {
 				myActionBar.setSelectedNavigationItem(position);				
 			}
 			
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				// TODO Auto-generated method stub
+				// TODO Auto-generated method stub 
 				
 			}
 			

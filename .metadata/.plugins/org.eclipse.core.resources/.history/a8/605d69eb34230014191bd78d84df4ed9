@@ -1,0 +1,15 @@
+/*
+ * @author	Elijah Freestone 
+ *
+ * Project	ClientContactPro
+ * 
+ * Package	com.elijahfreestone.clientcontactpro
+ * 
+ * Date		Aug 13, 2014
+ */
+
+package com.elijahfreestone.clientcontactpro;
+
+public class LoginActivity {
+
+}
