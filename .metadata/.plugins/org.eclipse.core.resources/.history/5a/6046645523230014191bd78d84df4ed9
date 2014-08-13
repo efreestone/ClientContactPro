@@ -50,7 +50,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      */
     ViewPager myViewPager;
     
-    ActionBar myActionBar;
+    ActionBar actionBar;
     String[] tabNames = {"Clients", "Appointments"};
 
     @Override
@@ -66,19 +66,19 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         myViewPager = (ViewPager) findViewById(R.id.pager);
         myViewPager.setAdapter(mySectionsPagerAdapter);
         
-        myActionBar = getActionBar();
-        myActionBar.setHomeButtonEnabled(false);
-        myActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionBar = getActionBar();
+        actionBar.setHomeButtonEnabled(false);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         
         for (String tab_name : tabNames) {
-        	myActionBar.addTab(myActionBar.newTab().setText(tab_name).setTabListener(this));
+			actionBar.addTab(actionBar.newTab().setText(tab_name).setTabListener(this));
 		}
         
         myViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 			
 			@Override
 			public void onPageSelected(int position) {
-				myActionBar.setSelectedNavigationItem(position);				
+				actionBar.setSelectedNavigationItem(position);				
 			}
 			
 			@Override

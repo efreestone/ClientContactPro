@@ -78,7 +78,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			
 			@Override
 			public void onPageSelected(int position) {
-				myActionBar.setSelectedNavigationItem(position);				
+				actionBar.setSelectedNavigationItem(position);				
 			}
 			
 			@Override

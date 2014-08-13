@@ -43,14 +43,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      * may be best to switch to a
      * {@link android.support.v13.app.FragmentStatePagerAdapter}.
      */
-    SectionsPagerAdapter mySectionsPagerAdapter;
+    SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    ViewPager myViewPager;
+    ViewPager mViewPager;
     
-    ActionBar myActionBar;
+    ActionBar actionBar;
     String[] tabNames = {"Clients", "Appointments"};
 
     @Override
@@ -60,41 +60,22 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mySectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        myViewPager = (ViewPager) findViewById(R.id.pager);
-        myViewPager.setAdapter(mySectionsPagerAdapter);
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
         
-        myActionBar = getActionBar();
-        myActionBar.setHomeButtonEnabled(false);
-        myActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionBar = getActionBar();
+        actionBar.setHomeButtonEnabled(false);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         
-        for (String tab_name : tabNames) {
-        	myActionBar.addTab(myActionBar.newTab().setText(tab_name).setTabListener(this));
+        for (String tab_name : tabs) {
+			
 		}
         
-        myViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-			
-			@Override
-			public void onPageSelected(int position) {
-				myActionBar.setSelectedNavigationItem(position);				
-			}
-			
-			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onPageScrollStateChanged(int arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-        
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -197,7 +178,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
-		myViewPager.setCurrentItem(tab.getPosition());
+		
 	}
 
 
