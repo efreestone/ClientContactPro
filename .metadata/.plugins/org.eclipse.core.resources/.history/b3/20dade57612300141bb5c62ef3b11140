@@ -13,16 +13,11 @@ package com.elijahfreestone.clientcontactpro;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.JSONStringer;
-
 import android.content.Context;
 
 public class JSONData {
 	String TAG = "JSONData";
 	static Context myContext;
-	static String JSONString;
 	static ArrayList<HashMap<String, String>> clientList;
 	
 	/*
@@ -33,14 +28,6 @@ public class JSONData {
 		myContext = MainActivity.myContext;
 		
 		String clientName, nextAppointment;
-		
-		JSONString = myContext.getString(R.string.clientString);
-		
-		clientList = new ArrayList<HashMap<String, String>>();
-		JSONObject jsonObject = null;
-		JSONArray clientJSONArray = null;
-		
-		
 		
 		
 		
