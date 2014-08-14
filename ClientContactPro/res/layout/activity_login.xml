@@ -4,6 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+    <TextView 
+        android:id="@+id/loginTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="40sp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="50dp" />
+    
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"
@@ -17,6 +27,14 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:hint="@string/passwordHint" />
+    
+    <CheckBox
+        android:id="@+id/autoLogCheckBox"
+        android:checked="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Auto-log" />
     
     <Button 
         android:id="@+id/loginButton"

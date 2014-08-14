@@ -19,7 +19,9 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -31,6 +33,7 @@ import android.view.MenuItem;
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 	Context myContext;
 	public static final String PREFS_NAME = "SharedPrefsFile";
+	static SharedPreferences sharedPreferences;
 	String TAG = "Main Activity";
 
     /**
@@ -40,13 +43,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      * loaded fragment in memory. If this becomes too memory intensive, it
      * may be best to switch to a
      * {@link android.support.v13.app.FragmentStatePagerAdapter}.
-     */
+     */ 
     SectionsPagerAdapter mySectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    ViewPager myViewPager;
+    ViewPager myViewPager; 
     
     ActionBar myActionBar;
     String[] tabNames = {"Clients", "Appointments"};
@@ -57,6 +60,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         setContentView(R.layout.activity_main); 
         
         myContext = this;
+        
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
+        
+        
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -144,22 +151,22 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				Log.i(TAG, "Appointment tab");
 				return new AppointmentsFragment();
 			}
-        } //getItem close
+        } //getItem close 
 
         @Override
         public int getCount() {
             // Show 2 total pages.
             return 2;
-        } //getCount close
-
-        @Override
+        } //getCount close 
+ 
+        @Override   
         public CharSequence getPageTitle(int position) {
             Locale l = Locale.getDefault();
             switch (position) {
                 case 0:
-                    return getString(R.string.title_section1).toUpperCase(l);
+                    return getString(R.string.titleSection1).toUpperCase(l);
                 case 1:
-                    return getString(R.string.title_section2).toUpperCase(l);
+                    return getString(R.string.titleSection2).toUpperCase(l);
             }
             return null;
         } //getPageTitle close
