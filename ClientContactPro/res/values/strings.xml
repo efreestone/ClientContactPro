@@ -12,5 +12,6 @@
     <string name="emailHint">Email</string>
     <string name="passwordHint">Password</string>
     <string name="loginButtonString">Sign In</string>
+    <string name="signUpButtonString">Create New Account</string>
 
 </resources>

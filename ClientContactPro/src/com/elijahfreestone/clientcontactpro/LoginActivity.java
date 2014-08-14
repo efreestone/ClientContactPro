@@ -29,7 +29,7 @@ public class LoginActivity extends Activity {
 	String loggedEmail, loggedPassword;
 	SharedPreferences sharedPreferences;
 	
-	@Override
+	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -37,14 +37,15 @@ public class LoginActivity extends Activity {
         emailEditText = (EditText) findViewById(R.id.emailEditText);
         passwordEditText = (EditText) findViewById(R.id.passwordEditText); 
         
-        Button loginButton = (Button) findViewById(R.id.loginButton);
+        Button loginButton = (Button) findViewById(R.id.loginButton); 
+        Button signUpButton = (Button) findViewById(R.id.signUpButton);
         
         sharedPreferences = MainActivity.sharedPreferences;
         loggedEmail = sharedPreferences.getString("email", "email");
     	loggedPassword = sharedPreferences.getString("password", "password");
     	
-        boolean loggedIn = sharedPreferences.getBoolean("loggedIn", false);
-        if (loggedIn) {
+        boolean loggedIn = sharedPreferences.getBoolean("loggedIn", false); 
+        if (loggedIn) {  
         	Log.i(TAG, "Auto logged");
 			emailEditText.setText(loggedEmail);
 			passwordEditText.setText(loggedPassword);
@@ -58,7 +59,16 @@ public class LoginActivity extends Activity {
 			public void onClick(View v) { 
 				onSignInClick(v); 
 			}  
-		});     
+		}); 
+        
+        signUpButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				onSignUpClick(v);
+				
+			}
+		});
 		
 	} //onCreate close
 	
@@ -67,14 +77,17 @@ public class LoginActivity extends Activity {
 		emailEntered = emailEditText.getText().toString(); 
 		passwordEntered = passwordEditText.getText().toString();
 		
+		String emailFromPrefs = sharedPreferences.getString("email", "email");
+		String passwordFromPrefs = sharedPreferences.getString("password", "password");
+		
 		CheckBox checkBox = (CheckBox) findViewById(R.id.autoLogCheckBox);
 	
-		if(emailEntered.equals("test@email.com") && passwordEntered.equals("test")){
+		if(emailEntered.equals(emailFromPrefs) && passwordEntered.equals(passwordFromPrefs)){
 			//correct password
 			Log.i(TAG, "Login successful"); 
 			Editor editor = sharedPreferences.edit();
-			editor.putString("email", emailEntered);
-			editor.putString("password", passwordEntered);
+//			editor.putString("email", emailEntered);
+//			editor.putString("password", passwordEntered);
 			if (checkBox.isChecked()) {
 				editor.putBoolean("loggedIn", true);
 			} else {
@@ -86,11 +99,14 @@ public class LoginActivity extends Activity {
 			finish(); 
 		}else{ 
 			//wrong password
-			Log.i(TAG, "Login failed");
+			Log.i(TAG, "Login failed"); 
 		}
 	}
 	
-	
+	public void onSignUpClick(View view2){
+		SignUpDialogFragment dialogFragment = new SignUpDialogFragment();
+		dialogFragment.show(getFragmentManager(), "sign_up_dialog");
+	}
 	
 
 }

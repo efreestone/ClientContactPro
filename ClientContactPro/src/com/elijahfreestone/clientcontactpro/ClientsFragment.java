@@ -26,7 +26,7 @@ public class ClientsFragment extends Fragment implements OnItemClickListener{
 	static ListView clientListView;
 	Context myContext;
 	
-	@Override
+	@Override 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

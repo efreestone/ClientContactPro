@@ -48,7 +48,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      */ 
     SectionsPagerAdapter mySectionsPagerAdapter; 
 
-    /**
+    /** 
      * The {@link ViewPager} that will host the section contents.
      */  
     ViewPager myViewPager;  
@@ -79,12 +79,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         
         Intent loginIntent = new Intent(this, LoginActivity.class);
         startActivity(loginIntent);
-        
-//        clientListView = ClientsFragment.clientListView;
-//        if (clientListView != null) {
-//        	JSONData.displayDataFromFile(); 
-//		}
-        
         
         for (String tab_name : tabNames) { 
         	myActionBar.addTab(myActionBar.newTab().setText(tab_name).setTabListener(this));

@@ -47,5 +47,16 @@
 		android:text="@string/loginButtonString"
 		android:width="200dp" />
     
+    <Button 
+        android:id="@+id/signUpButton"
+        android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:layout_marginTop="100dp"
+		android:background="@drawable/button_background"
+		android:clickable="true"
+		android:text="@string/signUpButtonString"
+		android:width="200dp" />
+    
 
 </LinearLayout>
