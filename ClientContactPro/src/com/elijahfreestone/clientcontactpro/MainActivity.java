@@ -37,6 +37,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	static SharedPreferences sharedPreferences;
 	String TAG = "MainActivity";
 	ListView clientListView;
+	ListView appointmentsListView;
 
     /**  
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -79,6 +80,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         
         Intent loginIntent = new Intent(this, LoginActivity.class);
         startActivity(loginIntent);
+        
+        //appointmentsListView = (ListView) findViewById(R.id.appointmentListView);
         
         for (String tab_name : tabNames) { 
         	myActionBar.addTab(myActionBar.newTab().setText(tab_name).setTabListener(this));
@@ -176,6 +179,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		Log.i(TAG, "onTabSelected");
 		myViewPager.setCurrentItem(tab.getPosition());
+		JSONData.displayDataFromFile(); 
 	}  
  
 

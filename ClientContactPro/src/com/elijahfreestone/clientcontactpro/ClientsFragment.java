@@ -37,12 +37,12 @@ public class ClientsFragment extends Fragment implements OnItemClickListener{
 		
 		if (clientListView != null) {  
 			Log.i(TAG, "clientListView != null");   
-			JSONData.displayDataFromFile(); 
+			//JSONData.displayDataFromFile(); 
+			clientListView.setAdapter(JSONData.clientListAdapter);
+			clientListView.setOnItemClickListener(this);
 		} else {
 			Log.i(TAG, "clientListView == null"); 
 		}
-		
-		clientListView.setOnItemClickListener(this);
 		
 		return rootView;     
 	}

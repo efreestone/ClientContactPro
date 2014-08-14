@@ -16,7 +16,6 @@ import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
 import android.content.Context;
 import android.util.Log;
@@ -27,6 +26,8 @@ public class JSONData {
 	static Context myContext;
 	static String JSONString;
 	static ArrayList<HashMap<String, String>> clientList;
+	static SimpleAdapter clientListAdapter;
+	static SimpleAdapter appointmentListAdapter;
 	
 	/*
 	* Display data from file pulls string from locally stored file and creates
@@ -71,13 +72,21 @@ public class JSONData {
 				clientList.add(clientDisplayMap);
 			}
 			
-			//Create simple adapter nd set up with array of clients
-			SimpleAdapter clientListAdapter = new SimpleAdapter(myContext,
-					clientList, R.layout.listview_row, new String[] {
+			//Create simple adapter and set up with array of clients
+			clientListAdapter = new SimpleAdapter(myContext,
+					clientList, R.layout.client_listview_row, new String[] {
 							"clientName", "nextAppointment" }, new int[] {
 							R.id.clientName, R.id.nextAppointment });
 			
-			ClientsFragment.clientListView.setAdapter(clientListAdapter);
+			//ClientsFragment.clientListView.setAdapter(clientListAdapter);
+			
+			//Create simple adapter and set up with array of clients
+			appointmentListAdapter = new SimpleAdapter(myContext,
+					clientList, R.layout.appointment_listview_row, new String[] {
+							"nextAppointment", "clientName" }, new int[] {
+							R.id.appNextAppointment, R.id.appClientName });
+			
+			//AppointmentsFragment.appointmentsListView.setAdapter(appointmentListAdapter);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

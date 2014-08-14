@@ -8,35 +8,35 @@
         android:id="@+id/userName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name"
+        android:hint="@string/nameHint"
         android:inputType="textPersonName" />
     
     <EditText 
         android:id="@+id/emailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email Address"
+        android:hint="@string/emailHint"
         android:inputType="textEmailAddress" />
     
     <EditText 
         android:id="@+id/appKey"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="App Key"
+        android:hint="@string/appKeyHint"
         android:inputType="number" />
     
     <EditText 
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
+        android:hint="@string/passwordHint"
         android:inputType="textPassword" />
     
     <EditText 
         android:id="@+id/passwordConfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
-        android:hint="Reenter Password"
+        android:hint="@string/passwordConfirmHint"
         android:inputType="textPassword" />
     
 

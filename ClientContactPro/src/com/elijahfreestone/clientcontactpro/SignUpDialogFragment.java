@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.webkit.WebView.FindListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -75,7 +74,6 @@ public class SignUpDialogFragment extends DialogFragment {
 				Log.i(TAG, "Passwords match");
 				saveToPrefs();
 				Toast.makeText(getActivity(), "Sign Up Successful!", Toast.LENGTH_LONG).show();
-				//Toast.makeText(myContext, "You have selected ", Toast.LENGTH_LONG).show();
 			}
 		} else {
 			AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
@@ -83,13 +81,6 @@ public class SignUpDialogFragment extends DialogFragment {
 			alertDialog.setMessage("Sign Up Failed due to missing information. Please fill out all fields and try again.");
 			alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", (DialogInterface.OnClickListener) null);
 			alertDialog.show();
-//			AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-//			alertDialog.setTitle(R.string.noFileTitle);
-//			// Set alert message. setMessage only has a charSequence
-//			// version so getString must be used.
-//			alertDialog.setMessage(myContext.getString(R.string.noFileAlert));
-//			alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", (DialogInterface.OnClickListener) null);
-//			alertDialog.show(); 
 		}
 	} //onSignUpClick close
 	
@@ -102,7 +93,6 @@ public class SignUpDialogFragment extends DialogFragment {
 		editor.putString("key", appKeyEntered);
 		editor.putString("password", passwordEntered);
 		editor.apply();
-		//sharedPreferences
 	}
 
 }
