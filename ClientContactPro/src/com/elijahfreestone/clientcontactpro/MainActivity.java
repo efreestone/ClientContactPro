@@ -28,15 +28,17 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 	static Context myContext;
 	public static final String PREFS_NAME = "SharedPrefsFile";
 	static SharedPreferences sharedPreferences;
-	String TAG = "Main Activity";
+	String TAG = "MainActivity";
+	ListView clientListView;
 
-    /**
+    /**  
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
      * {@link FragmentPagerAdapter} derivative, which will keep every
@@ -44,12 +46,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      * may be best to switch to a
      * {@link android.support.v13.app.FragmentStatePagerAdapter}.
      */ 
-    SectionsPagerAdapter mySectionsPagerAdapter;
+    SectionsPagerAdapter mySectionsPagerAdapter; 
 
     /**
      * The {@link ViewPager} that will host the section contents.
-     */
-    ViewPager myViewPager; 
+     */  
+    ViewPager myViewPager;  
     
     ActionBar myActionBar;
     String[] tabNames = {"Clients", "Appointments"};
@@ -62,8 +64,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         myContext = this;
         
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
-        
-        
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -80,12 +80,18 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         Intent loginIntent = new Intent(this, LoginActivity.class);
         startActivity(loginIntent);
         
-        for (String tab_name : tabNames) {
+//        clientListView = ClientsFragment.clientListView;
+//        if (clientListView != null) {
+//        	JSONData.displayDataFromFile(); 
+//		}
+        
+        
+        for (String tab_name : tabNames) { 
         	myActionBar.addTab(myActionBar.newTab().setText(tab_name).setTabListener(this));
 		}
         
         //Change tab selected when screen is swiped
-        myViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        myViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() { 
 			
 			@Override 
 			public void onPageSelected(int position) {
@@ -146,20 +152,20 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             
         	if (position == 0) {
         		Log.i(TAG, "Client Tab");
-        		return new ClientsFragment();
+        		return new ClientsFragment(); 
 			} else {
 				Log.i(TAG, "Appointment tab");
-				return new AppointmentsFragment();
+				return new AppointmentsFragment(); 
 			}
         } //getItem close 
 
         @Override
         public int getCount() {
             // Show 2 total pages.
-            return 2;
+            return 2; 
         } //getCount close 
  
-        @Override   
+        @Override        
         public CharSequence getPageTitle(int position) {
             Locale l = Locale.getDefault();
             switch (position) {
@@ -172,11 +178,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         } //getPageTitle close
     } //SectionsPagerAdapter close
 
-	@Override
+	@Override 
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
+		Log.i(TAG, "onTabSelected");
 		myViewPager.setCurrentItem(tab.getPosition());
-	}
-
+	}  
+ 
 
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {

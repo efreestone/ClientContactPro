@@ -22,7 +22,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 public class LoginActivity extends Activity {
-	String TAG = "Login Activity";
+	String TAG = "LoginActivity";
 	EditText emailEditText, passwordEditText;
 	String emailEntered, passwordEntered;
 	String savedEmail, savedPassword;
@@ -78,7 +78,7 @@ public class LoginActivity extends Activity {
 			if (checkBox.isChecked()) {
 				editor.putBoolean("loggedIn", true);
 			} else {
-				editor.putBoolean("loggedIn", false);
+				editor.putBoolean("loggedIn", false); 
 			}
 			
 			editor.apply();  

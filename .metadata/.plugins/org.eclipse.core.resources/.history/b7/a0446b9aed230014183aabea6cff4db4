@@ -1,0 +1,90 @@
+/*
+ * @author	Elijah Freestone 
+ *
+ * Project	ClientContactPro
+ * 
+ * Package	com.elijahfreestone.clientcontactpro
+ * 
+ * Date		Aug 12, 2014
+ */
+
+package com.elijahfreestone.clientcontactpro;
+
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.ListFragment;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
+
+public class ClientsFragment extends Fragment implements OnItemClickListener {
+	static String TAG = "ClientsFragment";
+	static ListView clientListView;
+	Context myContext;
+	
+	/**
+	 * The Interface onListItemSelected.
+	 */
+	public interface OnListItemSelected {
+		void startActivityForResult(Intent detailsIntent, int requestCode);
+	}
+
+	private OnListItemSelected parentActivity;
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Fragment#onAttach(android.app.Activity)
+	 */
+	@Override
+	public void onAttach(Activity activity) {
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
+		if (activity instanceof OnListItemSelected) {
+			parentActivity = (OnListItemSelected) activity;
+		} else {
+			Log.e(TAG, "Must implement OnListItemSelected");
+		}
+	} // onAttach Close
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		//return super.onCreateView(inflater, container, savedInstanceState);
+		View rootView = inflater.inflate(R.layout.fragment_clients, container, false);
+		
+		clientListView = (ListView) rootView.findViewById(R.id.clientListView);
+		
+		if (clientListView != null) { 
+			Log.i(TAG, "clientListView != null");  
+			JSONData.displayDataFromFile();
+		} else {
+			Log.i(TAG, "clientListView == null");
+		}
+		
+		return rootView;    
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		// TODO Auto-generated method stub
+		
+	}   
+	
+//	@Override
+//	public void onActivityCreated(Bundle savedInstanceState) {
+//		// TODO Auto-generated method stub
+//		super.onActivityCreated(savedInstanceState);
+//		
+//		JSONData.displayDataFromFile(); 
+//	}
+}
