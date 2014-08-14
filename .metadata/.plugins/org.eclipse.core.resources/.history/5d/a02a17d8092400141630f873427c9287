@@ -42,7 +42,7 @@ public class LoginActivity extends Activity {
         Button signUpButton = (Button) findViewById(R.id.signUpButton);
         
         sharedPreferences = MainActivity.sharedPreferences;
-        loggedEmail = sharedPreferences.getString("email", "email"); 
+        loggedEmail = sharedPreferences.getString("email", "email");
     	loggedPassword = sharedPreferences.getString("password", "password");
     	
         boolean loggedIn = sharedPreferences.getBoolean("loggedIn", false); 

@@ -79,7 +79,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         myActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         
         Intent loginIntent = new Intent(this, LoginActivity.class);
-        //startActivity(loginIntent); 
+        //startActivity(loginIntent);
         
         //appointmentsListView = (ListView) findViewById(R.id.appointmentListView);
         

@@ -70,7 +70,6 @@ public class JSONData {
 				clientDisplayMap.put("clientName", clientName);
 				clientDisplayMap.put("nextAppointment", nextAppointment);
 				
-				//Sort out all entries that contain an appointment
 				HashMap<String, String> appointmentDisplayMap = new HashMap<String, String>();
 				if (!nextAppointment.equalsIgnoreCase("none")) {
 					Log.i(TAG, "appointmentDisplayMap");
