@@ -5,6 +5,38 @@
     android:orientation="vertical" >
     
     <TextView 
+        android:id="@+id/appointmentStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:paddingTop="50dp"
+        android:text="Start Time/Date" />
+    
+    <TextView 
+        android:id="@+id/appointmentEnd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:text="End Time/Date" />
+    
+    <TextView 
+        android:id="@+id/appointmentType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Appointment Type" />
+    
+    <TextView 
+        android:id="@+id/appointmentAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="30dp"
+        android:text="Appointment Address" />
+    
+    <TextView 
         android:id="@+id/clientTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,26 +88,12 @@
         android:text="Basic Info (Due Date, etc)" />
     
     <TextView 
-        android:id="@+id/appointmentTitle"
+        android:id="@+id/otherContacts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="20sp"
-        android:paddingTop="50dp"
-        android:text="Upcoming Appointments" />
+        android:text="Other Contacts (Spouse, Backup, etc)"/>
     
-    <TextView 
-        android:id="@+id/nextAppointment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Next Appointment (if any)" />
     
-    <TextView 
-        android:id="@+id/appointmentType"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Appointment Type" />
 
 </LinearLayout>

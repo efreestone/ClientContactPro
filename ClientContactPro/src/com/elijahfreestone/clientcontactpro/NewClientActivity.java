@@ -1,3 +1,12 @@
+/*
+ * @author	Elijah Freestone 
+ *
+ * Project	ClientContactPro
+ * 
+ * Package	com.elijahfreestone.clientcontactpro
+ * 
+ * Date		Aug 14, 2014
+ */
 package com.elijahfreestone.clientcontactpro;
 
 import android.app.Activity;

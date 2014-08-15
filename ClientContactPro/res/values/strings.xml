@@ -19,5 +19,7 @@
     
     <string name="editClientButtonString">Edit Client</string>
     <string name="spinnerDatePrompt">Date</string>
+    
+    <string name="cancelButtonString">CANCEL APPOINTMENTS</string>
 
 </resources>

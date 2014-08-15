@@ -35,6 +35,8 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 		//return super.onCreateView(inflater, container, savedInstanceState);
 		rootView = inflater.inflate(R.layout.fragment_appointments, container, false);
 		
+		View cancelSubview = inflater.inflate(R.layout.subview_cancel_button, container);
+		
 		appointmentsListView = (ListView) rootView.findViewById(R.id.appointmentListView); 
 		
 		if (appointmentsListView != null) {  
@@ -45,6 +47,7 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 		} else {
 			Log.i(TAG, "appointmentsListView == null"); 
 		}  
+		
 		
 		return rootView; 
 	}

@@ -28,6 +28,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 
 
@@ -46,13 +47,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      * loaded fragment in memory. If this becomes too memory intensive, it
      * may be best to switch to a
      * {@link android.support.v13.app.FragmentStatePagerAdapter}.
-     */ 
-    SectionsPagerAdapter mySectionsPagerAdapter; 
+     */   
+    SectionsPagerAdapter mySectionsPagerAdapter;   
 
     /** 
      * The {@link ViewPager} that will host the section contents.
      */  
-    ViewPager myViewPager;  
+    ViewPager myViewPager;    
     
     ActionBar myActionBar;
     String[] tabNames = {"Clients", "Appointments"};
@@ -62,7 +63,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main); 
         
-        myContext = this;
+        myContext = this; 
         
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
 
@@ -81,10 +82,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         Intent loginIntent = new Intent(this, LoginActivity.class);
         startActivity(loginIntent); 
         
+        View cancelSubView = (View) findViewById(R.layout.subview_cancel_button);
+        
         //appointmentsListView = (ListView) findViewById(R.id.appointmentListView);
         
         for (String tab_name : tabNames) { 
         	myActionBar.addTab(myActionBar.newTab().setText(tab_name).setTabListener(this));
+        	//myViewPager.addView(cancelSubView); 
 		}
         
         //Change tab selected when screen is swiped
@@ -191,16 +195,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-	}
-
+	} 
+ 
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
 	}
 	
 	void onNewClientClick(){ 
-		Intent newAppointmentIntent = new Intent(myContext, NewClientActivity.class);
-		startActivity(newAppointmentIntent);
+		Intent newClientIntent = new Intent(myContext, NewClientActivity.class);
+		startActivity(newClientIntent);
 	}
 
 }

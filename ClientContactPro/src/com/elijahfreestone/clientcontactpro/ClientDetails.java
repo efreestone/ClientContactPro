@@ -11,6 +11,8 @@
 package com.elijahfreestone.clientcontactpro;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -18,6 +20,7 @@ import android.view.MenuItem;
 
 public class ClientDetails extends Activity {
 	String TAG = "ClientDetails";
+	Context myContext = MainActivity.myContext;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +48,15 @@ public class ClientDetails extends Activity {
         
         if (id == R.id.newAppointmentPlus) {
 			Log.i(TAG, "Plus clicked");
+			onPlusClick();
 		}
         
         return super.onOptionsItemSelected(item);
+    }
+    
+    void onPlusClick(){
+    	Intent newAppointmentIntent = new Intent(myContext, NewAppointmentActivity.class);
+		startActivity(newAppointmentIntent);
     }
 
 }
