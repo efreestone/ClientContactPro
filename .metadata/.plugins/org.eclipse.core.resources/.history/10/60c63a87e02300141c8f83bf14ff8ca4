@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="clientString">{"total":15, "clients":[
+	{"name":"ClientOne", "next_appointment":"none"},
+	{"name":"ClientTwo", "next_appointment":"Oct 15, 2014 at 8:30am"},
+	{"name":"ClientThree", "next_appointment":"Aug 17, 2014 at 11:00am"},
+	{"name":"ClientFour", "next_appointment":"Sep 21, 2014 at 1:00pm"},
+	{"name":"ClientFive", "next_appointment":"none"},
+	{"name":"ClientSix", "next_appointment":"none"},
+	{"name":"ClientSeven", "next_appointment":"Aug 24, 2014 at 11:00am"},
+	{"name":"ClientEight", "next_appointment":"Sep 25, 2014 at 1:00pm"},
+	{"name":"ClientNine", "next_appointment":"Nov 27, 2014 at 10:30am"},
+	{"name":"ClientTen", "next_appointment":"none"},
+	{"name":"ClientEleven", "next_appointment":"Aug 27, 2014 at 3:15pm"},
+	{"name":"ClientTwelve", "next_appointment":"Dec 29, 2014 at 2:00pm"},
+	{"name":"ClientThirteen", "next_appointment":"none"},
+	{"name":"ClientFourteen", "next_appointment":"Sep 2, 2014 at 9:00am"},
+	{"name":"ClientFifteen", "next_appointment":"none"}]}
+	</string>
+    
+</resources>

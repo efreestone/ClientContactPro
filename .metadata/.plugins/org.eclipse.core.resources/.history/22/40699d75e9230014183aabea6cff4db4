@@ -1,0 +1,56 @@
+/*
+ * @author	Elijah Freestone 
+ *
+ * Project	ClientContactPro
+ * 
+ * Package	com.elijahfreestone.clientcontactpro
+ * 
+ * Date		Aug 12, 2014
+ */
+
+package com.elijahfreestone.clientcontactpro;
+
+import android.app.Fragment;
+import android.app.ListFragment;
+import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+
+public class ClientsFragment extends ListFragment {
+	static String TAG = "ClientsFragment";
+	static ListView clientListView;
+	Context myContext;
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		//return super.onCreateView(inflater, container, savedInstanceState);
+		View rootView = inflater.inflate(R.layout.fragment_clients, container, false);
+		
+		
+		
+		clientListView = (ListView) rootView.findViewById(R.id.clientListView);
+		
+		if (clientListView != null) {
+			Log.i(TAG, "clientListView != null");  
+			JSONData.displayDataFromFile();
+		} else {
+			Log.i(TAG, "clientListView == null");
+		}
+		
+		return rootView;    
+	} 
+	
+//	@Override
+//	public void onActivityCreated(Bundle savedInstanceState) {
+//		// TODO Auto-generated method stub
+//		super.onActivityCreated(savedInstanceState);
+//		
+//		JSONData.displayDataFromFile(); 
+//	}
+}

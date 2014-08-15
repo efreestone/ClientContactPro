@@ -22,6 +22,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity 
+            android:name="LoginActivity"
+            android:label="@string/loginLabel"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+        <activity android:name="ClientDetails"></activity>
+        <activity android:name="AppointmentDetails"></activity>
+        <activity android:name="NewAppointmentActivity"></activity>
+        <activity android:name="NewClientActivity"></activity>
     </application>
 
 </manifest>

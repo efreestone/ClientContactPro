@@ -1,0 +1,13 @@
+package com.elijahfreestone.clientcontactpro;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import android.content.Context;
+
+public class JSONData {
+	String TAG = "JSONData";
+	Context myContext;
+	static ArrayList<HashMap<String, String>> myList;
+
+}
