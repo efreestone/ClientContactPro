@@ -27,6 +27,9 @@
             android:label="@string/loginLabel"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
+        <activity android:name="ClientDetails"></activity>
+        <activity android:name="AppointmentDetails"></activity>
+        <activity android:name="NewAppointmentActivity"></activity>
     </application>
 
 </manifest>

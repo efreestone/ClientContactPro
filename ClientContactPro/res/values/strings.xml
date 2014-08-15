@@ -16,5 +16,8 @@
     <string name="passwordConfirmHint">Confirm Password</string>
     <string name="loginButtonString">Sign In</string>
     <string name="signUpButtonString">Create New Account</string>
+    
+    <string name="editClientButtonString">Edit Client</string>
+    <string name="spinnerDatePrompt">Date</string>
 
 </resources>

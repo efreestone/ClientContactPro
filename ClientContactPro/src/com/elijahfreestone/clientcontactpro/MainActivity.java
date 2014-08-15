@@ -37,9 +37,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	static SharedPreferences sharedPreferences;
 	String TAG = "MainActivity";
 	ListView clientListView;
-	ListView appointmentsListView;
+	ListView appointmentsListView;  
 
-    /**  
+    /**   
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
      * {@link FragmentPagerAdapter} derivative, which will keep every
@@ -57,7 +57,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     ActionBar myActionBar;
     String[] tabNames = {"Clients", "Appointments"};
 
-    @Override
+    @Override 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main); 
@@ -79,7 +79,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         myActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         
         Intent loginIntent = new Intent(this, LoginActivity.class);
-        //startActivity(loginIntent); 
+        startActivity(loginIntent); 
         
         //appointmentsListView = (ListView) findViewById(R.id.appointmentListView);
         
@@ -99,7 +99,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
 				// TODO Auto-generated method stub 
 				
-			}
+			} 
 			
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
@@ -107,24 +107,30 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				
 			}
 		}); //OnPageChangeListener close
-    } //onCreate close
+    } //onCreate close  
 
-    @Override
+    @Override     
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+        getMenuInflater().inflate(R.menu.action_bar, menu);
+        return true;   
+    }   
 
-    @Override
+    @Override      
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            return true;
+            return true; 
         }
+        
+        if (id == R.id.newAppointmentPlus) {
+			Log.i(TAG, "Plus clicked");
+			onNewAppointmentClick();
+		}
+        
         return super.onOptionsItemSelected(item);
     }
 
@@ -171,7 +177,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 case 1:
                     return getString(R.string.titleSection2).toUpperCase(l);
             }
-            return null;
+            return null; 
         } //getPageTitle close
     } //SectionsPagerAdapter close
 
@@ -190,6 +196,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
+	}
+	
+	void onNewAppointmentClick(){ 
+		Intent newAppointmentIntent = new Intent(myContext, NewAppointmentActivity.class);
+		startActivity(newAppointmentIntent);
 	}
 
 }
