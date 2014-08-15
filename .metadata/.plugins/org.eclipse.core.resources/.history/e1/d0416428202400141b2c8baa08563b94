@@ -128,7 +128,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         
         if (id == R.id.newAppointmentPlus) {
 			Log.i(TAG, "Plus clicked");
-			onNewClientClick();
+			onNewAppointmentClick();
 		}
         
         return super.onOptionsItemSelected(item);
@@ -150,7 +150,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		 * getItem is called to instantiate the fragment for the given page.
 		 * Return the tab fragment based on position.
 		 */
-        @Override 
+        @Override
         public Fragment getItem(int position) {
             
         	if (position == 0) {
@@ -198,7 +198,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
 	}
 	
-	void onNewClientClick(){ 
+	void onNewAppointmentClick(){ 
 		Intent newAppointmentIntent = new Intent(myContext, NewClientActivity.class);
 		startActivity(newAppointmentIntent);
 	}

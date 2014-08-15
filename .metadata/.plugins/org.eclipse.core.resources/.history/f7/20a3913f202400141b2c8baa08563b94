@@ -30,7 +30,6 @@
         <activity android:name="ClientDetails"></activity>
         <activity android:name="AppointmentDetails"></activity>
         <activity android:name="NewAppointmentActivity"></activity>
-        <activity android:name="NewClientActivity"></activity>
     </application>
 
 </manifest>
