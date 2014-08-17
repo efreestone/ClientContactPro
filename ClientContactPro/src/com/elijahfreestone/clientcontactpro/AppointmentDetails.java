@@ -46,7 +46,7 @@ public class AppointmentDetails extends Activity {
             return true;
         }
         
-        if (id == R.id.newAppointmentPlus) {
+        if (id == R.id.newPlusButton) {
 			Log.i(TAG, "Plus clicked");
 			onPlusClick();
 		}

@@ -39,30 +39,11 @@ public class ClientsFragment extends Fragment implements OnItemClickListener{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		//Inflate view
-//		View rootView = inflater.inflate(R.layout.container_layout, container, false);
-//		ScrollView scrollView = (ScrollView) rootView.findViewById(R.id.scrollableContent);
-//		View viewWithList = inflater.inflate(R.layout.fragment_clients, scrollView);
 		View rootView = inflater.inflate(R.layout.fragment_clients, container, false);
 		
 		myContext = MainActivity.myContext; 
 		
-		//clientListView = (ListView) viewWithList.findViewById(R.id.clientListView);   
-		clientListView = (ListView) rootView.findViewById(R.id.clientListView); 
-		//View listHeader = inflater.inflate(R.layout.subview_cancel_button, null);
-		//clientListView.addFooterView(listHeader);
-		//myListView = (ListView) mainView.findViewById(R.id.listView);
-		//View listHeader = inflater.inflate(R.layout.listview_header, null);
-		//myListView.addHeaderView(listHeader); 
-		
-//		View footerView = inflater.inflate(R.layout.subview_cancel_button, container);
-//		
-//		if (footerView != null) {
-//			Log.i(TAG, "Footer layout exists"); 
-//			//clientListView.addFooterView(footerView);
-//		} else {
-//			Log.i(TAG, "Footer layout null");  
-//		}    
-		
+		clientListView = (ListView) rootView.findViewById(R.id.clientListView); 	
 		
 		if (clientListView != null) {  
 			Log.i(TAG, "clientListView != null");   
@@ -74,35 +55,6 @@ public class ClientsFragment extends Fragment implements OnItemClickListener{
 			Log.i(TAG, "clientListView == null"); 
 		} 
 		
-//		//Create linear layout instance
-//        LinearLayout myLayout = new LinearLayout(getActivity());
-//        //Set orientation
-//        myLayout.setOrientation(LinearLayout.VERTICAL);
-//        //Set my layout parameters to match the parent item
-//        myLayout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-//        //Create center params used to center various items
-//        LinearLayout.LayoutParams centerParams = new LinearLayout.LayoutParams(
-//        LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-//        //Set gravity to center
-//        centerParams.gravity = Gravity.CENTER;
-//        //Create title text view
-//        TextView titleView = new TextView(getActivity());
-//        //Set text for title from resources
-//        titleView.setText(R.string.app_name);
-//        //Add title with centered params
-//        myLayout.addView(titleView, centerParams);
-//        
-//        ((ViewGroup)rootView).addView(myLayout);
-		
-		//Fragment cancelLayout = getChildFragmentManager().findFragmentById(R.id.cancelLinear);
-//		if (cancelLayout != null) {
-//			Log.i(TAG, "Cancel layout exists"); 
-//			//rootView.in
-//		} else {
-//			Log.i(TAG, "Cancel layout null");  
-//		}  
-		
-		
 		return rootView;      
 	} //onCreateView close 
 
@@ -113,7 +65,7 @@ public class ClientsFragment extends Fragment implements OnItemClickListener{
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) { 
 		Log.i(TAG, "Item " + position + " clicked");
-		//ClientDetailsFragment clientDetailsFragment = (ClientDetailsFragment) getFragmentManager().findFragmentById(R.id.clientDetailsFragment);
+		
 		Intent clientDetailsIntent = new Intent(MainActivity.myContext, ClientDetails.class);
 		startActivity(clientDetailsIntent); 
 		

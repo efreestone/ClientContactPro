@@ -2,8 +2,9 @@
 <resources>
 
     <string name="app_name">Client Contact Pro</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="newPlusButton">New Client</string>
     <string name="action_settings">Settings</string>
+    <string name="logOut">Log Out</string>
     
     <string name="loginLabel">Login</string>
     <string name="titleSection1">Clients</string>

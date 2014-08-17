@@ -14,12 +14,15 @@ import java.util.Locale;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
@@ -28,7 +31,9 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.ListView;
+import android.widget.Toast;
  
 
 // TODO: Auto-generated Javadoc   
@@ -59,7 +64,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     /* (non-Javadoc)
      * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
      */
-    @Override 
+    @Override  
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main); 
@@ -76,51 +81,19 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         myViewPager = (ViewPager) findViewById(R.id.pager);
         myViewPager.setAdapter(mySectionsPagerAdapter); 
         
-        //View cancelSubView = (View) findViewById(R.layout.subview_cancel_button); 
-        
-//        LayoutInflater factory = getLayoutInflater();
-//
-//        View layout = factory.inflate(R.layout.fragment_clients, null);
-//        View linearLayout = layout.findViewById(R.id.clientsLinear);
-//
-//        TextView valueTV = new TextView(this);
-//        valueTV.setText("hallo hallo");
-//        valueTV.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT));
-//
-//        ((LinearLayout) linearLayout).addView(valueTV); 
-//        myViewPager.addView(linearLayout);                     
-                
-        
-//        //Create linear layout instance        
-//        LinearLayout myLayout = new LinearLayout(this);
-//        //Set orientation
-//        myLayout.setOrientation(LinearLayout.VERTICAL);
-//        //Set my layout parameters to match the parent item
-//        myLayout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-//        //Create center params used to center various items
-//        LinearLayout.LayoutParams centerParams = new LinearLayout.LayoutParams(
-//        LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-//        //Set gravity to center
-//        centerParams.gravity = Gravity.CENTER; 
-//        //Create title text view
-//        TextView titleView = new TextView(this);
-//        //Set text appearance for title
-//        titleView.setTextAppearance(this, android.R.attr.textAppearanceLarge);
-//        //Set text for title from resources
-//        titleView.setText(R.string.app_name);
-//        //Add title with centered params
-//        myLayout.addView(titleView, centerParams); 
-//        
-//        myViewPager.addView(myLayout);
-        
-        myActionBar = getActionBar();
+        //Grab action bar and set up
+        myActionBar = getActionBar(); 
         myActionBar.setHomeButtonEnabled(false);
         myActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        
+       
+        boolean isLoggedIn = sharedPreferences.getBoolean("loggedIn", false);
+        String userName = sharedPreferences.getString("name", "user");
         Intent loginIntent = new Intent(this, LoginActivity.class);
-        startActivity(loginIntent); 
-        
-        //appointmentsListView = (ListView) findViewById(R.id.appointmentListView);
+        if (!isLoggedIn) {
+        	startActivity(loginIntent); 
+		} else {
+			Toast.makeText(getApplicationContext(), "Welcome, " + userName, Toast.LENGTH_LONG).show();
+		}
         
         for (String tab_name : tabNames) { 
         	myActionBar.addTab(myActionBar.newTab().setText(tab_name).setTabListener(this));
@@ -173,9 +146,17 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             return true; 
         }
         
-        if (id == R.id.newAppointmentPlus) {
+        //newPlusButton launches NewClient from everywhere except details screens.
+        //Launches NewAppointment from them
+        if (id == R.id.newPlusButton) {
 			Log.i(TAG, "Plus clicked");
 			onNewClientClick();
+		}
+        
+        //Triggers alert and logs user out/finishes MainActivity upon positive click
+        if (id == R.id.logOut) {
+        	Log.i(TAG, "Log Out clicked");
+        	showLogOutAlert();
 		}
         
         return super.onOptionsItemSelected(item);
@@ -274,5 +255,35 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		Intent newClientIntent = new Intent(myContext, NewClientActivity.class);
 		startActivity(newClientIntent);
 	}
+	
+	/*
+	 * Log User Out is called when the Log Out button in the action bar is clicked.
+	 * The user is first given an alert dialog confirming log out
+	 */
+	void logUserOut(){
+		Editor editor = sharedPreferences.edit();
+    	editor.remove("loggedIn");
+    	editor.apply();
+    	finish();
+	} //logOutUser close
+	
+	/*
+	 * Displays an alert asking the user to confirm logging out.
+	 * triggers logUserOut on positive button click
+	 */
+	void showLogOutAlert(){
+		AlertDialog alertDialog = new AlertDialog.Builder(myContext).create();
+		alertDialog.setTitle("Log Out");
+		alertDialog.setMessage("Are you sure you would like to Log Out and exit the application?");
+		alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Yes", (new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				logUserOut();
+			}
+		}));
+		alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", (DialogInterface.OnClickListener) null);
+		alertDialog.show();
+	} //showLogOutAlert close
 
 }
