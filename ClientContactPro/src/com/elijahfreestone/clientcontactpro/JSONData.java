@@ -80,19 +80,19 @@ public class JSONData {
 				}
 				
 				//Add hash maps to array list
-				clientList.add(clientDisplayMap);
+				clientList.add(clientDisplayMap);  
 				
 			}
 			
-			//Create simple adapter and set up with array of clients
-			clientListAdapter = new SimpleAdapter(myContext,
+			//Create simple adapter and set up with array of clients 
+			clientListAdapter = new SimpleAdapter(myContext, 
 					clientList, R.layout.client_listview_row, new String[] {
 							"clientName", "nextAppointment" }, new int[] {
-							R.id.clientName, R.id.nextAppointment });  
+							R.id.clientName, R.id.nextAppointment }); 
 			
-			//ClientsFragment.clientListView.setAdapter(clientListAdapter);
+			//ClientsFragment.clientListView.setAdapter(clientListAdapter);   
 			
-			//Create simple adapter and set up with array of clients
+			//Create simple adapter and set up with array of clients 
 			appointmentListAdapter = new SimpleAdapter(myContext,
 					appointmentList, R.layout.appointment_listview_row, new String[] {
 							"nextAppointment", "clientName" }, new int[] {

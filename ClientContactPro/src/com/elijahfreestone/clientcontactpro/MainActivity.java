@@ -28,17 +28,20 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
+ 
 
-
+// TODO: Auto-generated Javadoc   
+/**
+ * The Class MainActivity.
+ */
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 	static Context myContext;
 	public static final String PREFS_NAME = "SharedPrefsFile";
 	static SharedPreferences sharedPreferences;
 	String TAG = "MainActivity";
 	ListView clientListView;
-	ListView appointmentsListView;  
+	ListView appointmentsListView;   
 
     /**   
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -49,21 +52,19 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      * {@link android.support.v13.app.FragmentStatePagerAdapter}.
      */   
     SectionsPagerAdapter mySectionsPagerAdapter;   
-
-    /** 
-     * The {@link ViewPager} that will host the section contents.
-     */  
     ViewPager myViewPager;    
-    
     ActionBar myActionBar;
     String[] tabNames = {"Clients", "Appointments"};
 
+    /* (non-Javadoc)
+     * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
+     */
     @Override 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main); 
         
-        myContext = this; 
+        myContext = this;      
         
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
 
@@ -73,7 +74,44 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
         // Set up the ViewPager with the sections adapter.
         myViewPager = (ViewPager) findViewById(R.id.pager);
-        myViewPager.setAdapter(mySectionsPagerAdapter);
+        myViewPager.setAdapter(mySectionsPagerAdapter); 
+        
+        //View cancelSubView = (View) findViewById(R.layout.subview_cancel_button); 
+        
+//        LayoutInflater factory = getLayoutInflater();
+//
+//        View layout = factory.inflate(R.layout.fragment_clients, null);
+//        View linearLayout = layout.findViewById(R.id.clientsLinear);
+//
+//        TextView valueTV = new TextView(this);
+//        valueTV.setText("hallo hallo");
+//        valueTV.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT));
+//
+//        ((LinearLayout) linearLayout).addView(valueTV); 
+//        myViewPager.addView(linearLayout);                     
+                
+        
+//        //Create linear layout instance        
+//        LinearLayout myLayout = new LinearLayout(this);
+//        //Set orientation
+//        myLayout.setOrientation(LinearLayout.VERTICAL);
+//        //Set my layout parameters to match the parent item
+//        myLayout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+//        //Create center params used to center various items
+//        LinearLayout.LayoutParams centerParams = new LinearLayout.LayoutParams(
+//        LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+//        //Set gravity to center
+//        centerParams.gravity = Gravity.CENTER; 
+//        //Create title text view
+//        TextView titleView = new TextView(this);
+//        //Set text appearance for title
+//        titleView.setTextAppearance(this, android.R.attr.textAppearanceLarge);
+//        //Set text for title from resources
+//        titleView.setText(R.string.app_name);
+//        //Add title with centered params
+//        myLayout.addView(titleView, centerParams); 
+//        
+//        myViewPager.addView(myLayout);
         
         myActionBar = getActionBar();
         myActionBar.setHomeButtonEnabled(false);
@@ -82,13 +120,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         Intent loginIntent = new Intent(this, LoginActivity.class);
         startActivity(loginIntent); 
         
-        View cancelSubView = (View) findViewById(R.layout.subview_cancel_button);
-        
         //appointmentsListView = (ListView) findViewById(R.id.appointmentListView);
         
         for (String tab_name : tabNames) { 
         	myActionBar.addTab(myActionBar.newTab().setText(tab_name).setTabListener(this));
         	//myViewPager.addView(cancelSubView); 
+        	 
 		}
         
         //Change tab selected when screen is swiped
@@ -113,6 +150,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		}); //OnPageChangeListener close
     } //onCreate close  
 
+    /* (non-Javadoc)
+     * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+     */
     @Override     
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -120,6 +160,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         return true;   
     }   
 
+    /* (non-Javadoc)
+     * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+     */
     @Override      
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -136,7 +179,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		}
         
         return super.onOptionsItemSelected(item);
-    }
+    } //onOptionsItemSelected close
 
     
 
@@ -146,6 +189,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+        /*
+         * Instantiates a new sections pager adapter.
+         */
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -154,7 +200,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		 * getItem is called to instantiate the fragment for the given page.
 		 * Return the tab fragment based on position.
 		 */
-        @Override 
+        /* (non-Javadoc)
+		 * @see android.support.v13.app.FragmentPagerAdapter#getItem(int)
+		 */
+		@Override 
         public Fragment getItem(int position) {
             
         	if (position == 0) {
@@ -166,12 +215,18 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			}
         } //getItem close 
 
+        /* (non-Javadoc)
+         * @see android.support.v4.view.PagerAdapter#getCount()
+         */
         @Override
         public int getCount() {
             // Show 2 total pages.
             return 2; 
         } //getCount close 
  
+        /* (non-Javadoc)
+         * @see android.support.v4.view.PagerAdapter#getPageTitle(int)
+         */
         @Override        
         public CharSequence getPageTitle(int position) {
             Locale l = Locale.getDefault();
@@ -185,23 +240,36 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         } //getPageTitle close
     } //SectionsPagerAdapter close
 
+	/* (non-Javadoc)
+	 * @see android.app.ActionBar.TabListener#onTabSelected(android.app.ActionBar.Tab, android.app.FragmentTransaction)
+	 */
 	@Override 
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		Log.i(TAG, "onTabSelected");
 		myViewPager.setCurrentItem(tab.getPosition());
+		//Call method to display client entries
 		JSONData.displayDataFromFile(); 
 	}  
  
 
+	/* (non-Javadoc)
+	 * @see android.app.ActionBar.TabListener#onTabUnselected(android.app.ActionBar.Tab, android.app.FragmentTransaction)
+	 */
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
 	} 
  
 
+	/* (non-Javadoc)
+	 * @see android.app.ActionBar.TabListener#onTabReselected(android.app.ActionBar.Tab, android.app.FragmentTransaction)
+	 */
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
 	}
 	
+	/*
+	 * On new client click is called when the Plus icon in the action bar is clicked.
+	 */
 	void onNewClientClick(){ 
 		Intent newClientIntent = new Intent(myContext, NewClientActivity.class);
 		startActivity(newClientIntent);

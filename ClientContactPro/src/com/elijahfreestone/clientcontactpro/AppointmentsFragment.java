@@ -22,20 +22,26 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AppointmentsFragment.
+ */
 public class AppointmentsFragment extends Fragment implements OnItemClickListener{
 	String TAG = "AppointmentsFragment";
 	static ListView appointmentsListView;
 	Context myContext;
 	View rootView;
 	
+	/* (non-Javadoc)
+	 * @see android.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		//return super.onCreateView(inflater, container, savedInstanceState);
+		//Inflate view
 		rootView = inflater.inflate(R.layout.fragment_appointments, container, false);
 		
-		View cancelSubview = inflater.inflate(R.layout.subview_cancel_button, container);
+		//View cancelSubview = inflater.inflate(R.layout.subview_cancel_button, container);
 		
 		appointmentsListView = (ListView) rootView.findViewById(R.id.appointmentListView); 
 		
@@ -50,16 +56,22 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 		
 		
 		return rootView; 
-	}
+	} //onCreateView close
 
+	/* (non-Javadoc) 
+	 * @see android.widget.AdapterView.OnItemClickListener#onItemClick(android.widget.AdapterView, android.view.View, int, long)
+	 */
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		Intent appointmentDetailsIntent = new Intent(MainActivity.myContext, AppointmentDetails.class);
 		startActivity(appointmentDetailsIntent); 
 		
-	}
+	} //onItemClick close
 	
+	/* (non-Javadoc)
+	 * @see android.app.Fragment#onStart()
+	 */
 	@Override
 	public void onStart() {
 		// TODO Auto-generated method stub
