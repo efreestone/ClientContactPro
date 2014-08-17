@@ -5,7 +5,7 @@
 
     <RelativeLayout
         android:id="@+id/topEmptyBar"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
     </RelativeLayout>
 
@@ -28,7 +28,7 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/appointmentListView"
+        android:id="@+id/clientListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="#8e8e8e"

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
     <RelativeLayout
         android:id="@+id/topEmptyBar"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
+        
     </RelativeLayout>
 
     <LinearLayout
@@ -28,11 +30,12 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/appointmentListView"
+        android:id="@+id/clientListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="#8e8e8e"
         android:dividerHeight="1sp"
+        
         android:layout_above="@id/cancelLayout"
         android:layout_below="@id/topEmptyBar" />
 

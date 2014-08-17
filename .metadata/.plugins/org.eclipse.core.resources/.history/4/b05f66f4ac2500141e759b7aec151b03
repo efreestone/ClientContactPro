@@ -52,7 +52,7 @@ public class ClientsFragment extends Fragment implements OnItemClickListener{
 		//clientListView.addFooterView(listHeader);
 		//myListView = (ListView) mainView.findViewById(R.id.listView);
 		//View listHeader = inflater.inflate(R.layout.listview_header, null);
-		//myListView.addHeaderView(listHeader); 
+		//myListView.addHeaderView(listHeader);
 		
 //		View footerView = inflater.inflate(R.layout.subview_cancel_button, container);
 //		

@@ -22,7 +22,7 @@ import android.util.Log;
 import android.widget.SimpleAdapter;   
 
 public class JSONData {
-	static String TAG = "JSONData"; 
+	static String TAG = "JSONData";
 	static Context myContext;
 	static String JSONString;
 	static ArrayList<HashMap<String, String>> clientList;
