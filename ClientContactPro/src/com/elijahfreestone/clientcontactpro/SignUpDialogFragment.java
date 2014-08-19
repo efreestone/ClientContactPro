@@ -23,6 +23,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SignUpDialogFragment.
+ */
 public class SignUpDialogFragment extends DialogFragment {
 	SharedPreferences sharedPreferences = MainActivity.sharedPreferences;
 	View signUpView;
@@ -62,6 +66,10 @@ public class SignUpDialogFragment extends DialogFragment {
 		return alertBuilder.create();
 	} // onCreateDialog Close
 	
+	/*
+	 * onSignUpClick is triggered from click of the positive dialog button.
+	 * Checks input data and calls saveToPrefs if require fields are present.
+	 */
 	void onSignUpClick(){
 		EditText nameEditText, emailEditText, appKeyEditText, passwordEditText, passwordConfirmEditText;
 		
@@ -77,15 +85,19 @@ public class SignUpDialogFragment extends DialogFragment {
 		passwordEntered = passwordEditText.getText().toString();
 		passwordConfirmEntered = passwordConfirmEditText.getText().toString();
 		
+		//Check that email, password, and password confirm are field in.
+		//These are the only 3 fields required at the moment
 		if (!emailEntered.equalsIgnoreCase("")
 				&& !passwordEntered.equalsIgnoreCase("")
 				&& !passwordConfirmEntered.equalsIgnoreCase("")) {
 			Log.i(TAG, "Email and password entered");
+			//Check that passwords match
 			if (passwordEntered.equalsIgnoreCase(passwordConfirmEntered)) {
 				Log.i(TAG, "Passwords match");
 				if (nameEntered.equalsIgnoreCase("")) {
 					nameEntered = "User";
 				} 
+				//Call method to save input info
 				saveToPrefs();
 				Toast.makeText(getActivity(), "Sign Up Successful!", Toast.LENGTH_LONG).show();
 			}
@@ -98,6 +110,9 @@ public class SignUpDialogFragment extends DialogFragment {
 		}
 	} //onSignUpClick close
 	
+	/*
+	 * saveToPrefs saves input info to shared prefs.
+	 */
 	void saveToPrefs(){
 		Editor editor = sharedPreferences.edit();
 		//clear out  

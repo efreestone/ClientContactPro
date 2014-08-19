@@ -87,30 +87,16 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 		
 	} //onItemClick close 
 	
-//	/* (non-Javadoc)
-//	 * @see android.app.Fragment#onStart()
-//	 */
-//	@Override
-//	public void onStart() {
-//		// TODO Auto-generated method stub
-//		super.onStart();
-//		
-//		appointmentsListView = (ListView) rootView.findViewById(R.id.clientListView);
-//		if (appointmentsListView == null) {
-//			Log.i(TAG, "onStart list view null");
-//		}
-//		Log.i(TAG, "onStart"); 
-//	}
-	
 	/*
 	 * onCancelClick is triggered when the Cancel Appointments button is clicked.
 	 * It creates a basic intent and starts the cancel activity
 	 */
-	void onCancelClick(View view){ 
-		Log.i(TAG, "Cancel Appointment clicked"); 
-		
-		Intent cancelButtonIntent = new Intent(myContext, CancelAppointmentActivity.class);
+	void onCancelClick(View view) {
+		Log.i(TAG, "Cancel Appointment clicked");
+
+		Intent cancelButtonIntent = new Intent(myContext,
+				CancelAppointmentActivity.class);
 		startActivity(cancelButtonIntent);
-	} //onCancelClick close
+	} // onCancelClick close
 
 }

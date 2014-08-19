@@ -22,6 +22,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LoginActivity.
+ */
 public class LoginActivity extends Activity {
 	String TAG = "LoginActivity";
 	EditText emailEditText, passwordEditText;
@@ -30,6 +34,9 @@ public class LoginActivity extends Activity {
 	String loggedEmail, loggedPassword;
 	SharedPreferences sharedPreferences;
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -73,6 +80,9 @@ public class LoginActivity extends Activity {
 		
 	} //onCreate close
 	
+	/*
+	 * onSignInClick checks email and password against shared prefs.
+	 */
 	public void onSignInClick(View view){
 		//Grab entered login info 
 		emailEntered = emailEditText.getText().toString(); 
@@ -106,6 +116,9 @@ public class LoginActivity extends Activity {
 		}
 	} 
 	
+	/*
+	 * onSignUpClick displays the sign up dialog for the user to create an account.
+	 */
 	public void onSignUpClick(View view2){
 		SignUpDialogFragment dialogFragment = new SignUpDialogFragment();
 		dialogFragment.show(getFragmentManager(), "sign_up_dialog");

@@ -21,6 +21,10 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.SimpleAdapter;   
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class JSONData.
+ */
 public class JSONData {
 	static String TAG = "JSONData"; 
 	static Context myContext;

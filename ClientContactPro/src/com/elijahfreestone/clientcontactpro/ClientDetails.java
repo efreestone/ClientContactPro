@@ -18,12 +18,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ClientDetails.
+ */
 public class ClientDetails extends Activity {
 	String TAG = "ClientDetails";
 	Context myContext = MainActivity.myContext;
 	String clientName, clientAddress, phoneNumber, emailAddress, contactMethod, basicInfo;
 	String nextAppointment, appointmentType;
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -48,20 +55,31 @@ public class ClientDetails extends Activity {
 			//Log.i(TAG, "Existing Client Details Intent");
 			if (clientDetailsFragment != null) {
 				Log.i(TAG, "Client Details Fragment EXISTS");
+				//Call display method
+				clientDetailsFragment.displayClientDetails(clientName,
+						clientAddress, phoneNumber, emailAddress,
+						contactMethod, basicInfo, nextAppointment,
+						appointmentType);
 			} else {
 				Log.i(TAG, "Client Details Fragment NULL");
 			}
 		}
 		
-	}
+	} //onCreate close
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.action_bar, menu);
         return true;
-    } 
+    } //onCreateOptionsMenu close
 
+    /* (non-Javadoc)
+     * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -78,11 +96,15 @@ public class ClientDetails extends Activity {
 		}
         
         return super.onOptionsItemSelected(item);
-    }
+    } //onOptionsItemSelected close
     
+    /*
+     * On plus click is trigger when the Plus icon is clicked.
+     * Starts New Appointment Activity and passes client info
+     */
     void onPlusClick(){
     	Intent newAppointmentIntent = new Intent(myContext, NewAppointmentActivity.class);
 		startActivity(newAppointmentIntent);
-    }
+    } //onPlusClick close
 
 }

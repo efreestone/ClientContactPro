@@ -18,6 +18,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class NewClientActivity.
+ */
 public class NewClientActivity extends Activity{
 	String TAG = "NewClientActivity";
 	EditText clientNameEditText, clientAddressEditText, phoneNumberEditText,
@@ -25,6 +29,9 @@ public class NewClientActivity extends Activity{
 	String clientNameEntered, clientAddressEntered, phoneNumberEntered,
 			emailAddressEntered, basicInforEntered;
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -56,10 +63,9 @@ public class NewClientActivity extends Activity{
 						+ phoneNumberEntered + ", Email: "
 						+ emailAddressEntered + "\n" + "Basic Info: "
 						+ basicInforEntered); 
-				
-			}
-		});
+			} //onClick close
+		}); //setOnClickListener close
 		
-	}
+	} //onCreate close
 
 }

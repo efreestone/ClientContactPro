@@ -180,9 +180,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		 * getItem is called to instantiate the fragment for the given page.
 		 * Return the tab fragment based on position.
 		 */
-        /* (non-Javadoc)
-		 * @see android.support.v13.app.FragmentPagerAdapter#getItem(int)
-		 */
 		@Override 
         public Fragment getItem(int position) {
             

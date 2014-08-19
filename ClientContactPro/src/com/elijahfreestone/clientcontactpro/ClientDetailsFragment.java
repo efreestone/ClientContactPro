@@ -21,12 +21,19 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ClientDetailsFragment.
+ */
 public class ClientDetailsFragment extends Fragment{
 	String TAG = "ClientDetailsFragment";
 	Context myContext;
 	TextView clientNameTV, clientAddressTV, clientPhoneNumberTV, clientEmailTV, clientContactTV, 
 		clientBasicInfoTV, clientNextAppTV, clientAppTypeTV;
 	
+	/* (non-Javadoc)
+	 * @see android.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {

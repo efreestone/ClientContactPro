@@ -22,12 +22,19 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AppointmentDetailsFragment.
+ */
 public class AppointmentDetailsFragment extends Fragment{
 	String TAG = "AppointmentDetailsFragment";
 	Context myContext;
 	TextView appStartTimeTV, appEndTimeTV, appAppointmentTypeTV, appAddressTV, appClientNameTV, 
 	appPhoneNumberTV, appEmailTV, appContactMethodTV, appBasicInfoTV, appOtherContactTV;
 	
+	/* (non-Javadoc)
+	 * @see android.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
