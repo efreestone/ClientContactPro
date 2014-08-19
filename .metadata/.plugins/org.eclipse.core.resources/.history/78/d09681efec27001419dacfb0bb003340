@@ -37,7 +37,7 @@
         <LinearLayout
             android:id="@+id/detailsLinear"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical" >
 
             <TextView
@@ -85,7 +85,7 @@
                 android:text="Contact Method: Text" />
 
             <TextView
-                android:id="@+id/clientBasicInfoTV"
+                android:id="@+id/basicInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -101,14 +101,14 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/clientNextAppTV"
+                android:id="@+id/nextAppointment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Next Appointment (if any)" />
 
             <TextView
-                android:id="@+id/clientAppTypeTV"
+                android:id="@+id/appointmentType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"

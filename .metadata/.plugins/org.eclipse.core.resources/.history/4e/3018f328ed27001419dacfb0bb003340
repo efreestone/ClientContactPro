@@ -70,10 +70,10 @@ public class ClientDetailsFragment extends Fragment{
 		startActivity(cancelButtonIntent);
 	} //onCancelClick close
 	
-	/*
-	* displayMovieDetails displays details of the movie selected, called from
-	* DetailsActivity
-	*/
+//	/*
+//	* displayMovieDetails displays details of the movie selected, called from
+//	* DetailsActivity
+//	*/
 //	public void displayMovieDetails(String dvdTitle, String releaseDate,
 //	String movieRating, String criticRating, String audienceRating) {
 //	// Set textviews with strings from intent extras
@@ -84,15 +84,5 @@ public class ClientDetailsFragment extends Fragment{
 //	audienceRatingTextView.setText("Audience Rating: " + audienceRating);
 //	Log.i("Details Fragment", "Display Movie Details Called");
 //	} // displayMovieDetails Close
-	
-	/*
-	* displayClientDetails displays details of the client selected, called from
-	* DetailsActivity
-	*/
-	public void displayClientDetails(String clientName, String clientAddress,
-			String phoneNumber, String emailAddress, String contactMethod,
-			String basicInfo, String nextAppointment, String appointmentType) {
-
-	} //displayClientDetails close
 	
 }

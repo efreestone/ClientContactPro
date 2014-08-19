@@ -24,8 +24,8 @@ import android.widget.TextView;
 public class ClientDetailsFragment extends Fragment{
 	String TAG = "ClientDetailsFragment";
 	Context myContext;
-	TextView clientNameTV, clientAddressTV, clientPhoneNumberTV, clientEmailTV, clientContactTV, 
-		clientBasicInfoTV, clientNextAppTV, clientAppTypeTV;
+	TextView nameTextView, addressTextView, phoneNumberTextView, emailTextView, contactMethodTextView, 
+		basicInfoTextView, nextAppTextView, appTypeTextView;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,14 +35,7 @@ public class ClientDetailsFragment extends Fragment{
 		myContext = MainActivity.myContext;
 		
 		//Grab textviews
-		clientNameTV = (TextView) detailsView.findViewById(R.id.clientNameTV);
-		clientAddressTV = (TextView) detailsView.findViewById(R.id.clientAddressTV);
-		clientPhoneNumberTV = (TextView) detailsView.findViewById(R.id.clientPhoneNumberTV);
-		clientEmailTV = (TextView) detailsView.findViewById(R.id.clientEmailTV);
-		clientContactTV = (TextView) detailsView.findViewById(R.id.clientContactTV);
-		clientBasicInfoTV = (TextView) detailsView.findViewById(R.id.clientBasicInfoTV);
-		clientNextAppTV = (TextView) detailsView.findViewById(R.id.clientNextAppTV);
-		clientAppTypeTV = (TextView) detailsView.findViewById(R.id.clientAppTypeTV); 
+		nameTextView = detailsView.findViewById(R.id.)
 
 		// Grab cancel button and set onClick
 		Button cancelButton = (Button) detailsView.findViewById(R.id.cancelButton);
@@ -70,10 +63,10 @@ public class ClientDetailsFragment extends Fragment{
 		startActivity(cancelButtonIntent);
 	} //onCancelClick close
 	
-	/*
-	* displayMovieDetails displays details of the movie selected, called from
-	* DetailsActivity
-	*/
+//	/*
+//	* displayMovieDetails displays details of the movie selected, called from
+//	* DetailsActivity
+//	*/
 //	public void displayMovieDetails(String dvdTitle, String releaseDate,
 //	String movieRating, String criticRating, String audienceRating) {
 //	// Set textviews with strings from intent extras
@@ -84,15 +77,5 @@ public class ClientDetailsFragment extends Fragment{
 //	audienceRatingTextView.setText("Audience Rating: " + audienceRating);
 //	Log.i("Details Fragment", "Display Movie Details Called");
 //	} // displayMovieDetails Close
-	
-	/*
-	* displayClientDetails displays details of the client selected, called from
-	* DetailsActivity
-	*/
-	public void displayClientDetails(String clientName, String clientAddress,
-			String phoneNumber, String emailAddress, String contactMethod,
-			String basicInfo, String nextAppointment, String appointmentType) {
-
-	} //displayClientDetails close
 	
 }
