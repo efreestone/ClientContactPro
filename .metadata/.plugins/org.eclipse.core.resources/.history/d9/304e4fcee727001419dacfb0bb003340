@@ -51,8 +51,26 @@ public class ClientDetails extends Activity {
 			} else {
 				Log.i(TAG, "Client Details Fragment NULL");
 			}
+			
 		}
 		
+//		DetailsActivityFragment detailsFragment = (DetailsActivityFragment) getFragmentManager()
+//				.findFragmentById(R.id.detailsFragment);
+//		// Grab intent extras to be displayed in textviews
+//		Intent newDetailsIntent = getIntent();
+//		dvdTitle = newDetailsIntent.getStringExtra("dvdTitle");
+//		releaseDate = newDetailsIntent.getStringExtra("releaseDate");
+//		movieRating = newDetailsIntent.getStringExtra("movieRating");
+//		criticRating = newDetailsIntent.getStringExtra("criticRating");
+//		audienceRating = newDetailsIntent.getStringExtra("audienceRating");
+//		if (newDetailsIntent != null) {
+//			if (detailsFragment != null) {
+//				detailsFragment.displayMovieDetails(dvdTitle, releaseDate,
+//						movieRating, criticRating, audienceRating);
+//			} else {
+//				Log.i("Details", "Details Frag is null!!");
+//			}
+//		}
 	}
 	
 	@Override

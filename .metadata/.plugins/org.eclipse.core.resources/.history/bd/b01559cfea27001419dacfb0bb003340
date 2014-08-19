@@ -35,31 +35,28 @@ public class ClientsFragment extends Fragment implements OnItemClickListener{
 	public static View footerView;
 	Context myContext;
 	
-	String clientName, clientAddress, phoneNumber, emailAddress, contactMethod, basicInfo;
-	String nextAppointment, appointmentType;
-	
-//	/**
-//	 * The Interface onListItemSelected.
-//	 */
-//	public interface OnListItemSelected {
-//		void startActivityForResult(Intent detailsIntent, int requestCode);
-//	}
-//
-//	private OnListItemSelected parentActivity;
-//
-//	/*
-//	 * (non-Javadoc)
-//	 * @see android.app.Fragment#onAttach(android.app.Activity)
-//	 */
-//	@Override
-//	public void onAttach(Activity activity) {
-//		super.onAttach(activity);
-//		if (activity instanceof OnListItemSelected) {
-//			parentActivity = (OnListItemSelected) activity;
-//		} else {
-//			Log.e(TAG, "Must implement OnListItemSelected");
-//		}
-//	} // onAttach Close
+	/**
+	 * The Interface onListItemSelected.
+	 */
+	public interface OnListItemSelected {
+		void startActivityForResult(Intent detailsIntent, int requestCode);
+	}
+
+	private OnListItemSelected parentActivity;
+
+	/*
+	 * (non-Javadoc)
+	 * @see android.app.Fragment#onAttach(android.app.Activity)
+	 */
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		if (activity instanceof OnListItemSelected) {
+			parentActivity = (OnListItemSelected) activity;
+		} else {
+			Log.e(TAG, "Must implement OnListItemSelected");
+		}
+	} // onAttach Close
 	
 	/* (non-Javadoc)
 	 * @see android.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)

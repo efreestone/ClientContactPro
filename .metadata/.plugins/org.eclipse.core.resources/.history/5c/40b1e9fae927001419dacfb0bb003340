@@ -21,37 +21,12 @@ import android.view.MenuItem;
 public class AppointmentDetails extends Activity {
 	String TAG = "AppointmentDetails";
 	Context myContext = MainActivity.myContext;
-	String clientName, clientAddress, phoneNumber, emailAddress, contactMethod, basicInfo;
-	String nextAppointment, appointmentType;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_details_appointment);
-		
-		AppointmentDetailsFragment appointmentDetailsFragment = (AppointmentDetailsFragment) getFragmentManager()
-				.findFragmentById(R.id.appointmentDetailsFragment);
-		
-		//Grab intent extras to be displayed in textviews
-		Intent appointmentDetailsIntent = getIntent();
-		clientName = appointmentDetailsIntent.getStringExtra("clientName");
-		clientAddress = appointmentDetailsIntent.getStringExtra("clientAddress");
-		phoneNumber = appointmentDetailsIntent.getStringExtra("phoneNumber");
-		emailAddress = appointmentDetailsIntent.getStringExtra("emailAddress");
-		contactMethod = appointmentDetailsIntent.getStringExtra("contactMethod");
-		basicInfo = appointmentDetailsIntent.getStringExtra("basicInfo");
-		nextAppointment = appointmentDetailsIntent.getStringExtra("nextAppointment");
-		appointmentType = appointmentDetailsIntent.getStringExtra("appointmentType");
-		
-		if (appointmentDetailsIntent != null) {
-			//Log.i(TAG, "Existing Appointment Details Intent");
-			if (appointmentDetailsFragment != null) {
-				Log.i(TAG, "Appointment Details Fragment EXISTS");
-			} else {
-				Log.i(TAG, "Appointment Details Fragment NULL");
-			}
-		}
 	}
 	
 	@Override

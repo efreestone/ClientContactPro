@@ -32,9 +32,7 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 	String TAG = "AppointmentsFragment";
 	static ListView appointmentsListView;
 	Context myContext;
-	
-	String clientName, clientAddress, phoneNumber, emailAddress, contactMethod, basicInfo;
-	String nextAppointment, appointmentType;
+	View rootView;
 	
 	/* (non-Javadoc)
 	 * @see android.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
@@ -43,7 +41,7 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		//Inflate view
-		View rootView = inflater.inflate(R.layout.fragment_appointments, container, false);
+		rootView = inflater.inflate(R.layout.fragment_appointments, container, false);
 		
 		//View cancelSubview = inflater.inflate(R.layout.subview_cancel_button, container);
 		
@@ -85,7 +83,7 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 		Intent appointmentDetailsIntent = new Intent(MainActivity.myContext, AppointmentDetails.class);
 		startActivity(appointmentDetailsIntent); 
 		
-	} //onItemClick close 
+	} //onItemClick close
 	
 //	/* (non-Javadoc)
 //	 * @see android.app.Fragment#onStart()

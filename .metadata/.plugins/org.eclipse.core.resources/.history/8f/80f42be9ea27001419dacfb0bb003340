@@ -85,7 +85,7 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 		Intent appointmentDetailsIntent = new Intent(MainActivity.myContext, AppointmentDetails.class);
 		startActivity(appointmentDetailsIntent); 
 		
-	} //onItemClick close 
+	} //onItemClick close
 	
 //	/* (non-Javadoc)
 //	 * @see android.app.Fragment#onStart()

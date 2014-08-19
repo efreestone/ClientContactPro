@@ -32,6 +32,7 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 	String TAG = "AppointmentsFragment";
 	static ListView appointmentsListView;
 	Context myContext;
+	View rootView;
 	
 	String clientName, clientAddress, phoneNumber, emailAddress, contactMethod, basicInfo;
 	String nextAppointment, appointmentType;
@@ -85,7 +86,7 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 		Intent appointmentDetailsIntent = new Intent(MainActivity.myContext, AppointmentDetails.class);
 		startActivity(appointmentDetailsIntent); 
 		
-	} //onItemClick close 
+	} //onItemClick close
 	
 //	/* (non-Javadoc)
 //	 * @see android.app.Fragment#onStart()

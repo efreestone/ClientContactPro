@@ -45,7 +45,7 @@ public class AppointmentDetails extends Activity {
 		appointmentType = appointmentDetailsIntent.getStringExtra("appointmentType");
 		
 		if (appointmentDetailsIntent != null) {
-			//Log.i(TAG, "Existing Appointment Details Intent");
+			//Log.i(TAG, "Existing Client Details Intent");
 			if (appointmentDetailsFragment != null) {
 				Log.i(TAG, "Appointment Details Fragment EXISTS");
 			} else {

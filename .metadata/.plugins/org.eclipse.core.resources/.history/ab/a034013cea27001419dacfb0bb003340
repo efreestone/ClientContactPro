@@ -31,25 +31,25 @@ public class AppointmentDetails extends Activity {
 		setContentView(R.layout.fragment_details_appointment);
 		
 		AppointmentDetailsFragment appointmentDetailsFragment = (AppointmentDetailsFragment) getFragmentManager()
-				.findFragmentById(R.id.appointmentDetailsFragment);
+				.findFragmentById(R.id.clientDetailsFragment);
 		
 		//Grab intent extras to be displayed in textviews
-		Intent appointmentDetailsIntent = getIntent();
-		clientName = appointmentDetailsIntent.getStringExtra("clientName");
-		clientAddress = appointmentDetailsIntent.getStringExtra("clientAddress");
-		phoneNumber = appointmentDetailsIntent.getStringExtra("phoneNumber");
-		emailAddress = appointmentDetailsIntent.getStringExtra("emailAddress");
-		contactMethod = appointmentDetailsIntent.getStringExtra("contactMethod");
-		basicInfo = appointmentDetailsIntent.getStringExtra("basicInfo");
-		nextAppointment = appointmentDetailsIntent.getStringExtra("nextAppointment");
-		appointmentType = appointmentDetailsIntent.getStringExtra("appointmentType");
+		Intent clientDetailsIntent = getIntent();
+		clientName = clientDetailsIntent.getStringExtra("clientName");
+		clientAddress = clientDetailsIntent.getStringExtra("clientAddress");
+		phoneNumber = clientDetailsIntent.getStringExtra("phoneNumber");
+		emailAddress = clientDetailsIntent.getStringExtra("emailAddress");
+		contactMethod = clientDetailsIntent.getStringExtra("contactMethod");
+		basicInfo = clientDetailsIntent.getStringExtra("basicInfo");
+		nextAppointment = clientDetailsIntent.getStringExtra("nextAppointment");
+		appointmentType = clientDetailsIntent.getStringExtra("appointmentType");
 		
-		if (appointmentDetailsIntent != null) {
-			//Log.i(TAG, "Existing Appointment Details Intent");
-			if (appointmentDetailsFragment != null) {
-				Log.i(TAG, "Appointment Details Fragment EXISTS");
+		if (clientDetailsIntent != null) {
+			//Log.i(TAG, "Existing Client Details Intent");
+			if (clientDetailsFragment != null) {
+				Log.i(TAG, "Client Details Fragment EXISTS");
 			} else {
-				Log.i(TAG, "Appointment Details Fragment NULL");
+				Log.i(TAG, "Client Details Fragment NULL");
 			}
 		}
 	}

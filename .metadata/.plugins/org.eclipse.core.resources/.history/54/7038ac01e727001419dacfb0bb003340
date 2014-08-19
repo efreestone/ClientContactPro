@@ -21,8 +21,6 @@ import android.view.MenuItem;
 public class ClientDetails extends Activity {
 	String TAG = "ClientDetails";
 	Context myContext = MainActivity.myContext;
-	String clientName, clientAddress, phoneNumber, emailAddress, contactMethod, basicInfo;
-	String nextAppointment, appointmentType;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,26 +31,37 @@ public class ClientDetails extends Activity {
 		ClientDetailsFragment clientDetailsFragment = (ClientDetailsFragment) getFragmentManager()
 				.findFragmentById(R.id.clientDetailsFragment);
 		
+		String clientName, clientAddress, phoneNumber, emailAddress, contactMethod, basicInfo;
+		String nextAppointment, appointmentType;
+		
 		//Grab intent extras to be displayed in textviews
 		Intent clientDetailsIntent = getIntent();
 		clientName = clientDetailsIntent.getStringExtra("clientName");
-		clientAddress = clientDetailsIntent.getStringExtra("clientAddress");
-		phoneNumber = clientDetailsIntent.getStringExtra("phoneNumber");
-		emailAddress = clientDetailsIntent.getStringExtra("emailAddress");
-		contactMethod = clientDetailsIntent.getStringExtra("contactMethod");
-		basicInfo = clientDetailsIntent.getStringExtra("basicInfo");
-		nextAppointment = clientDetailsIntent.getStringExtra("nextAppointment");
-		appointmentType = clientDetailsIntent.getStringExtra("appointmentType");
+		clientAddress = clientDetailsIntent.getStringExtra("clientName");
+		phoneNumber = clientDetailsIntent.getStringExtra("clientName");
+		emailAddress = clientDetailsIntent.getStringExtra("clientName");
+		contactMethod = clientDetailsIntent.getStringExtra("clientName");
+		basicInfo = clientDetailsIntent.getStringExtra("clientName");
+		nextAppointment = clientDetailsIntent.getStringExtra("clientName");
+		appointmentType = clientDetailsIntent.getStringExtra("clientName");
 		
-		if (clientDetailsIntent != null) {
-			//Log.i(TAG, "Existing Client Details Intent");
-			if (clientDetailsFragment != null) {
-				Log.i(TAG, "Client Details Fragment EXISTS");
-			} else {
-				Log.i(TAG, "Client Details Fragment NULL");
-			}
-		}
-		
+//		DetailsActivityFragment detailsFragment = (DetailsActivityFragment) getFragmentManager()
+//				.findFragmentById(R.id.detailsFragment);
+//		// Grab intent extras to be displayed in textviews
+//		Intent newDetailsIntent = getIntent();
+//		dvdTitle = newDetailsIntent.getStringExtra("dvdTitle");
+//		releaseDate = newDetailsIntent.getStringExtra("releaseDate");
+//		movieRating = newDetailsIntent.getStringExtra("movieRating");
+//		criticRating = newDetailsIntent.getStringExtra("criticRating");
+//		audienceRating = newDetailsIntent.getStringExtra("audienceRating");
+//		if (newDetailsIntent != null) {
+//			if (detailsFragment != null) {
+//				detailsFragment.displayMovieDetails(dvdTitle, releaseDate,
+//						movieRating, criticRating, audienceRating);
+//			} else {
+//				Log.i("Details", "Details Frag is null!!");
+//			}
+//		}
 	}
 	
 	@Override

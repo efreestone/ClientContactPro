@@ -18,40 +18,37 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class AppointmentDetails extends Activity {
-	String TAG = "AppointmentDetails";
+public class ClientDetails extends Activity {
+	String TAG = "ClientDetails";
 	Context myContext = MainActivity.myContext;
-	String clientName, clientAddress, phoneNumber, emailAddress, contactMethod, basicInfo;
-	String nextAppointment, appointmentType;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fragment_details_appointment);
+		setContentView(R.layout.fragment_details_client);
 		
-		AppointmentDetailsFragment appointmentDetailsFragment = (AppointmentDetailsFragment) getFragmentManager()
-				.findFragmentById(R.id.appointmentDetailsFragment);
-		
+		ClientDetailsFragment clientDetailsFragment = (ClientDetailsFragment) getFragmentManager().findFragmentById(R.id.clientDetailsFragment);
 		//Grab intent extras to be displayed in textviews
-		Intent appointmentDetailsIntent = getIntent();
-		clientName = appointmentDetailsIntent.getStringExtra("clientName");
-		clientAddress = appointmentDetailsIntent.getStringExtra("clientAddress");
-		phoneNumber = appointmentDetailsIntent.getStringExtra("phoneNumber");
-		emailAddress = appointmentDetailsIntent.getStringExtra("emailAddress");
-		contactMethod = appointmentDetailsIntent.getStringExtra("contactMethod");
-		basicInfo = appointmentDetailsIntent.getStringExtra("basicInfo");
-		nextAppointment = appointmentDetailsIntent.getStringExtra("nextAppointment");
-		appointmentType = appointmentDetailsIntent.getStringExtra("appointmentType");
+		Intent clientDetailsIntent = getIntent();
 		
-		if (appointmentDetailsIntent != null) {
-			//Log.i(TAG, "Existing Appointment Details Intent");
-			if (appointmentDetailsFragment != null) {
-				Log.i(TAG, "Appointment Details Fragment EXISTS");
-			} else {
-				Log.i(TAG, "Appointment Details Fragment NULL");
-			}
-		}
+//		DetailsActivityFragment detailsFragment = (DetailsActivityFragment) getFragmentManager()
+//				.findFragmentById(R.id.detailsFragment);
+//		// Grab intent extras to be displayed in textviews
+//		Intent newDetailsIntent = getIntent();
+//		dvdTitle = newDetailsIntent.getStringExtra("dvdTitle");
+//		releaseDate = newDetailsIntent.getStringExtra("releaseDate");
+//		movieRating = newDetailsIntent.getStringExtra("movieRating");
+//		criticRating = newDetailsIntent.getStringExtra("criticRating");
+//		audienceRating = newDetailsIntent.getStringExtra("audienceRating");
+//		if (newDetailsIntent != null) {
+//			if (detailsFragment != null) {
+//				detailsFragment.displayMovieDetails(dvdTitle, releaseDate,
+//						movieRating, criticRating, audienceRating);
+//			} else {
+//				Log.i("Details", "Details Frag is null!!");
+//			}
+//		}
 	}
 	
 	@Override
@@ -61,7 +58,7 @@ public class AppointmentDetails extends Activity {
         return true;
     } 
 
-    @Override 
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
