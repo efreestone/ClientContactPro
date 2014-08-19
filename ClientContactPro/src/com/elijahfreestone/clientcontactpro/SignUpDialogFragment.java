@@ -9,6 +9,7 @@
  */
 package com.elijahfreestone.clientcontactpro;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -33,6 +34,7 @@ public class SignUpDialogFragment extends DialogFragment {
 	 * 
 	 * @see android.app.DialogFragment#onCreateDialog(android.os.Bundle)
 	 */
+	@SuppressLint("InflateParams")
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(

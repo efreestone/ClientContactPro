@@ -18,7 +18,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -43,6 +45,8 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 		
 		//View cancelSubview = inflater.inflate(R.layout.subview_cancel_button, container);
 		
+		myContext = MainActivity.myContext;
+		
 		appointmentsListView = (ListView) rootView.findViewById(R.id.appointmentListView); 
 		
 		if (appointmentsListView != null) {  
@@ -54,6 +58,16 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 			Log.i(TAG, "appointmentsListView == null"); 
 		}  
 		
+		// Grab cancel button and set onClick
+		Button cancelButton = (Button) rootView.findViewById(R.id.cancelButton);
+		cancelButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				//onCancelClick creates a basic intent and starts the cancel activity
+				onCancelClick(v);
+			}
+		});
 		
 		return rootView; 
 	} //onCreateView close
@@ -69,19 +83,30 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 		
 	} //onItemClick close
 	
-	/* (non-Javadoc)
-	 * @see android.app.Fragment#onStart()
+//	/* (non-Javadoc)
+//	 * @see android.app.Fragment#onStart()
+//	 */
+//	@Override
+//	public void onStart() {
+//		// TODO Auto-generated method stub
+//		super.onStart();
+//		
+//		appointmentsListView = (ListView) rootView.findViewById(R.id.clientListView);
+//		if (appointmentsListView == null) {
+//			Log.i(TAG, "onStart list view null");
+//		}
+//		Log.i(TAG, "onStart"); 
+//	}
+	
+	/*
+	 * onCancelClick is triggered when the Cancel Appointments button is clicked.
+	 * It creates a basic intent and starts the cancel activity
 	 */
-	@Override
-	public void onStart() {
-		// TODO Auto-generated method stub
-		super.onStart();
+	void onCancelClick(View view){ 
+		Log.i(TAG, "Cancel Appointment clicked"); 
 		
-		appointmentsListView = (ListView) rootView.findViewById(R.id.clientListView);
-		if (appointmentsListView == null) {
-			Log.i(TAG, "onStart list view null");
-		}
-		Log.i(TAG, "onStart"); 
+		Intent cancelButtonIntent = new Intent(myContext, CancelAppointmentActivity.class);
+		startActivity(cancelButtonIntent);
 	}
 
 }

@@ -17,9 +17,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 
 // TODO: Auto-generated Javadoc
@@ -55,6 +57,17 @@ public class ClientsFragment extends Fragment implements OnItemClickListener{
 			Log.i(TAG, "clientListView == null"); 
 		} 
 		
+		//Grab cancel button and set onClick
+		Button cancelButton = (Button) rootView.findViewById(R.id.cancelButton);
+		cancelButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				//onCancelClick creates a basic intent and starts the cancel activity
+				onCancelClick(v);
+			}
+		});
+		
 		return rootView;      
 	} //onCreateView close 
 
@@ -70,4 +83,15 @@ public class ClientsFragment extends Fragment implements OnItemClickListener{
 		startActivity(clientDetailsIntent); 
 		
 	} //onItemClick close
+	
+	/*
+	 * onCancelClick is triggered when the Cancel Appointments button is clicked.
+	 * It creates a basic intent and starts the cancel activity
+	 */
+	void onCancelClick(View view){ 
+		Log.i(TAG, "Cancel Appointment clicked");
+		
+		Intent cancelButtonIntent = new Intent(myContext, CancelAppointmentActivity.class);
+		startActivity(cancelButtonIntent);
+	}
 }

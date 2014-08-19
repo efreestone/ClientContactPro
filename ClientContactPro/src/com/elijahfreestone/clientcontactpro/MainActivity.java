@@ -31,7 +31,6 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 import android.widget.ListView;
 import android.widget.Toast;
  
@@ -265,7 +264,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     	editor.remove("loggedIn");
     	editor.apply();
     	finish();
-	} //logOutUser close
+	} //logOutUser close 
 	
 	/*
 	 * Displays an alert asking the user to confirm logging out.

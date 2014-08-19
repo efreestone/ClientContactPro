@@ -1,0 +1,36 @@
+/*
+ * @author	Elijah Freestone 
+ *
+ * Project	ClientContactPro
+ * 
+ * Package	com.elijahfreestone.clientcontactpro
+ * 
+ * Date		Aug 14, 2014
+ */
+package com.elijahfreestone.clientcontactpro;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.EditText;
+
+public class NewClientActivity extends Activity{
+	EditText clientNameEditText, clientAddressEditText, phoneNumberEditText,
+			emailAddressEditText, basicInfoEditText;
+	String clietnNameEntered, clientAddressEntered, phoneNumberEntered,
+			emailAddressEntered, basicInforEntered;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_new_client);
+		
+		clientNameEditText = (EditText) findViewById(R.id.newClientName);
+		clientAddressEditText = (EditText) findViewById(R.id.newClientAddress);
+		phoneNumberEditText = (EditText) findViewById(R.id.newPhoneNumber);
+		emailAddressEditText = (EditText) findViewById(R.id.newEmailAddress);
+		
+		
+	}
+
+}

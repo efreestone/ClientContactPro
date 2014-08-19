@@ -28,7 +28,7 @@ public class JSONData {
 	static ArrayList<HashMap<String, String>> clientList;
 	static ArrayList<HashMap<String, String>> appointmentList; 
 	static SimpleAdapter clientListAdapter;
-	static SimpleAdapter appointmentListAdapter; 
+	static SimpleAdapter appointmentListAdapter;  
 	
 	/*
 	* Display data from file pulls string from locally stored file and creates

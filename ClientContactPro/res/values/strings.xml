@@ -23,4 +23,13 @@
     
     <string name="cancelButtonString">CANCEL APPOINTMENTS</string>
 
+    <string name="newClientTitle">New Client</string>
+    <string name="clientNameHint">Client Name</string>
+    <string name="clientAddressHint">Client Address</string>
+    <string name="phoneNumberHint">Phone Number</string>
+    <string name="emailAddresshint">Email Address</string>
+    <string name="basicInfoHint">Basic Info (due date, etc)</string>
+    
+    <string name="cancelFrom">Cancel All Appointments From:</string>
+    
 </resources>
