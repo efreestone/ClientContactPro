@@ -259,12 +259,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	 * Log User Out is called when the Log Out button in the action bar is clicked.
 	 * The user is first given an alert dialog confirming log out
 	 */
-	void logUserOut(){
+	void logUserOut(){    
 		Editor editor = sharedPreferences.edit();
     	editor.remove("loggedIn");
     	editor.apply();
-    	finish();
-	} //logOutUser close 
+    	finish(); 
+	} //logOutUser close    
 	
 	/*
 	 * Displays an alert asking the user to confirm logging out.

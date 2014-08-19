@@ -10,7 +10,10 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="10dp"
+        android:textSize="20sp"
         android:text="@string/cancelFrom" />
+    
+    
     
 
 </LinearLayout>

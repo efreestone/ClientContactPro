@@ -67,7 +67,9 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 				//onCancelClick creates a basic intent and starts the cancel activity
 				onCancelClick(v);
 			}
-		});
+		}); 
+		
+		//appointmentsListView.setOnItemClickListener(this);
 		
 		return rootView; 
 	} //onCreateView close
@@ -107,6 +109,6 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 		
 		Intent cancelButtonIntent = new Intent(myContext, CancelAppointmentActivity.class);
 		startActivity(cancelButtonIntent);
-	}
+	} //onCancelClick close
 
 }

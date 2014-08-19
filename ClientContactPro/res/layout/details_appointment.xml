@@ -1,99 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
     
-    <TextView 
-        android:id="@+id/appointmentStart"
+    <RelativeLayout
+        android:id="@+id/topEmptyBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:id="@+id/cancelLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="25sp"
-        android:paddingTop="50dp"
-        android:text="Start Time/Date" />
-    
-    <TextView 
-        android:id="@+id/appointmentEnd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="25sp"
-        android:text="End Time/Date" />
-    
-    <TextView 
-        android:id="@+id/appointmentType"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Appointment Type" />
-    
-    <TextView 
-        android:id="@+id/appointmentAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="30dp"
-        android:text="Appointment Address" />
-    
-    <TextView 
-        android:id="@+id/clientTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:paddingTop="50dp"
-        android:text="Client Information" />
-    
-    <TextView 
-        android:id="@+id/clientName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Client Name" />
-    
-    <TextView 
-        android:id="@+id/address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Address" />
-    
-    <TextView 
-        android:id="@+id/phoneNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Phone Number" />
-    
-    <TextView 
-        android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Email Address" />
-    
-    <TextView 
-        android:id="@+id/contactMethod"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Contact Method: Text" />
-    
-    <TextView 
-        android:id="@+id/basicInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Basic Info (Due Date, etc)" />
-    
-    <TextView 
-        android:id="@+id/otherContacts"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Other Contacts (Spouse, Backup, etc)"/>
-    
-    
+        android:layout_alignParentBottom="true"
+        android:background="#303030" >
 
-</LinearLayout>
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/button_background"
+            android:clickable="true"
+            android:text="@string/cancelButtonString"
+            android:textStyle="bold" />
+    </LinearLayout>
+    
+    <ScrollView
+        android:id="@+id/appDetailsScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/cancelLayout"
+        android:layout_below="@id/topEmptyBar" >
+
+        <LinearLayout
+            android:id="@+id/appDetailsLinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/appointmentStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="50dp"
+                android:text="Start Time/Date"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/appointmentEnd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="End Time/Date"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/appointmentType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Appointment Type" />
+
+            <TextView
+                android:id="@+id/appointmentAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="30dp"
+                android:text="Appointment Address" />
+
+            <TextView
+                android:id="@+id/clientTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="50dp"
+                android:text="Client Information"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/clientName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Client Name" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Address" />
+
+            <TextView
+                android:id="@+id/phoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Phone Number" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Email Address" />
+
+            <TextView
+                android:id="@+id/contactMethod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Contact Method: Text" />
+
+            <TextView
+                android:id="@+id/basicInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Basic Info (Due Date, etc)" />
+
+            <TextView
+                android:id="@+id/otherContacts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="20dp"
+                android:text="Other Contacts (Spouse, Backup, etc)" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

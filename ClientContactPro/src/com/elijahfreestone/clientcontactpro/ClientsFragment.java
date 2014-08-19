@@ -10,6 +10,7 @@
 
 package com.elijahfreestone.clientcontactpro;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -33,6 +34,29 @@ public class ClientsFragment extends Fragment implements OnItemClickListener{
 	static ListView clientListView;
 	public static View footerView;
 	Context myContext;
+	
+	/**
+	 * The Interface onListItemSelected.
+	 */
+	public interface OnListItemSelected {
+		void startActivityForResult(Intent detailsIntent, int requestCode);
+	}
+
+	private OnListItemSelected parentActivity;
+
+	/*
+	 * (non-Javadoc)
+	 * @see android.app.Fragment#onAttach(android.app.Activity)
+	 */
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		if (activity instanceof OnListItemSelected) {
+			parentActivity = (OnListItemSelected) activity;
+		} else {
+			Log.e(TAG, "Must implement OnListItemSelected");
+		}
+	} // onAttach Close
 	
 	/* (non-Javadoc)
 	 * @see android.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
@@ -68,6 +92,8 @@ public class ClientsFragment extends Fragment implements OnItemClickListener{
 			}
 		});
 		
+		//clientListView.setOnItemClickListener(this);
+		
 		return rootView;      
 	} //onCreateView close 
 
@@ -78,6 +104,8 @@ public class ClientsFragment extends Fragment implements OnItemClickListener{
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) { 
 		Log.i(TAG, "Item " + position + " clicked");
+		
+		//ClientDetailsFragment clientDetailsFragment = (ClientDetailsFragment) getFragmentManager().findFragmentById(R.id.clientDetailsFragment);
 		
 		Intent clientDetailsIntent = new Intent(MainActivity.myContext, ClientDetails.class);
 		startActivity(clientDetailsIntent); 
@@ -93,5 +121,5 @@ public class ClientsFragment extends Fragment implements OnItemClickListener{
 		
 		Intent cancelButtonIntent = new Intent(myContext, CancelAppointmentActivity.class);
 		startActivity(cancelButtonIntent);
-	}
+	} //onCancelClick close
 }
