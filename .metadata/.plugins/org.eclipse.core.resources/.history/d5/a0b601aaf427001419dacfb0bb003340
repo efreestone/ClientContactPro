@@ -84,19 +84,19 @@ public class AppointmentDetailsFragment extends Fragment{
 			String contactMethod, String basicInfo, String otherContacts) {
 
 		// Set top section textviews to passed strings
-		appStartTimeTV.setText(startTime);
-		appEndTimeTV.setText(endTime);
-		appAppointmentTypeTV.setText(appointmentType);
-		appAddressTV.setText(appointmentAddress);
+		appStartTimeTV = (TextView) detailsView.findViewById(R.id.appStartTimeTV);
+		appEndTimeTV = (TextView) detailsView.findViewById(R.id.appEndTimeTV);
+		appAppointmentTypeTV = (TextView) detailsView.findViewById(R.id.appAppointmentTypeTV);
+		appAddressTV = (TextView) detailsView.findViewById(R.id.appAddressTV);
 		//Bottom section
-		appClientNameTV.setText(clientName);
-		appPhoneNumberTV.setText(phoneNumber);
-		appEmailTV.setText(emailAddress);
-		appContactMethodTV.setText(contactMethod);
-		appBasicInfoTV.setText(basicInfo);
-		appOtherContactTV.setText(otherContacts);
+		appClientNameTV = (TextView) detailsView.findViewById(R.id.appClientNameTV);
+		appPhoneNumberTV = (TextView) detailsView.findViewById(R.id.appPhoneNumberTV);
+		appEmailTV = (TextView) detailsView.findViewById(R.id.appEmailTV);
+		appContactMethodTV = (TextView) detailsView.findViewById(R.id.appContactMethodTV);
+		appBasicInfoTV = (TextView) detailsView.findViewById(R.id.appBasicInfoTV);
+		appOtherContactTV = (TextView) detailsView.findViewById(R.id.appOtherContactTV);
 
-		Log.i(TAG, "displayAppointmentDetails called");
+		Log.i(TAG, "displayClientData called");
 	} // displayClientDetails close
 	
 }

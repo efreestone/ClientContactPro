@@ -96,7 +96,7 @@ public class AppointmentDetailsFragment extends Fragment{
 		appBasicInfoTV.setText(basicInfo);
 		appOtherContactTV.setText(otherContacts);
 
-		Log.i(TAG, "displayAppointmentDetails called");
+		Log.i(TAG, "displayClientData called");
 	} // displayClientDetails close
 	
 }

@@ -71,6 +71,21 @@ public class ClientDetailsFragment extends Fragment{
 	} //onCancelClick close
 	
 	/*
+	* displayMovieDetails displays details of the movie selected, called from
+	* DetailsActivity
+	*/
+//	public void displayMovieDetails(String dvdTitle, String releaseDate,
+//	String movieRating, String criticRating, String audienceRating) {
+//	// Set textviews with strings from intent extras
+//	titleTextView.setText("DVD Title: " + dvdTitle);
+//	releaseTextView.setText("Released: " + releaseDate);
+//	movieRatingTextView.setText("MPAA Rating: " + movieRating);
+//	criticRatingTextView.setText("Critic Rating: " + criticRating);
+//	audienceRatingTextView.setText("Audience Rating: " + audienceRating);
+//	Log.i("Details Fragment", "Display Movie Details Called");
+//	} // displayMovieDetails Close
+	
+	/*
 	* displayClientDetails displays details of the client selected, called from
 	* DetailsActivity
 	*/

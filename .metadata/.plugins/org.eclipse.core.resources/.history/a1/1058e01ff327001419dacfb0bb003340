@@ -35,19 +35,6 @@ public class AppointmentDetailsFragment extends Fragment{
 		
 		myContext = MainActivity.myContext;
 		
-		//Grab textviews
-		appStartTimeTV = (TextView) detailsView.findViewById(R.id.appStartTimeTV);
-		appEndTimeTV = (TextView) detailsView.findViewById(R.id.appEndTimeTV);
-		appAppointmentTypeTV = (TextView) detailsView.findViewById(R.id.appAppointmentTypeTV);
-		appAddressTV = (TextView) detailsView.findViewById(R.id.appAddressTV);
-		
-		appClientNameTV = (TextView) detailsView.findViewById(R.id.appClientNameTV);
-		appPhoneNumberTV = (TextView) detailsView.findViewById(R.id.appPhoneNumberTV);
-		appEmailTV = (TextView) detailsView.findViewById(R.id.appEmailTV);
-		appContactMethodTV = (TextView) detailsView.findViewById(R.id.appContactMethodTV);
-		appBasicInfoTV = (TextView) detailsView.findViewById(R.id.appBasicInfoTV);
-		appOtherContactTV = (TextView) detailsView.findViewById(R.id.appOtherContactTV);
-		
 		// Grab cancel button and set onClick
 		Button cancelButton = (Button) detailsView.findViewById(R.id.cancelButton);
 		cancelButton.setOnClickListener(new OnClickListener() {
@@ -73,30 +60,5 @@ public class AppointmentDetailsFragment extends Fragment{
 		//Intent cancelButtonIntent = new Intent()
 		startActivity(cancelButtonIntent);
 	} //onCancelClick close
-	
-	/*
-	 * displayAppointmentDetails displays details of the appointment selected,
-	 * called from DetailsActivity
-	 */
-	public void displayAppointmentDetails(String startTime, String endTime,
-			String appointmentType, String appointmentAddress,
-			String clientName, String phoneNumber, String emailAddress,
-			String contactMethod, String basicInfo, String otherContacts) {
-
-		// Set top section textviews to passed strings
-		appStartTimeTV.setText(startTime);
-		appEndTimeTV.setText(endTime);
-		appAppointmentTypeTV.setText(appointmentType);
-		appAddressTV.setText(appointmentAddress);
-		//Bottom section
-		appClientNameTV.setText(clientName);
-		appPhoneNumberTV.setText(phoneNumber);
-		appEmailTV.setText(emailAddress);
-		appContactMethodTV.setText(contactMethod);
-		appBasicInfoTV.setText(basicInfo);
-		appOtherContactTV.setText(otherContacts);
-
-		Log.i(TAG, "displayAppointmentDetails called");
-	} // displayClientDetails close
 	
 }
