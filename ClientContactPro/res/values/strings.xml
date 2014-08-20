@@ -50,4 +50,7 @@
     <string name="cancelAppsButtonString">Cancel Appointments</string>
     <string name="cancelNotice">Notice: Appointment cancellation requires confirmation</string>
     
+    <string name="doneButtonLabel">Done</string>
+    <string name="cancelButtonLabel">Cancel</string>
+    
 </resources>

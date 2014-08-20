@@ -60,7 +60,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     ActionBar myActionBar;
     String[] tabNames = {"Clients", "Appointments"};
 
-    /* (non-Javadoc)
+    /* (non-Javadoc) 
      * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
      */
     @Override  
@@ -68,7 +68,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);  
         
-        myContext = this;         
+        myContext = this;            
         
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
 
@@ -98,7 +98,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         	myActionBar.addTab(myActionBar.newTab().setText(tab_name).setTabListener(this));
         	//myViewPager.addView(cancelSubView); 
         	 
-		}     
+		}        
         
         //Change tab selected when screen is swiped
         myViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() { 
