@@ -186,7 +186,7 @@ public class NewClientActivity extends Activity{
 			
 			JSONArray allClientJSONArray = allClientsJSONObject.getJSONArray("clients");
 			
-			allClientJSONArray.put(detailsObject);
+			allClientJSONArray.put(clientJSONObject);
 			
 			//allClientsJSONObject.put(clientJSONObject);
 			

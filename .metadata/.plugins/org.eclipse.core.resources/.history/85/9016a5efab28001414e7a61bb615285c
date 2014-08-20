@@ -10,12 +10,6 @@
 
 package com.elijahfreestone.clientcontactpro;
 
-import java.io.File;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
@@ -35,14 +29,11 @@ import android.widget.LinearLayout;
 public class NewClientActivity extends Activity{
 	String TAG = "NewClientActivity";
 	Context myContext;
-	DataManager myDataManager;
 	boolean requiredFields;
 	EditText clientNameEditText, clientAddressEditText, phoneNumberEditText,
 			emailAddressEditText, basicInfoEditText;
 	String clientNameEntered, clientAddressEntered, phoneNumberEntered,
-			emailAddressEntered, basicInfoEntered;
-	String myFileName = MainActivity.myFileName;
-	JSONObject allClientsJSONObject;
+			emailAddressEntered, basicInforEntered;
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -52,11 +43,8 @@ public class NewClientActivity extends Activity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_client);
-		//Grab instance of data manager
-		myDataManager = DataManager.getInstance();
-		myContext = this;
 		
-		checkDeviceForFile();
+		myContext = this;
 		  
 		//Grab inputs
 		clientNameEditText = (EditText) findViewById(R.id.newClientName);
@@ -64,8 +52,30 @@ public class NewClientActivity extends Activity{
 		phoneNumberEditText = (EditText) findViewById(R.id.newPhoneNumber);
 		//Format phone number as it is being entered
 		phoneNumberEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher()); 
+		
 		emailAddressEditText = (EditText) findViewById(R.id.newEmailAddress);
 		basicInfoEditText = (EditText) findViewById(R.id.newBasicInfo); 
+		
+		
+//		Button testbutton = (Button) findViewById(R.id.testButton);
+//		testbutton.setOnClickListener(new OnClickListener() {  
+//			
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				clientNameEntered = clientNameEditText.getText().toString();
+//				clientAddressEntered = clientAddressEditText.getText().toString();
+//				phoneNumberEntered = phoneNumberEditText.getText().toString();
+//				emailAddressEntered = emailAddressEditText.getText().toString();
+//				basicInforEntered = basicInfoEditText.getText().toString();
+//				
+//				Log.i(TAG, "Name: " + clientNameEntered + ", Address: "
+//						+ clientAddressEntered + "\nPhone Number: "
+//						+ phoneNumberEntered + ", Email: "
+//						+ emailAddressEntered + "\n" + "Basic Info: "
+//						+ basicInforEntered); 
+//			} //onClick close
+//		}); //setOnClickListener close
 		
 		// Grab custom done/cancel action bar
 		View customActionBarView = getLayoutInflater().inflate(
@@ -93,19 +103,18 @@ public class NewClientActivity extends Activity{
 				clientAddressEntered = clientAddressEditText.getText().toString();
 				phoneNumberEntered = phoneNumberEditText.getText().toString();
 				emailAddressEntered = emailAddressEditText.getText().toString();
-				basicInfoEntered = basicInfoEditText.getText().toString();
+				basicInforEntered = basicInfoEditText.getText().toString();
 				//Check if required fields have been added
 				checkRequiredFields();
 				
 				Log.i(TAG, "Required Fields = " + requiredFields);
 				
 				if (requiredFields) {
-//					Log.i(TAG, "Name: " + clientNameEntered + ", Address: "
-//							+ clientAddressEntered + "\nPhone Number: "
-//							+ phoneNumberEntered + ", Email: "
-//							+ emailAddressEntered + "\n" + "Basic Info: "
-//							+ basicInfoEntered); 
-					buildJSON();
+					Log.i(TAG, "Name: " + clientNameEntered + ", Address: "
+							+ clientAddressEntered + "\nPhone Number: "
+							+ phoneNumberEntered + ", Email: "
+							+ emailAddressEntered + "\n" + "Basic Info: "
+							+ basicInforEntered); 
 					finish();
 				}
 				
@@ -126,11 +135,6 @@ public class NewClientActivity extends Activity{
 
 	} //onCreate close
 	
-	/*
-	 * Check that the name field and either phone number or email are entered.
-	 * Also checks length of phone number to make sure it is 10 digits before
-	 * formatting (14 after)
-	 */
 	boolean checkRequiredFields(){
 		if (!clientNameEntered.equalsIgnoreCase("")) {
 			if (!phoneNumberEntered.equalsIgnoreCase("") && phoneNumberEntered.length() == 14 || !emailAddressEntered.equalsIgnoreCase("")) {
@@ -140,70 +144,6 @@ public class NewClientActivity extends Activity{
 			
 		}
 		return requiredFields;
-	} //checkRequiredFields close
-	
-	public void checkDeviceForFile() {
-		// Check if the file already exists
-		File file = this.getFileStreamPath(myFileName);
-		Boolean fileExists = file.exists();
-		String stringFromFile = "{\"clients\":[]}";
-		if (fileExists) {
-			// Display the data to the listview automatically if file exists
-			//JSONData.displayDataFromFile();
-			// JSONData.sendArrayListToWidget();
-			stringFromFile = DataManager.readStringFromFile(myContext, myFileName);
-			allClientsJSONObject = JSONData.getJSONFromFile(stringFromFile);
-			Log.i("File", "File exists");
-		} else { 
-			try {
-				allClientsJSONObject = new JSONObject(stringFromFile);
-				Log.i(TAG, "allClientsJSONObject" + allClientsJSONObject);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			Log.i("File", "File DOESN'T exist!!");
-			myDataManager.writeStringToFile(myContext, myFileName, stringFromFile);
-		}
-		
-	}
-	
-	void buildJSON(){
-		JSONObject clientJSONObject = new JSONObject();
-		JSONObject detailsObject = new JSONObject();
-		
-		try {
-			detailsObject.put("clientName", clientNameEntered);
-			detailsObject.put("clientAddress", clientAddressEntered);
-			detailsObject.put("phoneNumber", phoneNumberEntered);
-			detailsObject.put("emailAddress", emailAddressEntered);
-			detailsObject.put("basicInfo", basicInfoEntered);
-			
-			//clientJSONObject.put(clientNameEntered, detailsObject);
-			//Log.i(TAG, "Client JSON: " + clientJSONObject);
-			
-			clientJSONObject.put(clientNameEntered, detailsObject);
-			
-			JSONArray allClientJSONArray = allClientsJSONObject.getJSONArray("clients");
-			
-			allClientJSONArray.put(detailsObject);
-			
-			//allClientsJSONObject.put(clientJSONObject);
-			
-			JSONObject newAllClientsObject = new JSONObject();
-			newAllClientsObject.put("clients", allClientJSONArray);
-			
-			Log.i(TAG, "All Clients JSON: " + newAllClientsObject);
-			
-			String allClientJSONString = newAllClientsObject.toString();
-			
-			myDataManager.writeStringToFile(myContext, myFileName, allClientJSONString); 
-			
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			Log.e(TAG, e.getMessage().toString());
-		}	
-	} //buildJSON close
-	
+	} //checkRequiredFields
+
 }

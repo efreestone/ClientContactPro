@@ -118,7 +118,6 @@ public class JSONData {
 		try {
 			Log.i(TAG, "getJSONFromFile try");
 			clientsObjectFromFile = new JSONObject(stringFromFile);
-			Log.i(TAG, "JSONObject: " + clientsObjectFromFile);
 			return clientsObjectFromFile;
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

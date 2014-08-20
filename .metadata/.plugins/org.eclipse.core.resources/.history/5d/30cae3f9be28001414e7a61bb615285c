@@ -186,16 +186,11 @@ public class NewClientActivity extends Activity{
 			
 			JSONArray allClientJSONArray = allClientsJSONObject.getJSONArray("clients");
 			
-			allClientJSONArray.put(detailsObject);
-			
 			//allClientsJSONObject.put(clientJSONObject);
 			
-			JSONObject newAllClientsObject = new JSONObject();
-			newAllClientsObject.put("clients", allClientJSONArray);
+			Log.i(TAG, "All Clients JSON: " + allClientJSONArray);
 			
-			Log.i(TAG, "All Clients JSON: " + newAllClientsObject);
-			
-			String allClientJSONString = newAllClientsObject.toString();
+			String allClientJSONString = allClientJSONArray.toString();
 			
 			myDataManager.writeStringToFile(myContext, myFileName, allClientJSONString); 
 			

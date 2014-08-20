@@ -113,11 +113,11 @@ public class JSONData {
 	
 	
 	
-	public static JSONObject getJSONFromFile(String stringFromFile){
-		JSONObject clientsObjectFromFile;
+	public static JSONArray getJSONFromFile(String stringFromFile){
+		JSONArray clientsObjectFromFile;
 		try {
 			Log.i(TAG, "getJSONFromFile try");
-			clientsObjectFromFile = new JSONObject(stringFromFile);
+			clientsObjectFromFile = new JSONArray(stringFromFile);
 			Log.i(TAG, "JSONObject: " + clientsObjectFromFile);
 			return clientsObjectFromFile;
 		} catch (JSONException e) {

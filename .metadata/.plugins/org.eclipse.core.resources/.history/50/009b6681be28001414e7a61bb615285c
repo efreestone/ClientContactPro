@@ -157,7 +157,6 @@ public class NewClientActivity extends Activity{
 		} else { 
 			try {
 				allClientsJSONObject = new JSONObject(stringFromFile);
-				Log.i(TAG, "allClientsJSONObject" + allClientsJSONObject);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -184,18 +183,13 @@ public class NewClientActivity extends Activity{
 			
 			clientJSONObject.put(clientNameEntered, detailsObject);
 			
-			JSONArray allClientJSONArray = allClientsJSONObject.getJSONArray("clients");
-			
-			allClientJSONArray.put(detailsObject);
+			JSONArray allJSONArray = allClientsJSONObject.getJSONArray("clients");
 			
 			//allClientsJSONObject.put(clientJSONObject);
 			
-			JSONObject newAllClientsObject = new JSONObject();
-			newAllClientsObject.put("clients", allClientJSONArray);
+			Log.i(TAG, "All Clients JSON: " + allClientsJSONObject);
 			
-			Log.i(TAG, "All Clients JSON: " + newAllClientsObject);
-			
-			String allClientJSONString = newAllClientsObject.toString();
+			String allClientJSONString = allClientsJSONObject.toString();
 			
 			myDataManager.writeStringToFile(myContext, myFileName, allClientJSONString); 
 			

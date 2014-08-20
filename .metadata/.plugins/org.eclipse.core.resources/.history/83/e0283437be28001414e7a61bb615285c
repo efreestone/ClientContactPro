@@ -117,7 +117,7 @@ public class JSONData {
 		JSONObject clientsObjectFromFile;
 		try {
 			Log.i(TAG, "getJSONFromFile try");
-			clientsObjectFromFile = new JSONObject(stringFromFile);
+			clientsObjectFromFile = new JSONArray(stringFromFile);
 			Log.i(TAG, "JSONObject: " + clientsObjectFromFile);
 			return clientsObjectFromFile;
 		} catch (JSONException e) {

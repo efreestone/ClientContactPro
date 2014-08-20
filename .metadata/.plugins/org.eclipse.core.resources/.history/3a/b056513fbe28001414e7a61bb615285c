@@ -42,7 +42,7 @@ public class NewClientActivity extends Activity{
 	String clientNameEntered, clientAddressEntered, phoneNumberEntered,
 			emailAddressEntered, basicInfoEntered;
 	String myFileName = MainActivity.myFileName;
-	JSONObject allClientsJSONObject;
+	JSONArray allClientsJSONObject;
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -156,8 +156,7 @@ public class NewClientActivity extends Activity{
 			Log.i("File", "File exists");
 		} else { 
 			try {
-				allClientsJSONObject = new JSONObject(stringFromFile);
-				Log.i(TAG, "allClientsJSONObject" + allClientsJSONObject);
+				allClientsJSONObject = new JSONArray(stringFromFile);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -184,18 +183,11 @@ public class NewClientActivity extends Activity{
 			
 			clientJSONObject.put(clientNameEntered, detailsObject);
 			
-			JSONArray allClientJSONArray = allClientsJSONObject.getJSONArray("clients");
+			allClientsJSONObject.put(clientJSONObject);
 			
-			allClientJSONArray.put(detailsObject);
+			Log.i(TAG, "All Clients JSON: " + allClientsJSONObject);
 			
-			//allClientsJSONObject.put(clientJSONObject);
-			
-			JSONObject newAllClientsObject = new JSONObject();
-			newAllClientsObject.put("clients", allClientJSONArray);
-			
-			Log.i(TAG, "All Clients JSON: " + newAllClientsObject);
-			
-			String allClientJSONString = newAllClientsObject.toString();
+			String allClientJSONString = allClientsJSONObject.toString();
 			
 			myDataManager.writeStringToFile(myContext, myFileName, allClientJSONString); 
 			

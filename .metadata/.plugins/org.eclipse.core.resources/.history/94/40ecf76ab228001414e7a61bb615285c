@@ -10,9 +10,6 @@
 
 package com.elijahfreestone.clientcontactpro;
 
-import java.io.File;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,7 +39,6 @@ public class NewClientActivity extends Activity{
 	String clientNameEntered, clientAddressEntered, phoneNumberEntered,
 			emailAddressEntered, basicInfoEntered;
 	String myFileName = MainActivity.myFileName;
-	JSONObject allClientsJSONObject;
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -55,8 +51,6 @@ public class NewClientActivity extends Activity{
 		//Grab instance of data manager
 		myDataManager = DataManager.getInstance();
 		myContext = this;
-		
-		checkDeviceForFile();
 		  
 		//Grab inputs
 		clientNameEditText = (EditText) findViewById(R.id.newClientName);
@@ -140,33 +134,7 @@ public class NewClientActivity extends Activity{
 			
 		}
 		return requiredFields;
-	} //checkRequiredFields close
-	
-	public void checkDeviceForFile() {
-		// Check if the file already exists
-		File file = this.getFileStreamPath(myFileName);
-		Boolean fileExists = file.exists();
-		String stringFromFile = "{\"clients\":[]}";
-		if (fileExists) {
-			// Display the data to the listview automatically if file exists
-			//JSONData.displayDataFromFile();
-			// JSONData.sendArrayListToWidget();
-			stringFromFile = DataManager.readStringFromFile(myContext, myFileName);
-			allClientsJSONObject = JSONData.getJSONFromFile(stringFromFile);
-			Log.i("File", "File exists");
-		} else { 
-			try {
-				allClientsJSONObject = new JSONObject(stringFromFile);
-				Log.i(TAG, "allClientsJSONObject" + allClientsJSONObject);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			Log.i("File", "File DOESN'T exist!!");
-			myDataManager.writeStringToFile(myContext, myFileName, stringFromFile);
-		}
-		
-	}
+	} //checkRequiredFields
 	
 	void buildJSON(){
 		JSONObject clientJSONObject = new JSONObject();
@@ -179,31 +147,43 @@ public class NewClientActivity extends Activity{
 			detailsObject.put("emailAddress", emailAddressEntered);
 			detailsObject.put("basicInfo", basicInfoEntered);
 			
-			//clientJSONObject.put(clientNameEntered, detailsObject);
-			//Log.i(TAG, "Client JSON: " + clientJSONObject);
-			
 			clientJSONObject.put(clientNameEntered, detailsObject);
-			
-			JSONArray allClientJSONArray = allClientsJSONObject.getJSONArray("clients");
-			
-			allClientJSONArray.put(detailsObject);
-			
-			//allClientsJSONObject.put(clientJSONObject);
-			
-			JSONObject newAllClientsObject = new JSONObject();
-			newAllClientsObject.put("clients", allClientJSONArray);
-			
-			Log.i(TAG, "All Clients JSON: " + newAllClientsObject);
-			
-			String allClientJSONString = newAllClientsObject.toString();
-			
-			myDataManager.writeStringToFile(myContext, myFileName, allClientJSONString); 
+			Log.i(TAG, "Client JSON: " + clientJSONObject);
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			Log.e(TAG, e.getMessage().toString());
-		}	
-	} //buildJSON close
+		}
+		
+	}
 	
+//	public static JSONObject buildJSON() {
+//		// Create cities object
+//		JSONObject citiesObject = new JSONObject();
+//		try {
+//			// Create query object
+//			JSONObject queryObject = new JSONObject();
+//			// Create city object in query object
+//			for (CitiesEnum city : CitiesEnum.values()) {
+//				// Create city object
+//				JSONObject cityObject = new JSONObject();
+//				// Add city info to city object
+//				cityObject.put("cityName", city.getCityName());
+//				cityObject.put("stateName", city.getStateName());
+//				cityObject.put("fahrenheitTemp", city.getFahrenheitTemp());
+//				cityObject.put("celsiusTemp", city.getCelsiusTemp());
+//				// Add city object to query object
+//				queryObject.put(city.name().toString(), cityObject);
+//			}
+//			// Add query to cities objects
+//			citiesObject.put("cities", queryObject);
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//			// System.out.println("Build JSON catch");
+//		}
+//		// Return the cities object
+//		return citiesObject;
+//	}
+
 }

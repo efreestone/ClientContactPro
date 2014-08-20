@@ -40,11 +40,10 @@ import android.widget.Toast;
  * The Class MainActivity.
  */
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
-	String TAG = "MainActivity";
 	static Context myContext;
 	public static final String PREFS_NAME = "SharedPrefsFile";
 	static SharedPreferences sharedPreferences;
-	static String myFileName = "string_from_url.txt";
+	String TAG = "MainActivity";
 	ListView clientListView;
 	ListView appointmentsListView;   
 

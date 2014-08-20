@@ -12,7 +12,6 @@ package com.elijahfreestone.clientcontactpro;
 
 import java.io.File;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,7 +41,6 @@ public class NewClientActivity extends Activity{
 	String clientNameEntered, clientAddressEntered, phoneNumberEntered,
 			emailAddressEntered, basicInfoEntered;
 	String myFileName = MainActivity.myFileName;
-	JSONObject allClientsJSONObject;
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -146,26 +144,18 @@ public class NewClientActivity extends Activity{
 		// Check if the file already exists
 		File file = this.getFileStreamPath(myFileName);
 		Boolean fileExists = file.exists();
-		String stringFromFile = "{\"clients\":[]}";
+		String stringFromFile = "";
 		if (fileExists) {
 			// Display the data to the listview automatically if file exists
 			//JSONData.displayDataFromFile();
 			// JSONData.sendArrayListToWidget();
-			stringFromFile = DataManager.readStringFromFile(myContext, myFileName);
-			allClientsJSONObject = JSONData.getJSONFromFile(stringFromFile);
+			
 			Log.i("File", "File exists");
-		} else { 
-			try {
-				allClientsJSONObject = new JSONObject(stringFromFile);
-				Log.i(TAG, "allClientsJSONObject" + allClientsJSONObject);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		} else {
+			
 			Log.i("File", "File DOESN'T exist!!");
-			myDataManager.writeStringToFile(myContext, myFileName, stringFromFile);
 		}
-		
+		JSONData.getJSONFromFile(stringFromFile);
 	}
 	
 	void buildJSON(){
@@ -179,25 +169,12 @@ public class NewClientActivity extends Activity{
 			detailsObject.put("emailAddress", emailAddressEntered);
 			detailsObject.put("basicInfo", basicInfoEntered);
 			
-			//clientJSONObject.put(clientNameEntered, detailsObject);
-			//Log.i(TAG, "Client JSON: " + clientJSONObject);
-			
 			clientJSONObject.put(clientNameEntered, detailsObject);
+			Log.i(TAG, "Client JSON: " + clientJSONObject);
 			
-			JSONArray allClientJSONArray = allClientsJSONObject.getJSONArray("clients");
+			String clientJSONString = clientJSONObject.toString();
 			
-			allClientJSONArray.put(detailsObject);
-			
-			//allClientsJSONObject.put(clientJSONObject);
-			
-			JSONObject newAllClientsObject = new JSONObject();
-			newAllClientsObject.put("clients", allClientJSONArray);
-			
-			Log.i(TAG, "All Clients JSON: " + newAllClientsObject);
-			
-			String allClientJSONString = newAllClientsObject.toString();
-			
-			myDataManager.writeStringToFile(myContext, myFileName, allClientJSONString); 
+			myDataManager.writeStringToFile(myContext, myFileName, clientJSONString);
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

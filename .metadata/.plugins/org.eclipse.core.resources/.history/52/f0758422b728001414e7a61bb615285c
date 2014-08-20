@@ -78,7 +78,7 @@ public class JSONData {
 				//Sort out all entries that contain an appointment
 				HashMap<String, String> appointmentDisplayMap = new HashMap<String, String>();
 				if (!nextAppointment.equalsIgnoreCase("none")) {
-					//Log.i(TAG, "appointmentDisplayMap");
+					Log.i(TAG, "appointmentDisplayMap");
 					appointmentDisplayMap.put("nextAppointment", nextAppointment);
 					appointmentDisplayMap.put("clientName", clientName);
 					appointmentList.add(appointmentDisplayMap);
@@ -113,12 +113,11 @@ public class JSONData {
 	
 	
 	
-	public static JSONObject getJSONFromFile(String stringFromFile){
+	public JSONObject getJSONFromFile(String stringFromFile){
 		JSONObject clientsObjectFromFile;
 		try {
 			Log.i(TAG, "getJSONFromFile try");
 			clientsObjectFromFile = new JSONObject(stringFromFile);
-			Log.i(TAG, "JSONObject: " + clientsObjectFromFile);
 			return clientsObjectFromFile;
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
