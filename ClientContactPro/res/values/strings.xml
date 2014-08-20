@@ -19,17 +19,35 @@
     <string name="signUpButtonString">Create New Account</string>
     
     <string name="editClientButtonString">Edit Client</string>
-    <string name="spinnerDatePrompt">Date</string>
+    
+    <string name="appStartTitle">Start:</string>
+    <string name="appEndTitle">End:</string>
+    
+    <string name="spinnerStartDatePrompt">Start Date</string>
+    <string name="spinnerFinishDatePrompt">Finish Date</string>
+    <string name="spinnerTimePrompt">Time</string>
     
     <string name="cancelButtonString">CANCEL APPOINTMENTS</string>
 
     <string name="newClientTitle">New Client</string>
+    <string name="clientDetailsTitle">Client Details</string>
+    
     <string name="clientNameHint">Client Name</string>
     <string name="clientAddressHint">Client Address</string>
+    <string name="appointmentAddressHint">Appointment Address</string>
+    <string name="appointmentTypeHint">Appointment Type</string>
+    <string name="appointmentDetailsHint">Appointment Details</string>
     <string name="phoneNumberHint">Phone Number</string>
     <string name="emailAddresshint">Email Address</string>
     <string name="basicInfoHint">Basic Info (due date, etc)</string>
     
+    <string name="contactMethodTitle">Reminders/Cancellations</string>
+    <string name="textContactLabel">Text</string>
+    <string name="emailContactLabel">Email</string>
+    
     <string name="cancelFrom">Cancel All Appointments From:</string>
+    <string name="cancelTo">To:</string>
+    <string name="cancelAppsButtonString">Cancel Appointments</string>
+    <string name="cancelNotice">Notice: Appointment cancellation requires confirmation</string>
     
 </resources>

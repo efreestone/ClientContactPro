@@ -32,7 +32,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.Toast;       
  
 
 // TODO: Auto-generated Javadoc   
@@ -66,9 +66,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     @Override  
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); 
+        setContentView(R.layout.activity_main);  
         
-        myContext = this;      
+        myContext = this;        
         
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
 
@@ -92,13 +92,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         	startActivity(loginIntent); 
 		} else {
 			Toast.makeText(getApplicationContext(), "Welcome, " + userName, Toast.LENGTH_LONG).show();
-		}
+		} 
         
         for (String tab_name : tabNames) { 
         	myActionBar.addTab(myActionBar.newTab().setText(tab_name).setTabListener(this));
         	//myViewPager.addView(cancelSubView); 
         	 
-		}
+		}     
         
         //Change tab selected when screen is swiped
         myViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() { 
