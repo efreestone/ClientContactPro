@@ -37,7 +37,7 @@
     <string name="appointmentAddressHint">Appointment Address</string>
     <string name="appointmentTypeHint">Appointment Type</string>
     <string name="appointmentDetailsHint">Appointment Details</string>
-    <string name="phoneNumberHint">Phone Number (10 digit)</string>
+    <string name="phoneNumberHint">Phone Number (area code first)</string>
     <string name="emailAddresshint">Email Address</string>
     <string name="basicInfoHint">Basic Info (due date, etc)</string>
     

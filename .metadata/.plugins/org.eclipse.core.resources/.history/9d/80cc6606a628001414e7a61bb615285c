@@ -53,7 +53,7 @@ public class NewAppointmentActivity extends Activity {
 		});   
 		
 		//Done button
-		View doneActionButton = customActionBarView.findViewById(R.id.actionbarDoneButton);
+		View doneActionButton = customActionBarView.findViewById(R.id.actionbar_done);
 		doneActionButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

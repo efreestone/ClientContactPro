@@ -137,7 +137,7 @@ public class NewClientActivity extends Activity{
 	
 	boolean checkRequiredFields(){
 		if (!clientNameEntered.equalsIgnoreCase("")) {
-			if (!phoneNumberEntered.equalsIgnoreCase("") && phoneNumberEntered.length() == 14 || !emailAddressEntered.equalsIgnoreCase("")) {
+			if (!phoneNumberEntered.equalsIgnoreCase("") && phoneNumberEntered.length() == 10 || !emailAddressEntered.equalsIgnoreCase("")) {
 				Log.i(TAG, "Phone number length = " + phoneNumberEntered.length());
 				requiredFields = true;
 			}

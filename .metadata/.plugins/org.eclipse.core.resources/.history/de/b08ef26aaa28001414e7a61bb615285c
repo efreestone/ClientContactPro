@@ -51,7 +51,7 @@ public class NewClientActivity extends Activity{
 		clientNameEditText = (EditText) findViewById(R.id.newClientName);
 		clientAddressEditText = (EditText) findViewById(R.id.newClientAddress);
 		phoneNumberEditText = (EditText) findViewById(R.id.newPhoneNumber);
-		phoneNumberEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher()); 
+		phoneNumberEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 		
 		emailAddressEditText = (EditText) findViewById(R.id.newEmailAddress);
 		basicInfoEditText = (EditText) findViewById(R.id.newBasicInfo); 
@@ -137,7 +137,7 @@ public class NewClientActivity extends Activity{
 	
 	boolean checkRequiredFields(){
 		if (!clientNameEntered.equalsIgnoreCase("")) {
-			if (!phoneNumberEntered.equalsIgnoreCase("") && phoneNumberEntered.length() == 14 || !emailAddressEntered.equalsIgnoreCase("")) {
+			if (!phoneNumberEntered.equalsIgnoreCase("") && phoneNumberEntered.length() == 10 || !emailAddressEntered.equalsIgnoreCase("")) {
 				Log.i(TAG, "Phone number length = " + phoneNumberEntered.length());
 				requiredFields = true;
 			}

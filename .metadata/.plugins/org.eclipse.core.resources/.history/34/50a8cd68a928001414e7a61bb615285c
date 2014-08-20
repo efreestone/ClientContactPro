@@ -14,7 +14,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -51,14 +50,13 @@ public class NewClientActivity extends Activity{
 		clientNameEditText = (EditText) findViewById(R.id.newClientName);
 		clientAddressEditText = (EditText) findViewById(R.id.newClientAddress);
 		phoneNumberEditText = (EditText) findViewById(R.id.newPhoneNumber);
-		phoneNumberEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher()); 
-		
+		phoneNumberEditText.setInputType(InputType.TYPE_CLASS_PHONE);
 		emailAddressEditText = (EditText) findViewById(R.id.newEmailAddress);
 		basicInfoEditText = (EditText) findViewById(R.id.newBasicInfo); 
 		
 		
 //		Button testbutton = (Button) findViewById(R.id.testButton);
-//		testbutton.setOnClickListener(new OnClickListener() {  
+//		testbutton.setOnClickListener(new OnClickListener() { 
 //			
 //			@Override
 //			public void onClick(View v) {
@@ -137,13 +135,15 @@ public class NewClientActivity extends Activity{
 	
 	boolean checkRequiredFields(){
 		if (!clientNameEntered.equalsIgnoreCase("")) {
-			if (!phoneNumberEntered.equalsIgnoreCase("") && phoneNumberEntered.length() == 14 || !emailAddressEntered.equalsIgnoreCase("")) {
-				Log.i(TAG, "Phone number length = " + phoneNumberEntered.length());
+			if (!phoneNumberEntered.equalsIgnoreCase("") || !emailAddressEntered.equalsIgnoreCase("")) {
+				if (phoneNumberEntered.length() <= 10 && phoneNumberEntered.length() > 1) {
+					Log.i(TAG, "Phone number length = " + phoneNumberEntered.length());
+				}
 				requiredFields = true;
 			}
 			
 		}
 		return requiredFields;
-	} //checkRequiredFields
+	}
 
 }

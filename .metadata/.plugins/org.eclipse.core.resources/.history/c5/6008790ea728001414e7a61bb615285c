@@ -14,8 +14,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -51,14 +49,12 @@ public class NewClientActivity extends Activity{
 		clientNameEditText = (EditText) findViewById(R.id.newClientName);
 		clientAddressEditText = (EditText) findViewById(R.id.newClientAddress);
 		phoneNumberEditText = (EditText) findViewById(R.id.newPhoneNumber);
-		phoneNumberEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher()); 
-		
 		emailAddressEditText = (EditText) findViewById(R.id.newEmailAddress);
 		basicInfoEditText = (EditText) findViewById(R.id.newBasicInfo); 
 		
 		
 //		Button testbutton = (Button) findViewById(R.id.testButton);
-//		testbutton.setOnClickListener(new OnClickListener() {  
+//		testbutton.setOnClickListener(new OnClickListener() { 
 //			
 //			@Override
 //			public void onClick(View v) {
@@ -104,20 +100,12 @@ public class NewClientActivity extends Activity{
 				phoneNumberEntered = phoneNumberEditText.getText().toString();
 				emailAddressEntered = emailAddressEditText.getText().toString();
 				basicInforEntered = basicInfoEditText.getText().toString();
-				//Check if required fields have been added
-				checkRequiredFields();
 				
-				Log.i(TAG, "Required Fields = " + requiredFields);
-				
-				if (requiredFields) {
-					Log.i(TAG, "Name: " + clientNameEntered + ", Address: "
-							+ clientAddressEntered + "\nPhone Number: "
-							+ phoneNumberEntered + ", Email: "
-							+ emailAddressEntered + "\n" + "Basic Info: "
-							+ basicInforEntered); 
-					finish();
-				}
-				
+				Log.i(TAG, "Name: " + clientNameEntered + ", Address: "
+						+ clientAddressEntered + "\nPhone Number: "
+						+ phoneNumberEntered + ", Email: "
+						+ emailAddressEntered + "\n" + "Basic Info: "
+						+ basicInforEntered); 
 			}
 		});
 
@@ -137,13 +125,12 @@ public class NewClientActivity extends Activity{
 	
 	boolean checkRequiredFields(){
 		if (!clientNameEntered.equalsIgnoreCase("")) {
-			if (!phoneNumberEntered.equalsIgnoreCase("") && phoneNumberEntered.length() == 14 || !emailAddressEntered.equalsIgnoreCase("")) {
-				Log.i(TAG, "Phone number length = " + phoneNumberEntered.length());
+			if (!phoneNumberEntered.equalsIgnoreCase("") || !emailAddressEntered.equalsIgnoreCase("")) {
 				requiredFields = true;
 			}
 			
 		}
 		return requiredFields;
-	} //checkRequiredFields
+	}
 
 }

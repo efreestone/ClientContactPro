@@ -10,11 +10,14 @@
 
 package com.elijahfreestone.clientcontactpro;
 
+import java.util.zip.Inflater;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -26,7 +29,7 @@ import android.widget.LinearLayout;
  */
 public class NewAppointmentActivity extends Activity {
 	String TAG = "NewAppointmentActivity";
-	Context myContext; 
+	Context myContext;
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -42,21 +45,22 @@ public class NewAppointmentActivity extends Activity {
 		View customActionBarView = getLayoutInflater().inflate(
 				R.layout.custom_action_bar, new LinearLayout(myContext), false);
 		//Cancel button
-		View cancelActionButton = customActionBarView.findViewById(R.id.actionbarCancelButton);
+		View cancelActionButton = customActionBarView.findViewById(R.id.actionbar_cancel);
 		cancelActionButton.setOnClickListener(new OnClickListener() {     
 			@Override
 			public void onClick(View v) {
+				// TODO Auto-generated method stub 
 				Log.i(TAG, "Cancel Action Button clicked");
-				//Dismiss New Appointment
 				finish();
 			}
 		});   
 		
 		//Done button
-		View doneActionButton = customActionBarView.findViewById(R.id.actionbarDoneButton);
+		View doneActionButton = customActionBarView.findViewById(R.id.actionbar_done);
 		doneActionButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				// TODO Auto-generated method stub
 				Log.i(TAG, "Done Action Button clicked");
 			}
 		});
@@ -72,6 +76,6 @@ public class NewAppointmentActivity extends Activity {
 		customActionBar.setCustomView(customActionBarView,
 				new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
 						ViewGroup.LayoutParams.MATCH_PARENT));
-	} //onCreate close
+	}
 
 }
