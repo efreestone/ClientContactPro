@@ -17,17 +17,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class CancelAppointmentActivity.
  */
-public class CancelAppointmentActivity extends Activity implements OnClickListener {
+public class CancelAppointmentActivity extends Activity {
 	String TAG = "CancelAppointmentActivity";
 	TextView startCancelDate, startCancelTime, finishCancelDate, finishCancelTime;
-	Button cancelButton;
 	Calendar myCalendar;
 	int currentDay, currentMonth, currentYear;
 	
@@ -43,27 +41,19 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		
 		myCalendar = Calendar.getInstance();
 		
-		//Grab date/time spinners and cancel button 
 		startCancelDate = (TextView) findViewById(R.id.startCancelDate);
 		startCancelTime = (TextView) findViewById(R.id.startCancelTime);
 		finishCancelDate = (TextView) findViewById(R.id.finishCancelDate);
 		finishCancelTime = (TextView) findViewById(R.id.finishCancelTime);
-		cancelButton = (Button) findViewById(R.id.cancelAppointmentsButton);
 		
-		//Set onClick
-		startCancelDate.setOnClickListener(this);
-		startCancelTime.setOnClickListener(this);
-		finishCancelDate.setOnClickListener(this);
-		finishCancelTime.setOnClickListener(this);
-		cancelButton.setOnClickListener(this);
-		
-//		startCancelDate.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				Log.i(TAG, "Start Date");
-//			}
-//		});
+		startCancelDate.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Log.i(TAG, "Start Date");
+			}
+		});
 		
 		getCurrentDate();
 		
@@ -79,35 +69,6 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		currentYear = myCalendar.get(Calendar.YEAR);
 		Log.i(TAG, "Current Date: " + currentMonth + "/" + currentDay + "/" + currentYear);
 		
-	} //getCurrentDate close
-
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.startCancelDate:
-			Log.i(TAG, "Start Cancel Date");
-			break;
-			
-		case R.id.startCancelTime:
-			Log.i(TAG, "Start Cancel Time");
-			break;
-			
-		case R.id.finishCancelDate:
-			Log.i(TAG, "Finish Cancel Date");
-			break;
-			
-		case R.id.finishCancelTime:
-			Log.i(TAG, "Finish Cancel Time");
-			break;
-			
-		case R.id.cancelAppointmentsButton:
-			Log.i(TAG, "Cancel Button");
-			break;
-
-		default:
-			break;
-		}
-		
-	} //onClick close
+	}
 	
 }

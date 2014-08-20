@@ -99,10 +99,6 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		case R.id.finishCancelTime:
 			Log.i(TAG, "Finish Cancel Time");
 			break;
-			
-		case R.id.cancelAppointmentsButton:
-			Log.i(TAG, "Cancel Button");
-			break;
 
 		default:
 			break;

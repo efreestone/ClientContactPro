@@ -17,7 +17,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
 
 // TODO: Auto-generated Javadoc
@@ -27,7 +26,6 @@ import android.widget.TextView;
 public class CancelAppointmentActivity extends Activity implements OnClickListener {
 	String TAG = "CancelAppointmentActivity";
 	TextView startCancelDate, startCancelTime, finishCancelDate, finishCancelTime;
-	Button cancelButton;
 	Calendar myCalendar;
 	int currentDay, currentMonth, currentYear;
 	
@@ -43,19 +41,15 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		
 		myCalendar = Calendar.getInstance();
 		
-		//Grab date/time spinners and cancel button 
 		startCancelDate = (TextView) findViewById(R.id.startCancelDate);
 		startCancelTime = (TextView) findViewById(R.id.startCancelTime);
 		finishCancelDate = (TextView) findViewById(R.id.finishCancelDate);
 		finishCancelTime = (TextView) findViewById(R.id.finishCancelTime);
-		cancelButton = (Button) findViewById(R.id.cancelAppointmentsButton);
 		
-		//Set onClick
 		startCancelDate.setOnClickListener(this);
 		startCancelTime.setOnClickListener(this);
 		finishCancelDate.setOnClickListener(this);
 		finishCancelTime.setOnClickListener(this);
-		cancelButton.setOnClickListener(this);
 		
 //		startCancelDate.setOnClickListener(new OnClickListener() {
 //			
@@ -98,10 +92,6 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 			
 		case R.id.finishCancelTime:
 			Log.i(TAG, "Finish Cancel Time");
-			break;
-			
-		case R.id.cancelAppointmentsButton:
-			Log.i(TAG, "Cancel Button");
 			break;
 
 		default:

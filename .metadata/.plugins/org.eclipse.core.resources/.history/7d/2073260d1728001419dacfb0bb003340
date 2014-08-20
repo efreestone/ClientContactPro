@@ -48,14 +48,13 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		startCancelTime = (TextView) findViewById(R.id.startCancelTime);
 		finishCancelDate = (TextView) findViewById(R.id.finishCancelDate);
 		finishCancelTime = (TextView) findViewById(R.id.finishCancelTime);
-		cancelButton = (Button) findViewById(R.id.cancelAppointmentsButton);
+		cancelButton = (Button) findViewById(R.id.cancelButton);
 		
 		//Set onClick
 		startCancelDate.setOnClickListener(this);
 		startCancelTime.setOnClickListener(this);
 		finishCancelDate.setOnClickListener(this);
 		finishCancelTime.setOnClickListener(this);
-		cancelButton.setOnClickListener(this);
 		
 //		startCancelDate.setOnClickListener(new OnClickListener() {
 //			
@@ -98,10 +97,6 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 			
 		case R.id.finishCancelTime:
 			Log.i(TAG, "Finish Cancel Time");
-			break;
-			
-		case R.id.cancelAppointmentsButton:
-			Log.i(TAG, "Cancel Button");
 			break;
 
 		default:
