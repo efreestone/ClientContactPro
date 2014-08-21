@@ -190,9 +190,7 @@ public class NewClientActivity extends Activity{
 			detailsObject.put("emailAddress", emailAddressEntered);
 			detailsObject.put("basicInfo", basicInfoEntered);
 			
-			detailsObject.put("contactMethod", "text");
 			detailsObject.put("nextAppointment", "none"); 
-			detailsObject.put("appointmentType", "none");
 			
 			// clientJSONObject.put(clientNameEntered, detailsObject);
 			// Log.i(TAG, "Client JSON: " + clientJSONObject);

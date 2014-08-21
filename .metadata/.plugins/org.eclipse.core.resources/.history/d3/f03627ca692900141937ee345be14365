@@ -99,7 +99,7 @@ public class ClientsFragment extends Fragment implements OnItemClickListener {
 		
 		//Log.i(TAG, "Item " + position + " clicked");
 		// Grab object selected from ArrayList as a HashMap and split into details strings.
-		selectedClient = JSONData.clientList.get(position); 
+		selectedClient = JSONData.clientList.get(position - 1); 
 		clientName = selectedClient.get("clientName");
 		clientAddress = selectedClient.get("clientAddress");
 		phoneNumber = selectedClient.get("phoneNumber");
@@ -120,8 +120,6 @@ public class ClientsFragment extends Fragment implements OnItemClickListener {
 		clientDetailsIntent.putExtra("basicInfo", basicInfo);
 		clientDetailsIntent.putExtra("nextAppointment", nextAppointment);
 		clientDetailsIntent.putExtra("appointmentType", appointmentType);
-		
-		startActivity(clientDetailsIntent); 
 		
 		if (detailsFragment != null) {
 			startActivity(clientDetailsIntent); 

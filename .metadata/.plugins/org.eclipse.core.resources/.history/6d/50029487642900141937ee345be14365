@@ -46,7 +46,7 @@ public class JSONData {
 		Log.i(TAG, "displayDataFromFile called"); 
 		myContext = MainActivity.myContext;
 		
-		String clientName, clientAddress, phoneNumber, emailAddress, contactMethod, basicInfo, nextAppointment, appointmentType;; 
+		String clientName, nextAppointment; 
 		
 		clientList = new ArrayList<HashMap<String, String>>();
 		appointmentList = new ArrayList<HashMap<String, String>>();
@@ -65,26 +65,13 @@ public class JSONData {
 			for (int i = 0; i < clientsArraySize; i++) {
 				clientName = clientJSONArray.getJSONObject(i).getString("clientName");
 				//Log.i(TAG, "name = " + clientName);
-				clientAddress = clientJSONArray.getJSONObject(i).getString("clientAddress");
-				phoneNumber = clientJSONArray.getJSONObject(i).getString("phoneNumber");
-				emailAddress = clientJSONArray.getJSONObject(i).getString("emailAddress");
-				contactMethod = clientJSONArray.getJSONObject(i).getString("contactMethod");
-				basicInfo = clientJSONArray.getJSONObject(i).getString("basicInfo");
 				nextAppointment = clientJSONArray.getJSONObject(i).getString("nextAppointment");
 				//Log.i(TAG, "next_appointment = " + nextAppointment);
-				appointmentType = clientJSONArray.getJSONObject(i).getString("appointmentType");
 				
 				//Instantiate Hash Map for array and pass in strings with key/value pairs
 				HashMap<String, String> clientDisplayMap = new HashMap<String, String>();
 				clientDisplayMap.put("clientName", clientName);
-				clientDisplayMap.put("clientAddress", clientAddress);
-				clientDisplayMap.put("phoneNumber", phoneNumber);
-				clientDisplayMap.put("emailAddress", emailAddress);
-				clientDisplayMap.put("contactMethod", contactMethod);
-				clientDisplayMap.put("basicInfo", basicInfo);
 				clientDisplayMap.put("nextAppointment", nextAppointment);
-				clientDisplayMap.put("appointmentType", appointmentType);
-				
 				
 				//Sort out all entries that contain an appointment
 				HashMap<String, String> appointmentDisplayMap = new HashMap<String, String>();

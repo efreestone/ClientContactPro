@@ -85,6 +85,14 @@ public class JSONData {
 				clientDisplayMap.put("nextAppointment", nextAppointment);
 				clientDisplayMap.put("appointmentType", appointmentType);
 				
+//				detailsObject.put("clientName", clientNameEntered);
+//				detailsObject.put("clientAddress", clientAddressEntered);
+//				detailsObject.put("phoneNumber", phoneNumberEntered);
+//				detailsObject.put("emailAddress", emailAddressEntered);
+//				detailsObject.put("basicInfo", basicInfoEntered);
+//				
+//				detailsObject.put("nextAppointment", "none"); 
+				
 				
 				//Sort out all entries that contain an appointment
 				HashMap<String, String> appointmentDisplayMap = new HashMap<String, String>();

@@ -66,24 +66,21 @@ public class JSONData {
 				clientName = clientJSONArray.getJSONObject(i).getString("clientName");
 				//Log.i(TAG, "name = " + clientName);
 				clientAddress = clientJSONArray.getJSONObject(i).getString("clientAddress");
-				phoneNumber = clientJSONArray.getJSONObject(i).getString("phoneNumber");
 				emailAddress = clientJSONArray.getJSONObject(i).getString("emailAddress");
 				contactMethod = clientJSONArray.getJSONObject(i).getString("contactMethod");
 				basicInfo = clientJSONArray.getJSONObject(i).getString("basicInfo");
+				phoneNumber = clientJSONArray.getJSONObject(i).getString("phoneNumber");
+				
 				nextAppointment = clientJSONArray.getJSONObject(i).getString("nextAppointment");
-				//Log.i(TAG, "next_appointment = " + nextAppointment);
+				
 				appointmentType = clientJSONArray.getJSONObject(i).getString("appointmentType");
+				//Log.i(TAG, "next_appointment = " + nextAppointment);
+				//, , , , ;
 				
 				//Instantiate Hash Map for array and pass in strings with key/value pairs
 				HashMap<String, String> clientDisplayMap = new HashMap<String, String>();
 				clientDisplayMap.put("clientName", clientName);
-				clientDisplayMap.put("clientAddress", clientAddress);
-				clientDisplayMap.put("phoneNumber", phoneNumber);
-				clientDisplayMap.put("emailAddress", emailAddress);
-				clientDisplayMap.put("contactMethod", contactMethod);
-				clientDisplayMap.put("basicInfo", basicInfo);
 				clientDisplayMap.put("nextAppointment", nextAppointment);
-				clientDisplayMap.put("appointmentType", appointmentType);
 				
 				
 				//Sort out all entries that contain an appointment

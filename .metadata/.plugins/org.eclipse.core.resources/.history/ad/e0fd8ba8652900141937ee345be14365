@@ -82,7 +82,9 @@ public class JSONData {
 				clientDisplayMap.put("emailAddress", emailAddress);
 				clientDisplayMap.put("contactMethod", contactMethod);
 				clientDisplayMap.put("basicInfo", basicInfo);
+				
 				clientDisplayMap.put("nextAppointment", nextAppointment);
+				
 				clientDisplayMap.put("appointmentType", appointmentType);
 				
 				

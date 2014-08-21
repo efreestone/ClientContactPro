@@ -77,13 +77,7 @@ public class JSONData {
 				//Instantiate Hash Map for array and pass in strings with key/value pairs
 				HashMap<String, String> clientDisplayMap = new HashMap<String, String>();
 				clientDisplayMap.put("clientName", clientName);
-				clientDisplayMap.put("clientAddress", clientAddress);
-				clientDisplayMap.put("phoneNumber", phoneNumber);
-				clientDisplayMap.put("emailAddress", emailAddress);
-				clientDisplayMap.put("contactMethod", contactMethod);
-				clientDisplayMap.put("basicInfo", basicInfo);
 				clientDisplayMap.put("nextAppointment", nextAppointment);
-				clientDisplayMap.put("appointmentType", appointmentType);
 				
 				
 				//Sort out all entries that contain an appointment
