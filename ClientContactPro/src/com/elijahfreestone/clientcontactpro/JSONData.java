@@ -44,14 +44,14 @@ public class JSONData {
 	* Display data from file pulls string from locally stored file and creates
 	* ArrayList.
 	*/
-	public static void displayDataFromFile() {  
+	public static void displayDataFromFile(String JSONString) {  
 		Log.i(TAG, "displayDataFromFile called"); 
 		myContext = MainActivity.myContext;
 		
 		String clientName, nextAppointment; 
 		
 		//JSONString = myContext.getString(R.string.clientString); 
-		JSONString = DataManager.readStringFromFile(myContext, myFileName);
+		//JSONString = DataManager.readStringFromFile(myContext, myFileName);
 		
 		//Log.i(TAG, "JSONString = " + JSONString);
 		
@@ -102,11 +102,13 @@ public class JSONData {
 //			newListView.setVisibility(ListView.VISIBLE);
 			
 			//Create simple adapter and set up with array of clients 
-			clientListAdapter = new SimpleAdapter(myContext, 
-					clientList, R.layout.client_listview_row, new String[] {
-							"clientName", "nextAppointment" }, new int[] {
-							R.id.clientName, R.id.nextAppointment }); 
+//			clientListAdapter = new SimpleAdapter(myContext, 
+//					clientList, R.layout.client_listview_row, new String[] {
+//							"clientName", "nextAppointment" }, new int[] {
+//							R.id.clientName, R.id.nextAppointment }); 
 			//ClientsFragment.setAdapter();
+			
+			createClientsAdapter();
 			
 			//ClientsFragment.clientListView.setAdapter(clientListAdapter);   
 			
@@ -142,49 +144,15 @@ public class JSONData {
 		return null;
 		
 		//return clientsObjectFromFile;
-	} //getJSONfromFile close
+	} //getJSONfromFile close	
 	
-	
-//	public static void buildJSONNewClient(String clientNameEntered,
-//			String clientAddressEntered, String phoneNumberEntered,
-//			String emailAddressEntered, String basicInfoEntered){
-//		JSONObject clientJSONObject = new JSONObject();
-//		JSONObject detailsObject = new JSONObject();
-//		
-//		try {
-//			detailsObject.put("clientName", clientNameEntered);
-//			detailsObject.put("clientAddress", clientAddressEntered);
-//			detailsObject.put("phoneNumber", phoneNumberEntered);
-//			detailsObject.put("emailAddress", emailAddressEntered);
-//			detailsObject.put("basicInfo", basicInfoEntered); 
-//			
-//			//clientJSONObject.put(clientNameEntered, detailsObject);
-//			//Log.i(TAG, "Client JSON: " + clientJSONObject);
-//			
-//			clientJSONObject.put(clientNameEntered, detailsObject);
-//			
-//			JSONArray allClientJSONArray = allClientsJSONObject.getJSONArray("clients");
-//			
-//			allClientJSONArray.put(clientJSONObject);
-//			
-//			//allClientsJSONObject.put(clientJSONObject);
-//			
-//			JSONObject newAllClientsObject = new JSONObject();
-//			newAllClientsObject.put("clients", allClientJSONArray);
-//			
-//			Log.i(TAG, "All Clients JSON: " + newAllClientsObject);
-//			
-//			String allClientJSONString = newAllClientsObject.toString();
-//			
-//			myDataManager.writeStringToFile(myContext, myFileName, allClientJSONString); 
-//			
-//		} catch (JSONException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			Log.e(TAG, e.getMessage().toString());
-//		}	
-//	} //buildJSONNewClient close
-	
-	
+	static void createClientsAdapter(){
+		Log.i(TAG, "Create Client Adapter");
+		clientListAdapter = new SimpleAdapter(myContext, clientList,
+				R.layout.client_listview_row, new String[] { "clientName",
+						"nextAppointment" }, new int[] { R.id.clientName,
+						R.id.nextAppointment });
+
+	}
 
 }

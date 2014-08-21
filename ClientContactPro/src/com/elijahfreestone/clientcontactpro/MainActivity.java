@@ -29,6 +29,7 @@ import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,6 +51,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	ListView appointmentsListView;   
 	boolean fileExists;
 	static DataManager myDataManager; 
+	static String JSONString;
 
     /**   
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -59,8 +61,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      * may be best to switch to a
      * {@link android.support.v13.app.FragmentStatePagerAdapter}.
      */   
-    SectionsPagerAdapter mySectionsPagerAdapter;   
-    ViewPager myViewPager;    
+    static SectionsPagerAdapter mySectionsPagerAdapter;   
+    static ViewPager myViewPager;    
     ActionBar myActionBar;
     String[] tabNames = {"Clients", "Appointments"};
 
@@ -111,7 +113,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			
 			@Override 
 			public void onPageSelected(int position) {
-				myActionBar.setSelectedNavigationItem(position);				
+				Log.i(TAG, "onPageSelected position: " + position);
+				myActionBar.setSelectedNavigationItem(position);	
+				((OnRefreshListener) mySectionsPagerAdapter.getItem(position)).onRefresh();
 			}
 			
 			@Override
@@ -187,8 +191,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		File file = this.getFileStreamPath(myFileName);
 		fileExists = file.exists();
 		if (fileExists) {
+			JSONString = DataManager.readStringFromFile(myContext, myFileName);
 			// Display the data to the listview automatically if file exists
-			JSONData.displayDataFromFile();
+			JSONData.displayDataFromFile(JSONString);
 			// JSONData.sendArrayListToWidget();
 			Log.i(TAG, "checkFileExists");
 		} else {
@@ -209,7 +214,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
          */
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
-        }
+        } 
 
 		/*
 		 * getItem is called to instantiate the fragment for the given page.
@@ -262,7 +267,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		//Call method to display client entries
 		if (fileExists) {
 			Log.i(TAG, "onTab file exists");
-			JSONData.displayDataFromFile();  
+			//JSONData.displayDataFromFile();  
 		}
 //		JSONData.displayDataFromFile();  
 	}  
@@ -287,7 +292,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	 */
 	void onNewClientClick(){ 
 		Intent newClientIntent = new Intent(myContext, NewClientActivity.class);
-		startActivity(newClientIntent);
+		//startActivity(newClientIntent);
+		startActivityForResult(newClientIntent, 0);
 	}
 	
 	/*
@@ -319,5 +325,21 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", (DialogInterface.OnClickListener) null);
 		alertDialog.show();
 	} //showLogOutAlert close
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent detailsBackIntent) {
+		Log.i(TAG, "On Activity Result"); 
+		//super.onActivityResult(requestCode, resultCode, detailsBackIntent);
+		if (resultCode == RESULT_OK && requestCode == 0) {
+			Log.i(TAG, "onActivityResult resultCode = OK");
+			if (detailsBackIntent.hasExtra("allClients")) {
+				Log.i(TAG, "Back Intent has extra");
+				String passedAllClientsString = detailsBackIntent.getExtras().getString("allClients");
+				JSONData.displayDataFromFile(passedAllClientsString);
+				//Force view pager to rebuild and in turn refresh client listview
+				myViewPager.setAdapter(mySectionsPagerAdapter); 
+			}
+		}
+	}
 
 }

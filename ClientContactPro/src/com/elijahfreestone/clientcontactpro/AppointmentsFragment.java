@@ -14,6 +14,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +29,7 @@ import android.widget.ListView;
 /**
  * The Class AppointmentsFragment.
  */
-public class AppointmentsFragment extends Fragment implements OnItemClickListener{
+public class AppointmentsFragment extends Fragment implements OnItemClickListener, OnRefreshListener {
 	String TAG = "AppointmentsFragment";
 	static ListView appointmentsListView;
 	Context myContext;
@@ -98,5 +99,11 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 				CancelAppointmentActivity.class);
 		startActivity(cancelButtonIntent);
 	} // onCancelClick close
+
+	@Override
+	public void onRefresh() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

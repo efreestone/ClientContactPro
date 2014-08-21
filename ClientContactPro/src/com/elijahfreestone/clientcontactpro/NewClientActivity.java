@@ -19,16 +19,15 @@ import org.json.JSONObject;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 // TODO: Auto-generated Javadoc
@@ -46,6 +45,8 @@ public class NewClientActivity extends Activity{
 			emailAddressEntered, basicInfoEntered;
 	static String myFileName = MainActivity.myFileName;
 	static JSONObject allClientsJSONObject;
+	String allClientJSONString;
+	ClientsFragment clientsFragment;
 	
 	
 	/* (non-Javadoc)
@@ -119,7 +120,7 @@ public class NewClientActivity extends Activity{
 //							emailAddressEntered, basicInfoEntered);
 					buildJSON();
 					finish();
-					JSONData.displayDataFromFile();
+					//JSONData.displayDataFromFile(allClientJSONString);
 				}
 				
 			}
@@ -203,11 +204,21 @@ public class NewClientActivity extends Activity{
 			JSONObject newAllClientsObject = new JSONObject();
 			newAllClientsObject.put("clients", allClientJSONArray);
 			Log.i(TAG, "All Clients JSON: " + newAllClientsObject);
-			String allClientJSONString = newAllClientsObject.toString();
+			allClientJSONString = newAllClientsObject.toString();
 			myDataManager.writeStringToFile(myContext, myFileName,
 					allClientJSONString);
 			
+			ClientsFragment.clientListView.destroyDrawingCache();
+			ClientsFragment.rootView.destroyDrawingCache();
+			ClientsFragment.clientListView.setVisibility(ListView.INVISIBLE);
+			ClientsFragment.clientListView.setVisibility(ListView.VISIBLE);
 			
+			ClientsFragment clientsFragment = ClientsFragment.getInstance();
+			clientsFragment.refreshFragment();
+			
+			//ClientsFragment.rootView.
+			
+			//JSONData.displayDataFromFile(allClientJSONString);
 			//BaseAdapter listAdapter = ClientsFragment.clientListView.get
 			
 			JSONData.clientListAdapter.notifyDataSetChanged();
@@ -221,5 +232,18 @@ public class NewClientActivity extends Activity{
 	public void refreshList(){
 		JSONData.clientListAdapter.notifyDataSetChanged();
 	}
+	
+	/*
+	 * finish is called when the activity is exited (such as the back button)
+	 * This creates a new intent used to trigger listview refresh
+	 */
+	@Override
+	public void finish() {
+		Log.i("Details Activity", "Finish called");
+		Intent detailsBackIntent = new Intent();
+		detailsBackIntent.putExtra("allClients", allClientJSONString);
+		setResult(RESULT_OK, detailsBackIntent);
+		super.finish();
+	} // finish Close
 
 }
