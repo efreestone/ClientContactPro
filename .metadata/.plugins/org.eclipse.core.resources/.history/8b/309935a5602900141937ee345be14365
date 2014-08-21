@@ -11,9 +11,12 @@
 package com.elijahfreestone.clientcontactpro;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +31,7 @@ import android.widget.ListView;
 /**
  * The Class ClientsFragment.
  */
-public class ClientsFragment extends Fragment implements OnItemClickListener {
+public class ClientsFragment extends Fragment implements OnItemClickListener, OnRefreshListener {
 	static String TAG = "ClientsFragment";
 	static ListView clientListView;
 	public static View footerView;
@@ -63,7 +66,12 @@ public class ClientsFragment extends Fragment implements OnItemClickListener {
 		
 		if (clientListView != null) {  
 			Log.i(TAG, "clientListView != null");  
-			//Set adapter and click listener
+			//setAdapter();
+//			clientListView.destroyDrawingCache();
+//			clientListView.setVisibility(ListView.INVISIBLE);
+//			clientListView.setVisibility(ListView.VISIBLE);
+		    
+			//JSONData.displayDataFromFile(); 
 			clientListView.setAdapter(JSONData.clientListAdapter);
 			clientListView.setOnItemClickListener(this);
 		} else {
@@ -109,4 +117,14 @@ public class ClientsFragment extends Fragment implements OnItemClickListener {
 		startActivity(cancelButtonIntent);
 	} // onCancelClick close
 
+	/*  */
+	@Override
+	public void onRefresh() {
+		//myViewPager.setAdapter(mySectionsPagerAdapter);
+//		MainActivity.myViewPager.setAdapter(MainActivity.mySectionsPagerAdapter);
+//		clientListView.invalidate();
+//		String grabbedJSON = MainActivity.JSONString; 
+//		// TODO Auto-generated method stub
+//		JSONData.displayDataFromFile(grabbedJSON);
+	}
 }

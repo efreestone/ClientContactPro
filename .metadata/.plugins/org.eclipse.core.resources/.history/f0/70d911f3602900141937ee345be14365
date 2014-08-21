@@ -29,11 +29,12 @@ import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.Toast;       
  
 
 // TODO: Auto-generated Javadoc   
@@ -114,6 +115,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			public void onPageSelected(int position) {
 				Log.i(TAG, "onPageSelected position: " + position);
 				myActionBar.setSelectedNavigationItem(position);	
+				((OnRefreshListener) mySectionsPagerAdapter.getItem(position)).onRefresh();
 			}
 			
 			@Override
@@ -131,6 +133,18 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         
         fileExists = checkFileExists();
         
+//		// Check if the file already exists
+//		File file = this.getFileStreamPath(myFileName);
+//		fileExists = file.exists();
+//		if (fileExists) {
+//			// Display the data to the listview automatically if file exists
+//			JSONData.displayDataFromFile();
+//			// JSONData.sendArrayListToWidget();
+//			Log.i("File", "File exists");
+//		} else {
+//			//JSONData.checkDeviceForFile(fileExists);
+//			Log.i("File", "File DOESN'T exist!!");
+//		}
     } //onCreate close  
 
     /* (non-Javadoc)
@@ -252,9 +266,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		myViewPager.setCurrentItem(tab.getPosition());
 		//Call method to display client entries
 		if (fileExists) {
-			Log.i(TAG, "onTab file exists"); 
-		} 
-	} //onTabSelected close 
+			Log.i(TAG, "onTab file exists");
+			//JSONData.displayDataFromFile();  
+		}
+//		JSONData.displayDataFromFile();  
+	}  
 
 	/* (non-Javadoc)
 	 * @see android.app.ActionBar.TabListener#onTabUnselected(android.app.ActionBar.Tab, android.app.FragmentTransaction)
@@ -278,7 +294,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		Intent newClientIntent = new Intent(myContext, NewClientActivity.class);
 		//startActivity(newClientIntent);
 		startActivityForResult(newClientIntent, 0);
-	} //onNewClientClick close
+	}
 	
 	/*
 	 * Log User Out is called when the Log Out button in the action bar is clicked.
@@ -324,6 +340,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				myViewPager.setAdapter(mySectionsPagerAdapter); 
 			}
 		}
-	} //onActivityResult close
+	}
 
 }
