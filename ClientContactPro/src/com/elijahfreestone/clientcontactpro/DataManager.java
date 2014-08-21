@@ -50,11 +50,13 @@ public class DataManager {
 			fileOutputStream.write(content.getBytes());
 			Log.i("writeStringToFile", "Write Successful!");
 			fileName = MainActivity.myFileName;
+			//JSONData.clientListAdapter.notifyDataSetChanged();
 		} catch (FileNotFoundException e) {
 			Log.e("writeStringToFile", e.getMessage().toString());
 		} catch (IOException e) {
 			Log.e("writeStringToFile", e.getMessage().toString());
 		}
+		
 		return result;
 	} // writeStringToFile Close
 	

@@ -1,0 +1,149 @@
+/*
+ * @author	Elijah Freestone 
+ *
+ * Project	ClientContactPro
+ * 
+ * Package	com.elijahfreestone.clientcontactpro
+ * 
+ * Date		Aug 14, 2014
+ */
+
+package com.elijahfreestone.clientcontactpro;
+
+import java.io.File;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.app.ActionBar;
+import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class NewClientActivity.
+ */
+public class NewClientActivity extends Activity{
+	String TAG = "NewClientActivity";
+	Context myContext;
+	DataManager myDataManager;
+	boolean requiredFields;
+	EditText clientNameEditText, clientAddressEditText, phoneNumberEditText,
+			emailAddressEditText, basicInfoEditText;
+	String clientNameEntered, clientAddressEntered, phoneNumberEntered,
+			emailAddressEntered, basicInfoEntered;
+	String myFileName = MainActivity.myFileName;
+	JSONObject allClientsJSONObject;
+	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_new_client);
+		//Grab instance of data manager
+		myDataManager = DataManager.getInstance();
+		myContext = this;
+		
+		JSONData.checkDeviceForFile();
+		  
+		//Grab inputs
+		clientNameEditText = (EditText) findViewById(R.id.newClientName);
+		clientAddressEditText = (EditText) findViewById(R.id.newClientAddress);
+		phoneNumberEditText = (EditText) findViewById(R.id.newPhoneNumber);
+		//Format phone number as it is being entered
+		phoneNumberEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher()); 
+		emailAddressEditText = (EditText) findViewById(R.id.newEmailAddress);
+		basicInfoEditText = (EditText) findViewById(R.id.newBasicInfo); 
+		
+		// Grab custom done/cancel action bar
+		View customActionBarView = getLayoutInflater().inflate(
+				R.layout.custom_action_bar, new LinearLayout(myContext), false);
+		// Cancel button
+		View cancelActionButton = customActionBarView
+				.findViewById(R.id.actionbarCancelButton);
+		cancelActionButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.i(TAG, "Cancel Action Button clicked");
+				// Dismiss New Client
+				finish();
+			}
+		});
+
+		// Done button
+		View doneActionButton = customActionBarView
+				.findViewById(R.id.actionbarDoneButton);
+		doneActionButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.i(TAG, "Done Action Button clicked");
+				clientNameEntered = clientNameEditText.getText().toString();
+				clientAddressEntered = clientAddressEditText.getText().toString();
+				phoneNumberEntered = phoneNumberEditText.getText().toString();
+				emailAddressEntered = emailAddressEditText.getText().toString();
+				basicInfoEntered = basicInfoEditText.getText().toString();
+				//Check if required fields have been added
+				checkRequiredFields();
+				
+				Log.i(TAG, "Required Fields = " + requiredFields);
+				
+				if (requiredFields) {
+//					Log.i(TAG, "Name: " + clientNameEntered + ", Address: "
+//							+ clientAddressEntered + "\nPhone Number: "
+//							+ phoneNumberEntered + ", Email: "
+//							+ emailAddressEntered + "\n" + "Basic Info: "
+//							+ basicInfoEntered); 
+					buildJSON();
+					finish();
+				}
+				
+			}
+		});
+
+		/*
+		 * Grab action bar and set params to show custom done/cancel bar and
+		 * hide title and home icon
+		 */
+		ActionBar customActionBar = getActionBar();
+		customActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM,
+				ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME
+						| ActionBar.DISPLAY_SHOW_TITLE);
+		customActionBar.setCustomView(customActionBarView,
+				new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+						ViewGroup.LayoutParams.MATCH_PARENT));
+
+	} //onCreate close
+	
+	/*
+	 * Check that the name field and either phone number or email are entered.
+	 * Also checks length of phone number to make sure it is 10 digits before
+	 * formatting (14 after)
+	 */
+	boolean checkRequiredFields(){
+		if (!clientNameEntered.equalsIgnoreCase("")) {
+			if (!phoneNumberEntered.equalsIgnoreCase("") && phoneNumberEntered.length() == 14 || !emailAddressEntered.equalsIgnoreCase("")) {
+				Log.i(TAG, "Phone number length = " + phoneNumberEntered.length());
+				requiredFields = true;
+			}
+			
+		}
+		return requiredFields;
+	} //checkRequiredFields close
+	
+	
+	
+	
+	
+}

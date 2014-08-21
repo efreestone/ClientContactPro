@@ -10,6 +10,7 @@
 
 package com.elijahfreestone.clientcontactpro;
 
+import java.io.File;
 import java.util.Locale;
 
 import android.app.ActionBar;
@@ -47,6 +48,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	static String myFileName = "string_from_url.txt";
 	ListView clientListView;
 	ListView appointmentsListView;   
+	boolean fileExists;
+	static DataManager myDataManager; 
 
     /**   
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -72,6 +75,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         myContext = this;            
         
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
+        
+        myDataManager = DataManager.getInstance();
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -90,7 +95,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         String userName = sharedPreferences.getString("name", "user");
         Intent loginIntent = new Intent(this, LoginActivity.class);
         if (!isLoggedIn) {
-        	startActivity(loginIntent); 
+        	startActivity(loginIntent);  
 		} else {
 			Toast.makeText(getApplicationContext(), "Welcome, " + userName, Toast.LENGTH_LONG).show();
 		} 
@@ -121,11 +126,26 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				
 			}
 		}); //OnPageChangeListener close
+        
+        fileExists = checkFileExists();
+        
+//		// Check if the file already exists
+//		File file = this.getFileStreamPath(myFileName);
+//		fileExists = file.exists();
+//		if (fileExists) {
+//			// Display the data to the listview automatically if file exists
+//			JSONData.displayDataFromFile();
+//			// JSONData.sendArrayListToWidget();
+//			Log.i("File", "File exists");
+//		} else {
+//			//JSONData.checkDeviceForFile(fileExists);
+//			Log.i("File", "File DOESN'T exist!!");
+//		}
     } //onCreate close  
 
     /* (non-Javadoc)
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
-     */
+     */ 
     @Override     
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -161,8 +181,22 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         
         return super.onOptionsItemSelected(item);
     } //onOptionsItemSelected close
-
     
+    boolean checkFileExists() {
+		// Check if the file already exists
+		File file = this.getFileStreamPath(myFileName);
+		fileExists = file.exists();
+		if (fileExists) {
+			// Display the data to the listview automatically if file exists
+			JSONData.displayDataFromFile();
+			// JSONData.sendArrayListToWidget();
+			Log.i(TAG, "checkFileExists");
+		} else {
+			// JSONData.checkDeviceForFile(fileExists);
+			Log.i(TAG, "File DOESN'T exist!!");
+		}
+		return fileExists;
+	} //checkFileExists close 
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -226,9 +260,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		Log.i(TAG, "onTabSelected");
 		myViewPager.setCurrentItem(tab.getPosition());
 		//Call method to display client entries
-		JSONData.displayDataFromFile(); 
+		if (fileExists) {
+			Log.i(TAG, "onTab file exists");
+			JSONData.displayDataFromFile();  
+		}
+//		JSONData.displayDataFromFile();  
 	}  
- 
 
 	/* (non-Javadoc)
 	 * @see android.app.ActionBar.TabListener#onTabUnselected(android.app.ActionBar.Tab, android.app.FragmentTransaction)

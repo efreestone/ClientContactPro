@@ -10,7 +10,6 @@
 
 package com.elijahfreestone.clientcontactpro;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -52,11 +51,17 @@ public class ClientsFragment extends Fragment implements OnItemClickListener{
 		clientListView = (ListView) rootView.findViewById(R.id.clientListView); 	
 		
 		if (clientListView != null) {  
-			Log.i(TAG, "clientListView != null");   
+			Log.i(TAG, "clientListView != null");  
+			//setAdapter();
+//			clientListView.destroyDrawingCache();
+//			clientListView.setVisibility(ListView.INVISIBLE);
+//			clientListView.setVisibility(ListView.VISIBLE);
+		    
 			//JSONData.displayDataFromFile(); 
 			clientListView.setAdapter(JSONData.clientListAdapter);
 			clientListView.setOnItemClickListener(this);
-			//clientListView.addFooterView(footerView);
+			//JSONData.clientListAdapter.notifyDataSetChanged();
+			//clientListView.addFooterView(footerView); 
 		} else {
 			Log.i(TAG, "clientListView == null"); 
 		} 
@@ -70,12 +75,12 @@ public class ClientsFragment extends Fragment implements OnItemClickListener{
 				//onCancelClick creates a basic intent and starts the cancel activity
 				onCancelClick(v);
 			}
-		});
+		}); 
 		
 		//clientListView.setOnItemClickListener(this);
 		
 		return rootView;      
-	} //onCreateView close 
+	} //onCreateView close  
 
 	/* (non-Javadoc)
 	 * @see android.widget.AdapterView.OnItemClickListener#onItemClick(android.widget.AdapterView, android.view.View, int, long)
@@ -101,4 +106,14 @@ public class ClientsFragment extends Fragment implements OnItemClickListener{
 				CancelAppointmentActivity.class);
 		startActivity(cancelButtonIntent);
 	} // onCancelClick close
+	
+	static void setAdapter(){
+		clientListView.destroyDrawingCache();
+		clientListView.setVisibility(ListView.INVISIBLE);
+		clientListView.setVisibility(ListView.VISIBLE);
+	    
+		//JSONData.displayDataFromFile(); 
+		clientListView.setAdapter(JSONData.clientListAdapter);
+		//clientListView.setOnItemClickListener(this);
+	}
 }

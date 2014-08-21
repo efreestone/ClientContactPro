@@ -25,24 +25,28 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class NewClientActivity.
  */
 public class NewClientActivity extends Activity{
-	String TAG = "NewClientActivity";
-	Context myContext;
-	DataManager myDataManager;
+	static String TAG = "NewClientActivity";
+	static Context myContext;
+	static DataManager myDataManager;
 	boolean requiredFields;
 	EditText clientNameEditText, clientAddressEditText, phoneNumberEditText,
 			emailAddressEditText, basicInfoEditText;
 	String clientNameEntered, clientAddressEntered, phoneNumberEntered,
 			emailAddressEntered, basicInfoEntered;
-	String myFileName = MainActivity.myFileName;
-	JSONObject allClientsJSONObject;
+	static String myFileName = MainActivity.myFileName;
+	static JSONObject allClientsJSONObject;
+	
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -56,7 +60,12 @@ public class NewClientActivity extends Activity{
 		myDataManager = DataManager.getInstance();
 		myContext = this;
 		
-		checkDeviceForFile();
+//		File file = this.getFileStreamPath(myFileName);
+//		boolean fileExists = file.exists();
+//		if (!fileExists) {
+//			checkDeviceForFile();
+//		}
+		checkDeviceForFile(); 
 		  
 		//Grab inputs
 		clientNameEditText = (EditText) findViewById(R.id.newClientName);
@@ -105,8 +114,12 @@ public class NewClientActivity extends Activity{
 //							+ phoneNumberEntered + ", Email: "
 //							+ emailAddressEntered + "\n" + "Basic Info: "
 //							+ basicInfoEntered); 
+//					JSONData.buildJSONNewClient(clientNameEntered,
+//							clientAddressEntered, phoneNumberEntered,
+//							emailAddressEntered, basicInfoEntered);
 					buildJSON();
 					finish();
+					JSONData.displayDataFromFile();
 				}
 				
 			}
@@ -131,7 +144,7 @@ public class NewClientActivity extends Activity{
 	 * Also checks length of phone number to make sure it is 10 digits before
 	 * formatting (14 after)
 	 */
-	boolean checkRequiredFields(){
+	boolean checkRequiredFields(){ 
 		if (!clientNameEntered.equalsIgnoreCase("")) {
 			if (!phoneNumberEntered.equalsIgnoreCase("") && phoneNumberEntered.length() == 14 || !emailAddressEntered.equalsIgnoreCase("")) {
 				Log.i(TAG, "Phone number length = " + phoneNumberEntered.length());
@@ -140,7 +153,7 @@ public class NewClientActivity extends Activity{
 			
 		}
 		return requiredFields;
-	} //checkRequiredFields close
+	} //checkRequiredFields close	
 	
 	public void checkDeviceForFile() {
 		// Check if the file already exists
@@ -149,12 +162,12 @@ public class NewClientActivity extends Activity{
 		String stringFromFile = "{\"clients\":[]}";
 		if (fileExists) {
 			// Display the data to the listview automatically if file exists
-			//JSONData.displayDataFromFile();
+			// JSONData.displayDataFromFile();
 			// JSONData.sendArrayListToWidget();
 			stringFromFile = DataManager.readStringFromFile(myContext, myFileName);
 			allClientsJSONObject = JSONData.getJSONFromFile(stringFromFile);
 			Log.i("File", "File exists");
-		} else { 
+		} else {
 			try {
 				allClientsJSONObject = new JSONObject(stringFromFile);
 				Log.i(TAG, "allClientsJSONObject" + allClientsJSONObject);
@@ -163,15 +176,14 @@ public class NewClientActivity extends Activity{
 				e.printStackTrace();
 			}
 			Log.i("File", "File DOESN'T exist!!");
-			myDataManager.writeStringToFile(myContext, myFileName, stringFromFile);
+			myDataManager.writeStringToFile(myContext, myFileName,
+					stringFromFile);
 		}
-		
 	}
-	
-	void buildJSON(){
+
+	void buildJSON() {
 		JSONObject clientJSONObject = new JSONObject();
 		JSONObject detailsObject = new JSONObject();
-		
 		try {
 			detailsObject.put("clientName", clientNameEntered);
 			detailsObject.put("clientAddress", clientAddressEntered);
@@ -179,31 +191,35 @@ public class NewClientActivity extends Activity{
 			detailsObject.put("emailAddress", emailAddressEntered);
 			detailsObject.put("basicInfo", basicInfoEntered);
 			
-			//clientJSONObject.put(clientNameEntered, detailsObject);
-			//Log.i(TAG, "Client JSON: " + clientJSONObject);
+			detailsObject.put("nextAppointment", "none"); 
 			
+			// clientJSONObject.put(clientNameEntered, detailsObject);
+			// Log.i(TAG, "Client JSON: " + clientJSONObject);
 			clientJSONObject.put(clientNameEntered, detailsObject);
-			
 			JSONArray allClientJSONArray = allClientsJSONObject.getJSONArray("clients");
-			
-			allClientJSONArray.put(detailsObject);
-			
-			//allClientsJSONObject.put(clientJSONObject);
+			allClientJSONArray.put(detailsObject); 
+			// allClientsJSONObject.put(clientJSONObject); 
 			
 			JSONObject newAllClientsObject = new JSONObject();
 			newAllClientsObject.put("clients", allClientJSONArray);
-			
 			Log.i(TAG, "All Clients JSON: " + newAllClientsObject);
-			
 			String allClientJSONString = newAllClientsObject.toString();
+			myDataManager.writeStringToFile(myContext, myFileName,
+					allClientJSONString);
 			
-			myDataManager.writeStringToFile(myContext, myFileName, allClientJSONString); 
 			
+			//BaseAdapter listAdapter = ClientsFragment.clientListView.get
+			
+			JSONData.clientListAdapter.notifyDataSetChanged();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			Log.e(TAG, e.getMessage().toString());
-		}	
-	} //buildJSON close
+		}
+	} // buildJSON close
 	
+	public void refreshList(){
+		JSONData.clientListAdapter.notifyDataSetChanged();
+	}
+
 }
