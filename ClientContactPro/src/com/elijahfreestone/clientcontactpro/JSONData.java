@@ -36,7 +36,8 @@ public class JSONData {
 	static BaseAdapter appointmentListAdapter;  
 	static String myFileName = MainActivity.myFileName;
 	static JSONObject allClientsJSONObject;
-	static DataManager myDataManager;
+	static DataManager myDataManager = DataManager.getInstance();
+	static String allClientJSONString;
 	
 	/*
 	* Display data from file pulls string from locally stored file and creates
@@ -156,5 +157,45 @@ public class JSONData {
 						R.id.appNextAppointment, R.id.appClientName });
 
 	} //createAppointmentsAdapter close
+	
+	static void buildJSON(String clientNameEntered, String clientAddressEntered, String phoneNumberEntered, String emailAddressEntered, String basicInfoEntered) {
+		JSONObject clientJSONObject = new JSONObject();
+		JSONObject detailsObject = new JSONObject();
+		try {
+			detailsObject.put("clientName", clientNameEntered);
+			detailsObject.put("clientAddress", clientAddressEntered);
+			detailsObject.put("phoneNumber", phoneNumberEntered);
+			detailsObject.put("emailAddress", emailAddressEntered);
+			detailsObject.put("basicInfo", basicInfoEntered);
+			
+			detailsObject.put("contactMethod", "text");
+			detailsObject.put("nextAppointment", "none"); 
+			detailsObject.put("appointmentType", "none");
+			
+			// clientJSONObject.put(clientNameEntered, detailsObject);
+			// Log.i(TAG, "Client JSON: " + clientJSONObject);
+			clientJSONObject.put(clientNameEntered, detailsObject);
+			JSONArray allClientJSONArray = allClientsJSONObject.getJSONArray("clients");
+			allClientJSONArray.put(detailsObject); 
+			// allClientsJSONObject.put(clientJSONObject); 
+			
+			JSONObject newAllClientsObject = new JSONObject();
+			newAllClientsObject.put("clients", allClientJSONArray);
+			Log.i(TAG, "All Clients JSON: " + newAllClientsObject);
+			allClientJSONString = newAllClientsObject.toString();
+			
+			if (!allClientJSONString.equalsIgnoreCase("")) {
+				myDataManager.writeStringToFile(myContext, myFileName, allClientJSONString);
+			} else {
+				Log.i(TAG, "allClientJSONString is blank");
+			}
+			
+
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Log.e(TAG, e.getMessage().toString());
+		}
+	} // buildJSON close
 
 }

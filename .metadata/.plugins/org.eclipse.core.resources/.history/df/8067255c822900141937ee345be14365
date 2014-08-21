@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <TextView 
+        android:id="@+id/newAppointmentTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="@string/clientDetailsTitle" />
+    
+    <Button 
+        android:id="@+id/editClientbutton"
+        android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:layout_margin="5dp"
+		android:background="@drawable/button_background"
+		android:clickable="true"
+		android:text="@string/editClientButtonString"
+		android:width="200dp" />
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp" >
+        
+        <TextView
+            android:id="@+id/newAppClientName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/clientNameHint" />
+        
+        <TextView 
+            android:id="@+id/newAppPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/phoneNumberHint" />
+        
+        <TextView 
+            android:id="@+id/newAppEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/emailAddresshint" />
+        
+        <TextView 
+            android:id="@+id/radioTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/contactMethodTitle"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        
+        <RadioGroup 
+            android:id="@+id/contactRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal" >
+            <RadioButton 
+                android:id="@+id/textRadio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="@string/textContactLabel" />
+            <RadioButton 
+                android:id="@+id/emailRadio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/emailContactLabel" />
+        </RadioGroup>
+    </LinearLayout>
+    
+    <TextView 
+        android:id="@+id/appDetailsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="@string/appointmentDetailsHint" />
+    
+    <EditText 
+        android:id="@+id/appointmentTypeET"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:hint="@string/appointmentTypeHint" />
+    
+    <TextView 
+        android:id="@+id/startTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/appStartTitle" />
+    
+    <LinearLayout 
+        android:id="@+id/startDateLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:orientation="horizontal" >
+        
+        <TextView 
+            android:id="@+id/newAppStartDateTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" 
+            style="@android:style/Widget.DeviceDefault.Light.Spinner"
+            android:text="@string/spinnerStartDatePrompt" />
+        
+        <TextView 
+            android:id="@+id/newAppStartTimeTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" 
+            style="@android:style/Widget.DeviceDefault.Light.Spinner"
+            android:text="@string/spinnerTimePrompt" />
+        
+    </LinearLayout>
+    
+    <TextView 
+        android:id="@+id/endTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/appEndTitle" />
+    
+    <LinearLayout 
+        android:id="@+id/endDateLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:orientation="horizontal" >
+        
+        <TextView 
+            android:id="@+id/newAppFinishDateTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" 
+            style="@android:style/Widget.DeviceDefault.Light.Spinner"
+            android:text="@string/spinnerFinishDatePrompt" />
+        
+        <TextView 
+            android:id="@+id/newAppFinishTimeTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" 
+            style="@android:style/Widget.DeviceDefault.Light.Spinner"
+            android:text="@string/spinnerTimePrompt" />
+        
+    </LinearLayout>
+    
+    <EditText 
+        android:id="@+id/appointmentAddressET"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:hint="@string/appointmentAddressHint" />
+
+</LinearLayout>

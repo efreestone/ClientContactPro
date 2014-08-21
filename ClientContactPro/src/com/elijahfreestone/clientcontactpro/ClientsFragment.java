@@ -92,15 +92,14 @@ public class ClientsFragment extends Fragment implements OnItemClickListener {
 	 * @see android.widget.AdapterView.OnItemClickListener#onItemClick(android.widget.AdapterView, android.view.View, int, long)
 	 */
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) { 
-		ClientDetailsFragment detailsFragment = (ClientDetailsFragment) getFragmentManager()
-				.findFragmentById(R.id.clientDetailsFragment);
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) { 
+		// ClientDetailsFragment detailsFragment = (ClientDetailsFragment)
+		// getFragmentManager().findFragmentById(R.id.clientDetailsFragment);
 		
 		//Log.i(TAG, "Item " + position + " clicked");
 		// Grab object selected from ArrayList as a HashMap and split into details strings.
 		selectedClient = JSONData.clientList.get(position); 
-		clientName = selectedClient.get("clientName");
+		clientName = selectedClient.get("clientName"); 
 		clientAddress = selectedClient.get("clientAddress");
 		phoneNumber = selectedClient.get("phoneNumber");
 		emailAddress = selectedClient.get("emailAddress");
@@ -110,7 +109,7 @@ public class ClientsFragment extends Fragment implements OnItemClickListener {
 		appointmentType = selectedClient.get("appointmentType");
 		Log.i(TAG, "Client Selected: " + clientName);
 		
-		// Create explicit intent and pass dvd details as extras
+		// Create explicit intent and pass details as extras
 		Intent clientDetailsIntent = new Intent(MainActivity.myContext, ClientDetails.class);
 		clientDetailsIntent.putExtra("clientName", clientName);
 		clientDetailsIntent.putExtra("clientAddress", clientAddress);
@@ -119,14 +118,12 @@ public class ClientsFragment extends Fragment implements OnItemClickListener {
 		clientDetailsIntent.putExtra("contactMethod", contactMethod);
 		clientDetailsIntent.putExtra("basicInfo", basicInfo);
 		clientDetailsIntent.putExtra("nextAppointment", nextAppointment);
-		clientDetailsIntent.putExtra("appointmentType", appointmentType);
+		clientDetailsIntent.putExtra("appointmentType", appointmentType); 
+		clientDetailsIntent.putExtra("clientPosition", position);
+		clientDetailsIntent.putExtra("clientID", id);
 		
-		startActivity(clientDetailsIntent); 
-		
-		if (detailsFragment != null) {
+		if (clientDetailsIntent != null) {
 			startActivity(clientDetailsIntent); 
-		} else {
-			Log.i(TAG, "Details Frag Null!!");
 		}
 		
 	} //onItemClick close

@@ -12,7 +12,6 @@ package com.elijahfreestone.clientcontactpro;
 
 import java.io.File;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,7 +27,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -61,11 +59,8 @@ public class NewClientActivity extends Activity{
 		myDataManager = DataManager.getInstance();
 		myContext = this;
 		
-//		File file = this.getFileStreamPath(myFileName);
-//		boolean fileExists = file.exists();
-//		if (!fileExists) {
-//			checkDeviceForFile();
-//		}
+		//Check if the file exists on the device.
+		//Create a blank one if it does not
 		checkDeviceForFile(); 
 		  
 		//Grab inputs
@@ -118,7 +113,8 @@ public class NewClientActivity extends Activity{
 //					JSONData.buildJSONNewClient(clientNameEntered,
 //							clientAddressEntered, phoneNumberEntered,
 //							emailAddressEntered, basicInfoEntered);
-					buildJSON();
+					JSONData.buildJSON(clientNameEntered, clientAddressEntered, phoneNumberEntered,
+							emailAddressEntered, basicInfoEntered);
 					finish();
 					//JSONData.displayDataFromFile(allClientJSONString);
 				}
@@ -164,11 +160,11 @@ public class NewClientActivity extends Activity{
 		if (fileExists) {
 			// Display the data to the listview automatically if file exists
 			stringFromFile = DataManager.readStringFromFile(myContext, myFileName);
-			allClientsJSONObject = JSONData.getJSONFromFile(stringFromFile);
+			JSONData.allClientsJSONObject = JSONData.getJSONFromFile(stringFromFile);
 			Log.i("File", "File exists");
 		} else {
 			try {
-				allClientsJSONObject = new JSONObject(stringFromFile);
+				JSONData.allClientsJSONObject = new JSONObject(stringFromFile);
 				Log.i(TAG, "allClientsJSONObject" + allClientsJSONObject);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -180,59 +176,51 @@ public class NewClientActivity extends Activity{
 		}
 	}
 
-	void buildJSON() {
-		JSONObject clientJSONObject = new JSONObject();
-		JSONObject detailsObject = new JSONObject();
-		try {
-			detailsObject.put("clientName", clientNameEntered);
-			detailsObject.put("clientAddress", clientAddressEntered);
-			detailsObject.put("phoneNumber", phoneNumberEntered);
-			detailsObject.put("emailAddress", emailAddressEntered);
-			detailsObject.put("basicInfo", basicInfoEntered);
-			
-			detailsObject.put("contactMethod", "text");
-			detailsObject.put("nextAppointment", "none"); 
-			detailsObject.put("appointmentType", "none");
-			
-			// clientJSONObject.put(clientNameEntered, detailsObject);
-			// Log.i(TAG, "Client JSON: " + clientJSONObject);
-			clientJSONObject.put(clientNameEntered, detailsObject);
-			JSONArray allClientJSONArray = allClientsJSONObject.getJSONArray("clients");
-			allClientJSONArray.put(detailsObject); 
-			// allClientsJSONObject.put(clientJSONObject); 
-			
-			JSONObject newAllClientsObject = new JSONObject();
-			newAllClientsObject.put("clients", allClientJSONArray);
-			Log.i(TAG, "All Clients JSON: " + newAllClientsObject);
-			allClientJSONString = newAllClientsObject.toString();
-			myDataManager.writeStringToFile(myContext, myFileName,
-					allClientJSONString);
-			
-			ClientsFragment.clientListView.destroyDrawingCache();
-			ClientsFragment.rootView.destroyDrawingCache();
-			ClientsFragment.clientListView.setVisibility(ListView.INVISIBLE);
-			ClientsFragment.clientListView.setVisibility(ListView.VISIBLE);
-
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			Log.e(TAG, e.getMessage().toString());
-		}
-	} // buildJSON close
+//	void buildJSON() {
+//		JSONObject clientJSONObject = new JSONObject();
+//		JSONObject detailsObject = new JSONObject();
+//		try {
+//			detailsObject.put("clientName", clientNameEntered);
+//			detailsObject.put("clientAddress", clientAddressEntered);
+//			detailsObject.put("phoneNumber", phoneNumberEntered);
+//			detailsObject.put("emailAddress", emailAddressEntered);
+//			detailsObject.put("basicInfo", basicInfoEntered);
+//			
+//			detailsObject.put("contactMethod", "text");
+//			detailsObject.put("nextAppointment", "none"); 
+//			detailsObject.put("appointmentType", "none");
+//			
+//			// clientJSONObject.put(clientNameEntered, detailsObject);
+//			// Log.i(TAG, "Client JSON: " + clientJSONObject);
+//			clientJSONObject.put(clientNameEntered, detailsObject);
+//			JSONArray allClientJSONArray = allClientsJSONObject.getJSONArray("clients");
+//			allClientJSONArray.put(detailsObject); 
+//			// allClientsJSONObject.put(clientJSONObject); 
+//			
+//			JSONObject newAllClientsObject = new JSONObject();
+//			newAllClientsObject.put("clients", allClientJSONArray);
+//			Log.i(TAG, "All Clients JSON: " + newAllClientsObject);
+//			allClientJSONString = newAllClientsObject.toString();
+//			myDataManager.writeStringToFile(myContext, myFileName,
+//					allClientJSONString);
+//
+//		} catch (JSONException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			Log.e(TAG, e.getMessage().toString());
+//		}
+//	} // buildJSON close
 	
-	public void refreshList(){
-		JSONData.clientListAdapter.notifyDataSetChanged();
-	}
 	
 	/*
 	 * finish is called when the activity is exited (such as the back button)
-	 * This creates a new intent used to trigger listview refresh
+	 * This creates a new intent used to force trigger listview refresh
 	 */
 	@Override
 	public void finish() {
 		Log.i("Details Activity", "Finish called");
 		Intent detailsBackIntent = new Intent();
-		detailsBackIntent.putExtra("allClients", allClientJSONString);
+		detailsBackIntent.putExtra("allClients", JSONData.allClientJSONString);
 		setResult(RESULT_OK, detailsBackIntent);
 		super.finish();
 	} // finish Close

@@ -27,6 +27,8 @@ public class ClientDetails extends Activity {
 	Context myContext = MainActivity.myContext;
 	String clientName, clientAddress, phoneNumber, emailAddress, contactMethod, basicInfo;
 	String nextAppointment, appointmentType;
+	int clientPosition;
+	long clientID;
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -50,6 +52,13 @@ public class ClientDetails extends Activity {
 		basicInfo = clientDetailsIntent.getStringExtra("basicInfo");
 		nextAppointment = clientDetailsIntent.getStringExtra("nextAppointment");
 		appointmentType = clientDetailsIntent.getStringExtra("appointmentType");
+		
+		clientPosition = clientDetailsIntent.getIntExtra("clientPosition", 1);
+		//Log.i(TAG, "clientPosition: " + clientPosition);
+		clientID = clientDetailsIntent.getLongExtra("clientID", 1);
+		//Log.i(TAG, "clientID: " + clientID);
+		
+		
 		
 		if (clientDetailsIntent != null) {
 			//Log.i(TAG, "Existing Client Details Intent");
@@ -103,8 +112,25 @@ public class ClientDetails extends Activity {
      * Starts New Appointment Activity and passes client info
      */
     void onPlusClick(){
+    	// Create explicit intent and pass details as extras
     	Intent newAppointmentIntent = new Intent(myContext, NewAppointmentActivity.class);
-		startActivity(newAppointmentIntent);
+    	newAppointmentIntent.putExtra("clientName", clientName);
+    	newAppointmentIntent.putExtra("clientAddress", clientAddress);
+    	newAppointmentIntent.putExtra("phoneNumber", phoneNumber);
+    	newAppointmentIntent.putExtra("emailAddress", emailAddress);
+    	newAppointmentIntent.putExtra("contactMethod", contactMethod);
+    	newAppointmentIntent.putExtra("basicInfo", basicInfo);
+
+    	newAppointmentIntent.putExtra("nextAppointment", nextAppointment);
+    	newAppointmentIntent.putExtra("appointmentType", appointmentType);
+    	
+    	newAppointmentIntent.putExtra("clientPosition", clientPosition);
+    	newAppointmentIntent.putExtra("clientID", clientID);
+		
+    	if (newAppointmentIntent != null) {
+    		startActivity(newAppointmentIntent);
+		}
+				
     } //onPlusClick close
 
 }

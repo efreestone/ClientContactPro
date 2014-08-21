@@ -32,21 +32,21 @@
         android:paddingRight="50dp" >
         
         <TextView
-            android:id="@+id/clientName"
+            android:id="@+id/newAppClientName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:text="@string/clientNameHint" />
         
         <TextView 
-            android:id="@+id/phoneNumber"
+            android:id="@+id/newAppPhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:text="@string/phoneNumberHint" />
         
         <TextView 
-            android:id="@+id/emailAddress"
+            android:id="@+id/newAppEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
@@ -113,10 +113,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="20dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:orientation="horizontal" >
         
         <TextView 
-            android:id="@+id/appStartDate"
+            android:id="@+id/newAppStartDateTV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2" 
@@ -124,7 +126,7 @@
             android:text="@string/spinnerStartDatePrompt" />
         
         <TextView 
-            android:id="@+id/appStartTime"
+            android:id="@+id/newAppStartTimeTV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" 
@@ -145,10 +147,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="20dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:orientation="horizontal" >
         
         <TextView 
-            android:id="@+id/appFinishDate"
+            android:id="@+id/newAppFinishDateTV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2" 
@@ -156,7 +160,7 @@
             android:text="@string/spinnerFinishDatePrompt" />
         
         <TextView 
-            android:id="@+id/appFinishTime"
+            android:id="@+id/newAppFinishTimeTV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" 
