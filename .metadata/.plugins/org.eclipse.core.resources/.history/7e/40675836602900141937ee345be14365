@@ -42,6 +42,10 @@ public class ClientsFragment extends Fragment implements OnItemClickListener, On
 	String clientName, clientAddress, phoneNumber, emailAddress, contactMethod, basicInfo;
 	String nextAppointment, appointmentType;
 	
+//	// Create Constructor
+//	private ClientsFragment(){
+//	}
+	
 	// Create getInstance method and check if instance exists
 	public static ClientsFragment getInstance() {
 		if (clientsFragmentInstance == null) {
@@ -74,6 +78,8 @@ public class ClientsFragment extends Fragment implements OnItemClickListener, On
 			//JSONData.displayDataFromFile(); 
 			clientListView.setAdapter(JSONData.clientListAdapter);
 			clientListView.setOnItemClickListener(this);
+			//JSONData.clientListAdapter.notifyDataSetChanged();
+			//clientListView.addFooterView(footerView); 
 		} else {
 			Log.i(TAG, "clientListView == null"); 
 		} 
@@ -88,6 +94,8 @@ public class ClientsFragment extends Fragment implements OnItemClickListener, On
 				onCancelClick(v);
 			}
 		}); 
+		
+		//clientListView.setOnItemClickListener(this);
 		
 		return rootView;      
 	} //onCreateView close  
@@ -128,6 +136,10 @@ public class ClientsFragment extends Fragment implements OnItemClickListener, On
 	}
 	
 	void refreshFragment(){
+//		clientListView.destroyDrawingCache();
+//		clientListView.setVisibility(ListView.INVISIBLE);
+//		clientListView.setVisibility(ListView.VISIBLE);
+		//clientListView = null;
 		Log.i(TAG, "Refresh Fragment");
 		
 		clientListView.invalidate();
@@ -140,6 +152,27 @@ public class ClientsFragment extends Fragment implements OnItemClickListener, On
 	        	rootView.invalidate();
 	        }
 	    });
+		
+//		FragmentManager fragManager = getFragmentManager();
+//		FragmentTransaction fragTransaction = fragManager.beginTransaction();
+//		Fragment fragment = getInstance();
+//		fragTransaction.detach(fragment);
+//		fragTransaction.attach(fragment);
+//		fragTransaction.commit();
+//		
+//		FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        Fragment f = getFragment(action);
+//        if(forceUpdate)
+//        {
+//            fragmentTransaction.detach(f);
+//            fragmentTransaction.attach(f);
+//        }
+//        fragmentTransaction.replace(R.id.mainFragment, f);
+//        fragmentTransaction.commit();
+//        currentAction = action;
+		
+		
 	}
 
 	/* */

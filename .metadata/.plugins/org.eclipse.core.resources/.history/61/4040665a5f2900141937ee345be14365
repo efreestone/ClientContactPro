@@ -20,6 +20,8 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.util.Log;
 import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 // TODO: Auto-generated Javadoc
@@ -33,7 +35,7 @@ public class JSONData {
 	static ArrayList<HashMap<String, String>> clientList;
 	static ArrayList<HashMap<String, String>> appointmentList; 
 	static BaseAdapter clientListAdapter;
-	static BaseAdapter appointmentListAdapter;  
+	static SimpleAdapter appointmentListAdapter;  
 	static String myFileName = MainActivity.myFileName;
 	static JSONObject allClientsJSONObject;
 	static DataManager myDataManager;
@@ -48,6 +50,11 @@ public class JSONData {
 		
 		String clientName, nextAppointment; 
 		
+		//JSONString = myContext.getString(R.string.clientString); 
+		//JSONString = DataManager.readStringFromFile(myContext, myFileName);
+		
+		//Log.i(TAG, "JSONString = " + JSONString);
+		
 		clientList = new ArrayList<HashMap<String, String>>();
 		appointmentList = new ArrayList<HashMap<String, String>>();
 		JSONObject jsonObject = null;
@@ -55,14 +62,15 @@ public class JSONData {
 		 
 		try {
 			Log.i(TAG, "displayData try");
-			//Create Object with string passed in when method called
 			jsonObject = new JSONObject(JSONString);
-			//Grab array object
 			clientJSONArray = jsonObject.getJSONArray("clients");
 			int clientsArraySize = clientJSONArray.length();
 			Log.i(TAG, "clientsArraySize = " + clientsArraySize);  
 			
 			for (int i = 0; i < clientsArraySize; i++) {
+				
+				//Log.i(TAG, "displayData for loop");
+				
 				clientName = clientJSONArray.getJSONObject(i).getString("clientName");
 				//Log.i(TAG, "name = " + clientName);
 				nextAppointment = clientJSONArray.getJSONObject(i).getString("nextAppointment");
@@ -87,10 +95,30 @@ public class JSONData {
 				
 			}
 			
-			//Create adapters
+//			ListView newListView = ClientsFragment.clientListView;
+//			
+//			newListView.destroyDrawingCache();
+//			newListView.setVisibility(ListView.INVISIBLE);
+//			newListView.setVisibility(ListView.VISIBLE);
+			
+			//Create simple adapter and set up with array of clients 
+//			clientListAdapter = new SimpleAdapter(myContext, 
+//					clientList, R.layout.client_listview_row, new String[] {
+//							"clientName", "nextAppointment" }, new int[] {
+//							R.id.clientName, R.id.nextAppointment }); 
+			//ClientsFragment.setAdapter();
+			
 			createClientsAdapter();
-			createAppointmentsAdapter();
-
+			
+			//ClientsFragment.clientListView.setAdapter(clientListAdapter);   
+			
+			//Create simple adapter and set up with array of clients 
+			appointmentListAdapter = new SimpleAdapter(myContext,
+					appointmentList, R.layout.appointment_listview_row, new String[] {
+							"nextAppointment", "clientName" }, new int[] {
+							R.id.appNextAppointment, R.id.appClientName });
+			
+			//AppointmentsFragment.appointmentsListView.setAdapter(appointmentListAdapter);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -99,11 +127,7 @@ public class JSONData {
 	} //displayDataFromFile close
 	
 	
-	/*
-	 * getJSONFromFile is called when new clients are created. This grabs the
-	 * clients currently saved to the device, which will then be processed into
-	 * JSON before the new client added and they are resaved to the device
-	 */
+	
 	public static JSONObject getJSONFromFile(String stringFromFile){
 		JSONObject clientsObjectFromFile; 
 		try {
@@ -122,26 +146,13 @@ public class JSONData {
 		//return clientsObjectFromFile;
 	} //getJSONfromFile close	
 	
-	/* createClientsAdapter createds the adapter for Clients listview */
 	static void createClientsAdapter(){
 		Log.i(TAG, "Create Client Adapter");
-		//Create base adapter and set up with array of clients 
 		clientListAdapter = new SimpleAdapter(myContext, clientList,
 				R.layout.client_listview_row, new String[] { "clientName",
 						"nextAppointment" }, new int[] { R.id.clientName,
 						R.id.nextAppointment });
 
 	} //createClientsAdapter close
-	
-	/* createAppointmentsAdapter createds the adapter for Appointments listview */
-	static void createAppointmentsAdapter(){
-		Log.i(TAG, "Create Appointment Adapter");
-		//Create base adapter and set up with array of appointments 
-		appointmentListAdapter = new SimpleAdapter(myContext,
-				appointmentList, R.layout.appointment_listview_row, new String[] {
-						"nextAppointment", "clientName" }, new int[] {
-						R.id.appNextAppointment, R.id.appClientName });
-
-	} //createAppointmentsAdapter close
 
 }

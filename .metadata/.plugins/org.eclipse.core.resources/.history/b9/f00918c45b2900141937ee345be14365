@@ -163,6 +163,8 @@ public class NewClientActivity extends Activity{
 		String stringFromFile = "{\"clients\":[]}";
 		if (fileExists) {
 			// Display the data to the listview automatically if file exists
+			// JSONData.displayDataFromFile();
+			// JSONData.sendArrayListToWidget();
 			stringFromFile = DataManager.readStringFromFile(myContext, myFileName);
 			allClientsJSONObject = JSONData.getJSONFromFile(stringFromFile);
 			Log.i("File", "File exists");
@@ -210,7 +212,16 @@ public class NewClientActivity extends Activity{
 			ClientsFragment.rootView.destroyDrawingCache();
 			ClientsFragment.clientListView.setVisibility(ListView.INVISIBLE);
 			ClientsFragment.clientListView.setVisibility(ListView.VISIBLE);
-
+			
+			ClientsFragment clientsFragment = ClientsFragment.getInstance();
+			clientsFragment.refreshFragment();
+			
+			//ClientsFragment.rootView.
+			
+			//JSONData.displayDataFromFile(allClientJSONString);
+			//BaseAdapter listAdapter = ClientsFragment.clientListView.get
+			
+			JSONData.clientListAdapter.notifyDataSetChanged();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

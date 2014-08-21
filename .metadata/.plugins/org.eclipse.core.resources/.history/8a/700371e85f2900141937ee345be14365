@@ -20,6 +20,8 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.util.Log;
 import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 // TODO: Auto-generated Javadoc
@@ -33,7 +35,7 @@ public class JSONData {
 	static ArrayList<HashMap<String, String>> clientList;
 	static ArrayList<HashMap<String, String>> appointmentList; 
 	static BaseAdapter clientListAdapter;
-	static BaseAdapter appointmentListAdapter;  
+	static SimpleAdapter appointmentListAdapter;  
 	static String myFileName = MainActivity.myFileName;
 	static JSONObject allClientsJSONObject;
 	static DataManager myDataManager;
