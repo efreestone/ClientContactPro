@@ -25,7 +25,8 @@ import android.view.MenuItem;
 public class AppointmentDetails extends Activity {
 	String TAG = "AppointmentDetails";
 	Context myContext = MainActivity.myContext;
-	String startTime, endTime, appointmentType, appointmentAddress, clientName, phoneNumber, emailAddress, contactMethod, basicInfo, otherContacts;
+	String startTimeAndDate, endTimeAndDate, appointmentType, appointmentAddress, clientName, 
+	phoneNumber, emailAddress, contactMethod, basicInfo, otherContacts, clientAddress, nextAppointment;
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -41,8 +42,8 @@ public class AppointmentDetails extends Activity {
 		
 		//Grab intent extras to be displayed in textviews
 		Intent appointmentDetailsIntent = getIntent();
-		startTime = appointmentDetailsIntent.getStringExtra("startTime");
-		endTime = appointmentDetailsIntent.getStringExtra("endTime");
+		startTimeAndDate = appointmentDetailsIntent.getStringExtra("startTimeAndDate");
+		endTimeAndDate = appointmentDetailsIntent.getStringExtra("endTimeAndDate");
 		appointmentType = appointmentDetailsIntent.getStringExtra("appointmentType");
 		appointmentAddress = appointmentDetailsIntent.getStringExtra("appointmentAddress");
 		clientName = appointmentDetailsIntent.getStringExtra("clientName");
@@ -51,16 +52,23 @@ public class AppointmentDetails extends Activity {
 		contactMethod = appointmentDetailsIntent.getStringExtra("contactMethod");
 		basicInfo = appointmentDetailsIntent.getStringExtra("basicInfo");
 		otherContacts = appointmentDetailsIntent.getStringExtra("otherContacts");
+		clientAddress = appointmentDetailsIntent.getStringExtra("clientAddress");
+		nextAppointment = appointmentDetailsIntent.getStringExtra("nextAppointment");
+		
+//		appointmentDetailsIntent.putExtra("nextAppointment", nextAppointment);
+//		appointmentDetailsIntent.putExtra("clientPosition", position);
+//		appointmentDetailsIntent.putExtra("clientID", id);
 		
 		if (appointmentDetailsIntent != null) {
 			//Log.i(TAG, "Existing Appointment Details Intent");
 			if (appointmentDetailsFragment != null) {
 				Log.i(TAG, "Appointment Details Fragment EXISTS");
 				//Call display method
-				appointmentDetailsFragment.displayAppointmentDetails(startTime,
-						endTime, appointmentType, appointmentAddress,
-						clientName, phoneNumber, emailAddress, contactMethod,
-						basicInfo, otherContacts);
+				appointmentDetailsFragment.displayAppointmentDetails(
+						startTimeAndDate, endTimeAndDate, appointmentType,
+						appointmentAddress, clientName, phoneNumber,
+						emailAddress, contactMethod, basicInfo, otherContacts,
+						clientAddress, nextAppointment);
 			} else {
 				Log.i(TAG, "Appointment Details Fragment NULL");
 			}

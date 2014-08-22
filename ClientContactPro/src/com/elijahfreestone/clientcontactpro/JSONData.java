@@ -47,7 +47,8 @@ public class JSONData {
 		Log.i(TAG, "displayDataFromFile called"); 
 		myContext = MainActivity.myContext;
 		
-		String clientName, clientAddress, phoneNumber, emailAddress, contactMethod, basicInfo, nextAppointment, appointmentType;; 
+		String clientName, clientAddress, phoneNumber, emailAddress, contactMethod, basicInfo, nextAppointment, 
+		appointmentType, startTimeAndDate, endTimeAndDate, appointmentAddress, otherContacts; 
 		
 		clientList = new ArrayList<HashMap<String, String>>();
 		appointmentList = new ArrayList<HashMap<String, String>>();
@@ -74,7 +75,11 @@ public class JSONData {
 				nextAppointment = clientJSONArray.getJSONObject(i).getString("nextAppointment");
 				//Log.i(TAG, "next_appointment = " + nextAppointment);
 				appointmentType = clientJSONArray.getJSONObject(i).getString("appointmentType");
-				
+				startTimeAndDate = clientJSONArray.getJSONObject(i).getString("startTimeAndDate");
+				endTimeAndDate = clientJSONArray.getJSONObject(i).getString("endTimeAndDate");
+				appointmentAddress = clientJSONArray.getJSONObject(i).getString("appointmentAddress");
+				otherContacts = clientJSONArray.getJSONObject(i).getString("otherContacts");
+
 				//Instantiate Hash Map for array and pass in strings with key/value pairs
 				HashMap<String, String> clientDisplayMap = new HashMap<String, String>();
 				clientDisplayMap.put("clientName", clientName);
@@ -86,13 +91,22 @@ public class JSONData {
 				clientDisplayMap.put("nextAppointment", nextAppointment);
 				clientDisplayMap.put("appointmentType", appointmentType);
 				
-				
 				//Sort out all entries that contain an appointment
 				HashMap<String, String> appointmentDisplayMap = new HashMap<String, String>();
 				if (!nextAppointment.equalsIgnoreCase("none")) {
 					//Log.i(TAG, "appointmentDisplayMap");
+					appointmentDisplayMap.put("clientName", clientName);
+					appointmentDisplayMap.put("clientAddress", clientAddress);
+					appointmentDisplayMap.put("phoneNumber", phoneNumber);
+					appointmentDisplayMap.put("emailAddress", emailAddress);
+					appointmentDisplayMap.put("contactMethod", contactMethod);
+					appointmentDisplayMap.put("basicInfo", basicInfo);
 					appointmentDisplayMap.put("nextAppointment", nextAppointment);
-					appointmentDisplayMap.put("clientName", clientName); 
+					appointmentDisplayMap.put("appointmentType", appointmentType);
+					appointmentDisplayMap.put("startTimeAndDate", startTimeAndDate);
+					appointmentDisplayMap.put("endTimeAndDate", endTimeAndDate);
+					appointmentDisplayMap.put("appointmentAddress", appointmentAddress);
+					appointmentDisplayMap.put("otherContacts", otherContacts);
 					appointmentList.add(appointmentDisplayMap);
 				} 
 				
@@ -158,7 +172,18 @@ public class JSONData {
 
 	} //createAppointmentsAdapter close
 	
-	static void buildJSON(String clientNameEntered, String clientAddressEntered, String phoneNumberEntered, String emailAddressEntered, String basicInfoEntered) {
+	static void buildJSON(String clientNameEntered,
+			String clientAddressEntered,
+			String phoneNumberEntered,
+			String emailAddressEntered, 
+			String contactMethodEntered,
+			String basicInfoEntered, 
+			String nextAppointmentEntered,
+			String appointmentTypeEntered,
+			String startTimeAndDateEntered, 
+			String endTimeAndDateEntered,
+			String appointmentAddressEntered,  
+			String otherContactsEntered) {
 		JSONObject clientJSONObject = new JSONObject();
 		JSONObject detailsObject = new JSONObject();
 		try {
@@ -166,18 +191,21 @@ public class JSONData {
 			detailsObject.put("clientAddress", clientAddressEntered);
 			detailsObject.put("phoneNumber", phoneNumberEntered);
 			detailsObject.put("emailAddress", emailAddressEntered);
+			detailsObject.put("contactMethod", contactMethodEntered);
 			detailsObject.put("basicInfo", basicInfoEntered);
-			
-			detailsObject.put("contactMethod", "text");
-			detailsObject.put("nextAppointment", "none"); 
-			detailsObject.put("appointmentType", "none");
+			detailsObject.put("nextAppointment", nextAppointmentEntered); 
+			detailsObject.put("appointmentType", appointmentTypeEntered);
+			detailsObject.put("startTimeAndDate", startTimeAndDateEntered);
+			detailsObject.put("endTimeAndDate", endTimeAndDateEntered);
+			detailsObject.put("appointmentAddress", appointmentAddressEntered);
+			detailsObject.put("otherContacts", otherContactsEntered);
 			
 			// clientJSONObject.put(clientNameEntered, detailsObject);
 			// Log.i(TAG, "Client JSON: " + clientJSONObject);
 			clientJSONObject.put(clientNameEntered, detailsObject);
 			JSONArray allClientJSONArray = allClientsJSONObject.getJSONArray("clients");
 			allClientJSONArray.put(detailsObject); 
-			// allClientsJSONObject.put(clientJSONObject); 
+			// allClientsJSONObject.put(clientJSONObject);  
 			
 			JSONObject newAllClientsObject = new JSONObject();
 			newAllClientsObject.put("clients", allClientJSONArray);
@@ -185,7 +213,10 @@ public class JSONData {
 			allClientJSONString = newAllClientsObject.toString();
 			
 			if (!allClientJSONString.equalsIgnoreCase("")) {
-				myDataManager.writeStringToFile(myContext, myFileName, allClientJSONString);
+				if (myDataManager != null) {
+					myDataManager.writeStringToFile(MainActivity.myContext, myFileName, allClientJSONString); 
+				}  
+				
 			} else {
 				Log.i(TAG, "allClientJSONString is blank");
 			}
@@ -197,5 +228,10 @@ public class JSONData {
 			Log.e(TAG, e.getMessage().toString());
 		}
 	} // buildJSON close
+	
+	void deleteEntryForAppointmentAdd(int position){
+		
+		
+	}
 
 }

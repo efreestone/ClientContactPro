@@ -128,7 +128,7 @@ public class ClientDetails extends Activity {
     	newAppointmentIntent.putExtra("clientID", clientID);
 		
     	if (newAppointmentIntent != null) {
-    		startActivity(newAppointmentIntent);
+    		startActivityForResult(newAppointmentIntent, 0); 
 		}
 				
     } //onPlusClick close

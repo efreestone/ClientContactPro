@@ -67,7 +67,7 @@ public class AppointmentDetailsFragment extends Fragment{
 		});
 		
 		return detailsView; 
-	} //onCreateView
+	} //onCreateView 
 	
 	/*
 	 * onCancelClick is triggered when the Cancel Appointments button is clicked.
@@ -85,14 +85,15 @@ public class AppointmentDetailsFragment extends Fragment{
 	 * displayAppointmentDetails displays details of the appointment selected,
 	 * called from DetailsActivity
 	 */
-	public void displayAppointmentDetails(String startTime, String endTime,
+	public void displayAppointmentDetails(String startTimeAndDate, String endTimeAndDate,
 			String appointmentType, String appointmentAddress,
 			String clientName, String phoneNumber, String emailAddress,
-			String contactMethod, String basicInfo, String otherContacts) {
+			String contactMethod, String basicInfo, String otherContacts,
+			String clientAddress, String nextAppointment) {
 
 		// Set top section textviews to passed strings
-		appStartTimeTV.setText(startTime);
-		appEndTimeTV.setText(endTime);
+		appStartTimeTV.setText(startTimeAndDate);
+		appEndTimeTV.setText(endTimeAndDate);
 		appAppointmentTypeTV.setText(appointmentType);
 		appAddressTV.setText(appointmentAddress);
 		//Bottom section
