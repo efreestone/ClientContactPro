@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <TextView 
+        android:id="@+id/cancelStartTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:textSize="20sp"
+        android:text="@string/cancelFrom" />
+    
+    <LinearLayout 
+        android:id="@+id/startLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+        <Button 
+            android:id="@+id/startCancelDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" 
+            style="@android:attr/buttonBarStyle"
+            android:text="Start Date" />
+        
+        <Button 
+            android:id="@+id/startCancelTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" 
+            style="@android:attr/buttonBarStyle"
+            android:text="Time" />
+        
+    </LinearLayout>
+    
+    <TextView 
+        android:id="@+id/cancelFinishTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:textSize="20sp"
+        android:text="@string/cancelTo" /> 
+    
+    <LinearLayout 
+        android:id="@+id/finishLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+        <Button 
+            android:id="@+id/finishCancelDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" 
+            style="@android:attr/buttonBarStyle"
+            android:text="Finish Date" />
+        
+        <Button 
+            android:id="@+id/finishCancelTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" 
+            style="@android:attr/buttonBarStyle"
+            android:text="Time" />
+        
+    </LinearLayout>
+    
+    <Button 
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:layout_margin="5dp"
+		android:background="@drawable/button_background"
+		android:clickable="true"
+		android:text="@string/cancelAppsButtonString"
+		android:width="200dp" />
+    
+    <TextView
+        android:id="@+id/cancelNotice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="@string/cancelNotice"/>
+    
+
+</LinearLayout>

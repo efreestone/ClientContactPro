@@ -10,16 +10,20 @@
 
 package com.elijahfreestone.clientcontactpro;
 
+import java.io.File;
 import java.util.Locale;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
@@ -28,17 +32,25 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
+ 
 
-
+// TODO: Auto-generated Javadoc   
+/**
+ * The Class MainActivity.
+ */
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
+	String TAG = "MainActivity";
 	static Context myContext;
 	public static final String PREFS_NAME = "SharedPrefsFile";
 	static SharedPreferences sharedPreferences;
-	String TAG = "MainActivity";
+	static String myFileName = "string_from_url.txt";
 	ListView clientListView;
-	ListView appointmentsListView;  
+	ListView appointmentsListView;   
+	boolean fileExists;
+	static DataManager myDataManager; 
+	static String JSONString;
 
     /**   
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -48,24 +60,24 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      * may be best to switch to a
      * {@link android.support.v13.app.FragmentStatePagerAdapter}.
      */   
-    SectionsPagerAdapter mySectionsPagerAdapter;   
-
-    /** 
-     * The {@link ViewPager} that will host the section contents.
-     */  
-    ViewPager myViewPager;    
-    
+    static SectionsPagerAdapter mySectionsPagerAdapter;   
+    static ViewPager myViewPager;    
     ActionBar myActionBar;
     String[] tabNames = {"Clients", "Appointments"};
 
-    @Override 
+    /* (non-Javadoc) 
+     * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
+     */
+    @Override  
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); 
+        setContentView(R.layout.activity_main);  
         
-        myContext = this; 
+        myContext = this;            
         
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
+        
+        myDataManager = DataManager.getInstance();
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -73,30 +85,35 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
         // Set up the ViewPager with the sections adapter.
         myViewPager = (ViewPager) findViewById(R.id.pager);
-        myViewPager.setAdapter(mySectionsPagerAdapter);
+        myViewPager.setAdapter(mySectionsPagerAdapter); 
         
-        myActionBar = getActionBar();
+        //Grab action bar and set up
+        myActionBar = getActionBar(); 
         myActionBar.setHomeButtonEnabled(false);
         myActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        
+       
+        boolean isLoggedIn = sharedPreferences.getBoolean("loggedIn", false);
+        String userName = sharedPreferences.getString("name", "user");
         Intent loginIntent = new Intent(this, LoginActivity.class);
-        startActivity(loginIntent); 
-        
-        View cancelSubView = (View) findViewById(R.layout.subview_cancel_button);
-        
-        //appointmentsListView = (ListView) findViewById(R.id.appointmentListView);
+        if (!isLoggedIn) {
+        	startActivity(loginIntent);  
+		} else {
+			Toast.makeText(getApplicationContext(), "Welcome, " + userName, Toast.LENGTH_LONG).show();
+		} 
         
         for (String tab_name : tabNames) { 
         	myActionBar.addTab(myActionBar.newTab().setText(tab_name).setTabListener(this));
         	//myViewPager.addView(cancelSubView); 
-		}
+        	 
+		}        
         
         //Change tab selected when screen is swiped
         myViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() { 
 			
 			@Override 
 			public void onPageSelected(int position) {
-				myActionBar.setSelectedNavigationItem(position);				
+				Log.i(TAG, "onPageSelected position: " + position);
+				myActionBar.setSelectedNavigationItem(position);	
 			}
 			
 			@Override
@@ -111,8 +128,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				
 			}
 		}); //OnPageChangeListener close
+        
+        fileExists = checkFileExists();
+        
     } //onCreate close  
 
+    /* (non-Javadoc)
+     * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+     */ 
     @Override     
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -120,6 +143,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         return true;   
     }   
 
+    /* (non-Javadoc)
+     * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+     */
     @Override      
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -130,15 +156,38 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             return true; 
         }
         
-        if (id == R.id.newAppointmentPlus) {
+        //newPlusButton launches NewClient from everywhere except details screens.
+        //Launches NewAppointment from them
+        if (id == R.id.newPlusButton) {
 			Log.i(TAG, "Plus clicked");
 			onNewClientClick();
 		}
         
+        //Triggers alert and logs user out/finishes MainActivity upon positive click
+        if (id == R.id.logOut) {
+        	Log.i(TAG, "Log Out clicked");
+        	showLogOutAlert();
+		}
+        
         return super.onOptionsItemSelected(item);
-    }
-
+    } //onOptionsItemSelected close
     
+    boolean checkFileExists() {
+		// Check if the file already exists
+		File file = this.getFileStreamPath(myFileName);
+		fileExists = file.exists();
+		if (fileExists) {
+			JSONString = DataManager.readStringFromFile(myContext, myFileName);
+			// Display the data to the listview automatically if file exists
+			JSONData.displayDataFromFile(JSONString);
+			// JSONData.sendArrayListToWidget();
+			Log.i(TAG, "checkFileExists");
+		} else {
+			// JSONData.checkDeviceForFile(fileExists);
+			Log.i(TAG, "File DOESN'T exist!!");
+		}
+		return fileExists;
+	} //checkFileExists close 
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -146,15 +195,18 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+        /*
+         * Instantiates a new sections pager adapter.
+         */
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
-        }
+        } 
 
 		/*
 		 * getItem is called to instantiate the fragment for the given page.
 		 * Return the tab fragment based on position.
 		 */
-        @Override 
+		@Override 
         public Fragment getItem(int position) {
             
         	if (position == 0) {
@@ -166,12 +218,18 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			}
         } //getItem close 
 
+        /* (non-Javadoc)
+         * @see android.support.v4.view.PagerAdapter#getCount()
+         */
         @Override
         public int getCount() {
             // Show 2 total pages.
             return 2; 
         } //getCount close 
  
+        /* (non-Javadoc)
+         * @see android.support.v4.view.PagerAdapter#getPageTitle(int)
+         */
         @Override        
         public CharSequence getPageTitle(int position) {
             Locale l = Locale.getDefault();
@@ -185,26 +243,93 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         } //getPageTitle close
     } //SectionsPagerAdapter close
 
+	/* (non-Javadoc)
+	 * @see android.app.ActionBar.TabListener#onTabSelected(android.app.ActionBar.Tab, android.app.FragmentTransaction)
+	 */
 	@Override 
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		Log.i(TAG, "onTabSelected");
 		myViewPager.setCurrentItem(tab.getPosition());
-		JSONData.displayDataFromFile(); 
-	}  
- 
+		//Call method to display client entries
+		if (fileExists) {
+			Log.i(TAG, "onTab file exists"); 
+		} 
+	} //onTabSelected close 
 
+	/* (non-Javadoc)
+	 * @see android.app.ActionBar.TabListener#onTabUnselected(android.app.ActionBar.Tab, android.app.FragmentTransaction)
+	 */
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
 	} 
  
 
+	/* (non-Javadoc)
+	 * @see android.app.ActionBar.TabListener#onTabReselected(android.app.ActionBar.Tab, android.app.FragmentTransaction)
+	 */
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
 	}
 	
+	/*
+	 * On new client click is called when the Plus icon in the action bar is clicked.
+	 */
 	void onNewClientClick(){ 
 		Intent newClientIntent = new Intent(myContext, NewClientActivity.class);
-		startActivity(newClientIntent);
+		//startActivity(newClientIntent);
+		startActivityForResult(newClientIntent, 0);
+	} //onNewClientClick close
+	
+	/*
+	 * Log User Out is called when the Log Out button in the action bar is clicked.
+	 * The user is first given an alert dialog confirming log out
+	 */
+	void logUserOut(){    
+		Editor editor = sharedPreferences.edit();
+    	editor.remove("loggedIn");
+    	editor.apply();
+    	finish(); 
+	} //logOutUser close    
+	
+	/*
+	 * Displays an alert asking the user to confirm logging out.
+	 * triggers logUserOut on positive button click
+	 */
+	void showLogOutAlert(){
+		AlertDialog alertDialog = new AlertDialog.Builder(myContext).create();
+		alertDialog.setTitle("Log Out");
+		alertDialog.setMessage("Are you sure you would like to Log Out and exit the application?");
+		alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Yes", (new DialogInterface.OnClickListener() {
+
+			@Override 
+			public void onClick(DialogInterface dialog, int which) {
+				logUserOut();
+			}
+		}));
+		alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", (DialogInterface.OnClickListener) null);
+		alertDialog.show();
+	} //showLogOutAlert close
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent detailsBackIntent) {
+		Log.i(TAG, "On Activity Result"); 
+		//super.onActivityResult(requestCode, resultCode, detailsBackIntent);
+		if (resultCode == RESULT_OK && requestCode == 0) {
+			Log.i(TAG, "onActivityResult resultCode = OK");
+			if (detailsBackIntent.hasExtra("allClients")) {
+				Log.i(TAG, "Back Intent has extra");
+				String passedAllClientsString = detailsBackIntent.getExtras().getString("allClients");
+				JSONData.displayDataFromFile(passedAllClientsString);
+				//Force view pager to rebuild and in turn refresh client listview
+				myViewPager.setAdapter(mySectionsPagerAdapter); 
+			}
+		}
+	} //onActivityResult close
+	
+	static void forceRefreshListViews(String passedAllClientsString){
+		JSONData.displayDataFromFile(passedAllClientsString);
+		//Force view pager to rebuild and in turn refresh client listview
+		myViewPager.setAdapter(mySectionsPagerAdapter); 
 	}
 
 }

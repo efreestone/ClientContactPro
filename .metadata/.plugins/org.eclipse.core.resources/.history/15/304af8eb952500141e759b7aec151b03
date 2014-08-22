@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="clientString">{\"total\":15, \"clients\":[
+	{\"name\":\"Client One\", \"next_appointment\":\"none\"},
+	{\"name\":\"Client Two\", \"next_appointment\":\"Oct 15, 2014 at 8:30am\"},
+	{\"name\":\"Client Three\", \"next_appointment\":\"Aug 17, 2014 at 11:00am\"},
+	{\"name\":\"Client Four\", \"next_appointment\":\"Sep 21, 2014 at 1:00pm\"},
+	{\"name\":\"Client Five\", \"next_appointment\":\"none\"},
+	{\"name\":\"Client Six\", \"next_appointment\":\"none\"}]}
+	</string>
+    
+</resources>

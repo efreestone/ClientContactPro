@@ -1,7 +1,0 @@
-package com.elijahfreestone.clientcontactpro;
-
-import android.app.Fragment;
-
-public class ClientDetailsFragment extends Fragment{
-	
-}

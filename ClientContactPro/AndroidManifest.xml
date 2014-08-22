@@ -31,6 +31,7 @@
         <activity android:name="AppointmentDetails"></activity>
         <activity android:name="NewAppointmentActivity"></activity>
         <activity android:name="NewClientActivity"></activity>
+        <activity android:name="CancelAppointmentActivity"></activity>
     </application>
 
 </manifest>
