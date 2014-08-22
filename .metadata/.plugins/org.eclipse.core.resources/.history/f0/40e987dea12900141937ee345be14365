@@ -314,11 +314,11 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 	
 	@Override
 	public void finish() {
-		Log.i(TAG, "Finish called");
+		Log.i("Details Activity", "Finish called");
 		Intent detailsBackIntent = new Intent();
-		detailsBackIntent.putExtra("allClients", JSONData.allClientJSONString);
+		detailsBackIntent.putExtra("allClients", "exists");
 		setResult(RESULT_OK, detailsBackIntent);
-		super.finish();  
+		super.finish();
 	} // finish Close
 
 }

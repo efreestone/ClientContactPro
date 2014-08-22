@@ -168,21 +168,15 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		case R.id.startCancelTime:
 			Log.i(TAG, "Start Cancel Time");
 			showTimePickerDialog(currentHour, currentMinute);
-			setTextView = startCancelTime;
+			setTextView = appStartTimeTV;
 			break;
 		//End date
 		case R.id.finishCancelDate:
 			Log.i(TAG, "Finish Cancel Date");
-			//Display dialog with tomorrows date as starting point
-			showDatePickerDialog(currentYear, currentMonth, currentDay);
-			
-			setTextView = finishCancelDate;
 			break;
 		//End time
 		case R.id.finishCancelTime:
 			Log.i(TAG, "Finish Cancel Time");
-			showTimePickerDialog(currentHour, currentMinute);
-			setTextView = finishCancelTime;
 			break;
 			
 		case R.id.cancelAppointmentsButton:

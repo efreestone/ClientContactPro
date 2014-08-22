@@ -318,7 +318,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		Intent detailsBackIntent = new Intent();
 		detailsBackIntent.putExtra("allClients", JSONData.allClientJSONString);
 		setResult(RESULT_OK, detailsBackIntent);
-		super.finish();  
+		super.finish(); 
 	} // finish Close
 
 }
