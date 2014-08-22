@@ -99,12 +99,11 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 		nextAppointment = selectedClient.get("nextAppointment");
 		appointmentType = selectedClient.get("appointmentType");
 		startTimeAndDate = selectedClient.get("startTimeAndDate");
-		
 		endTimeAndDate = selectedClient.get("endTimeAndDate");
 		appointmentAddress = selectedClient.get("appointmentAddress");
 		otherContacts = selectedClient.get("otherContacts");
 		
-		Log.i(TAG, "Client Selected: " + clientName + "\nTime and date: " + startTimeAndDate);
+		Log.i(TAG, "Client Selected: " + clientName);
 
 		// Create explicit intent and pass details as extras
 		Intent appointmentDetailsIntent = new Intent(MainActivity.myContext,

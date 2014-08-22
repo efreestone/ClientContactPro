@@ -287,7 +287,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		appointmentTypeEntered = appointmentTypeET.getText().toString();
 		appointmentAddressEntered = appointmentAddressET.getText().toString();
 		
-		String clientNameEntered = clientName; 
+		String clientNameEntered = clientName;
 		String clientAddressEntered = clientAddress;
 		String phoneNumberEntered = phoneNumber;
 		String emailAddressEntered = emailAddress;
@@ -300,7 +300,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		String startTimeAndDateEntered = startDatePicked + " at " + startTimePicked;
 		String endTimeAndDateEntered = endDatePicked + " at " + endTimePicked;
 		String appointmentAddressEntered = appointmentAddressET.getText().toString();
-		String otherContactsEntered = "none"; 
+		String otherContactsEntered = "none";
 		
 		JSONData.buildJSON(clientNameEntered, clientAddressEntered,
 				phoneNumberEntered, emailAddressEntered,

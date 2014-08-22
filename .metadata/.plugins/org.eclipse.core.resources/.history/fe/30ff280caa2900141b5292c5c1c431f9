@@ -287,7 +287,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		appointmentTypeEntered = appointmentTypeET.getText().toString();
 		appointmentAddressEntered = appointmentAddressET.getText().toString();
 		
-		String clientNameEntered = clientName; 
+		String clientNameEntered = clientName;
 		String clientAddressEntered = clientAddress;
 		String phoneNumberEntered = phoneNumber;
 		String emailAddressEntered = emailAddress;
