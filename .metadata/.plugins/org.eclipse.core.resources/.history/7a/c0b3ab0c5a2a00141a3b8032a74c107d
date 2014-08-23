@@ -50,7 +50,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 	String startTimeAndDate, endTimeAndDate;
 	String appointmentTypeEntered, appointmentAddressEntered;
 	
-	Intent detailsBackIntent;
+	
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -61,8 +61,6 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_appointment);
 		myContext = this;
-		
-		Intent detailsBackIntent = new Intent();
 		
 		//Get current date ints
 		final Calendar myCalendar = Calendar.getInstance();
@@ -311,18 +309,15 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 				startTimeAndDateEntered, endTimeAndDateEntered,
 				appointmentAddressEntered, otherContactsEntered);
 		
-		detailsBackIntent.putExtra("allClients", JSONData.allClientJSONString);
-		setResult(RESULT_OK, detailsBackIntent);
-		
 		finish();
 	} //onDoneClicked close
 	
 	@Override
 	public void finish() {
 		Log.i(TAG, "Finish called");
-//		Intent detailsBackIntent = new Intent();
-//		detailsBackIntent.putExtra("allClients", JSONData.allClientJSONString);
-//		setResult(RESULT_OK, detailsBackIntent);
+		Intent detailsBackIntent = new Intent();
+		detailsBackIntent.putExtra("allClients", JSONData.allClientJSONString);
+		setResult(RESULT_OK, detailsBackIntent);
 		super.finish();  
 	} // finish Close
 

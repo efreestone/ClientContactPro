@@ -19,7 +19,6 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.ClipData.Item;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -114,7 +113,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			@Override 
 			public void onPageSelected(int position) {
 				Log.i(TAG, "onPageSelected position: " + position);
-				myActionBar.setSelectedNavigationItem(position);	 
+				myActionBar.setSelectedNavigationItem(position);	
 			}
 			
 			@Override
@@ -321,24 +320,18 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				Log.i(TAG, "Back Intent has extra");
 				String passedAllClientsString = detailsBackIntent.getExtras().getString("allClients");
 				int tabPosition = 0;
-				if (!passedAllClientsString.equalsIgnoreCase("")) {
-					forceRefreshListViews(passedAllClientsString);
-				}
-				
-				//JSONData.displayDataFromFile(passedAllClientsString);
+				JSONData.displayDataFromFile(passedAllClientsString);
 				//Force view pager to rebuild and in turn refresh client listview
 				myViewPager.setAdapter(mySectionsPagerAdapter); 
-				//myActionBar.setSelectedNavigationItem(tabPosition); 
+				myViewPager.setCurrentItem(tabPosition);
 			}
 		}
 	} //onActivityResult close
 	
 	static void forceRefreshListViews(String passedAllClientsString){
 		JSONData.displayDataFromFile(passedAllClientsString);
-		int tabPosition = 0;
 		//Force view pager to rebuild and in turn refresh client listview
 		myViewPager.setAdapter(mySectionsPagerAdapter); 
-		myViewPager.setCurrentItem(tabPosition);
 	}
 
 }

@@ -60,10 +60,6 @@ public class NewClientActivity extends Activity{
 		myDataManager = DataManager.getInstance();
 		myContext = this;
 		
-		//Create back intent and set result code to cancel by default
-		detailsBackIntent = new Intent();
-		//setResult(RESULT_CANCELED, detailsBackIntent);
-		
 		//Check if the file exists on the device.
 		//Create a blank one if it does not
 		checkDeviceForFile(); 
@@ -132,9 +128,7 @@ public class NewClientActivity extends Activity{
 							startTimeAndDateEntered, endTimeAndDateEntered,
 							appointmentAddressEntered, otherContactsEntered);
 					
-					detailsBackIntent.putExtra("allClients", JSONData.allClientJSONString);
-					detailsBackIntent.putExtra("tabPosition", 0);
-					setResult(RESULT_OK, detailsBackIntent);
+					
 					
 					finish();
 					//JSONData.displayDataFromFile(allClientJSONString);
@@ -240,10 +234,10 @@ public class NewClientActivity extends Activity{
 	@Override
 	public void finish() {
 		Log.i("Details Activity", "Finish called");
-//		Intent detailsBackIntent = new Intent();
-//		detailsBackIntent.putExtra("allClients", JSONData.allClientJSONString);
-//		detailsBackIntent.putExtra("tabPosition", 0);
-//		setResult(RESULT_OK, detailsBackIntent);
+		Intent detailsBackIntent = new Intent();
+		detailsBackIntent.putExtra("allClients", JSONData.allClientJSONString);
+		detailsBackIntent.putExtra("tabPosition", 0);
+		setResult(RESULT_OK, detailsBackIntent);
 		super.finish();
 	} // finish Close
 

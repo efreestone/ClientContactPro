@@ -153,7 +153,7 @@ public class AppointmentDetails extends Activity {
 //				//Force view pager to rebuild and in turn refresh client listview
 //				myViewPager.setAdapter(mySectionsPagerAdapter); 
 			}
-		} 
+		}
 	} //onActivityResult close
 
 

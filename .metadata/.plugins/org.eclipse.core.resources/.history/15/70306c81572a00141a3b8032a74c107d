@@ -321,14 +321,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				Log.i(TAG, "Back Intent has extra");
 				String passedAllClientsString = detailsBackIntent.getExtras().getString("allClients");
 				int tabPosition = 0;
-				if (!passedAllClientsString.equalsIgnoreCase("")) {
-					forceRefreshListViews(passedAllClientsString);
-				}
-				
-				//JSONData.displayDataFromFile(passedAllClientsString);
+				JSONData.displayDataFromFile(passedAllClientsString);
 				//Force view pager to rebuild and in turn refresh client listview
 				myViewPager.setAdapter(mySectionsPagerAdapter); 
-				//myActionBar.setSelectedNavigationItem(tabPosition); 
+				myActionBar.setSelectedNavigationItem(tabPosition); 
 			}
 		}
 	} //onActivityResult close

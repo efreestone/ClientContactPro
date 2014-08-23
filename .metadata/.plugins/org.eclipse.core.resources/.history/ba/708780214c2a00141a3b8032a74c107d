@@ -91,7 +91,7 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 		// details strings.
 		//THIS WAS SET TO CLIENTLIST!!!!!!
 		selectedClient = JSONData.appointmentList.get(position);
-		clientName = selectedClient.get("clientName"); 
+		clientName = selectedClient.get("clientName");
 		clientAddress = selectedClient.get("clientAddress");
 		phoneNumber = selectedClient.get("phoneNumber"); 
 		emailAddress = selectedClient.get("emailAddress");

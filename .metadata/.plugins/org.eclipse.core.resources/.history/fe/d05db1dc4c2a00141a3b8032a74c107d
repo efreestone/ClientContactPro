@@ -27,8 +27,6 @@ public class AppointmentDetails extends Activity {
 	Context myContext = MainActivity.myContext;
 	String startTimeAndDate, endTimeAndDate, appointmentType, appointmentAddress, clientName, 
 	phoneNumber, emailAddress, contactMethod, basicInfo, otherContacts, clientAddress, nextAppointment;
-	int clientPosition;
-	long clientID;
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -56,11 +54,6 @@ public class AppointmentDetails extends Activity {
 		otherContacts = appointmentDetailsIntent.getStringExtra("otherContacts");
 		clientAddress = appointmentDetailsIntent.getStringExtra("clientAddress");
 		nextAppointment = appointmentDetailsIntent.getStringExtra("nextAppointment");
-		
-		clientPosition = appointmentDetailsIntent.getIntExtra("clientPosition", 30);
-		//Log.i(TAG, "clientPosition: " + clientPosition);
-		clientID = appointmentDetailsIntent.getLongExtra("clientID", 35);
-		//Log.i(TAG, "clientID: " + clientID);
 		
 //		appointmentDetailsIntent.putExtra("nextAppointment", nextAppointment);
 //		appointmentDetailsIntent.putExtra("clientPosition", position);
@@ -118,43 +111,8 @@ public class AppointmentDetails extends Activity {
      * Starts New Appointment Activity and passes client info
      */
     void onPlusClick(){
-    	// Create explicit intent and pass details as extras
     	Intent newAppointmentIntent = new Intent(myContext, NewAppointmentActivity.class);
-    	newAppointmentIntent.putExtra("clientName", clientName);
-    	newAppointmentIntent.putExtra("clientAddress", clientAddress);
-    	newAppointmentIntent.putExtra("phoneNumber", phoneNumber);
-    	newAppointmentIntent.putExtra("emailAddress", emailAddress);
-    	newAppointmentIntent.putExtra("contactMethod", contactMethod);
-    	newAppointmentIntent.putExtra("basicInfo", basicInfo);
-
-    	newAppointmentIntent.putExtra("nextAppointment", nextAppointment);
-    	newAppointmentIntent.putExtra("appointmentType", appointmentType);
-    	
-    	newAppointmentIntent.putExtra("clientPosition", clientPosition);
-    	newAppointmentIntent.putExtra("clientID", clientID);
-		
-    	if (newAppointmentIntent != null) {
-    		startActivityForResult(newAppointmentIntent, 0); 
-		}
-				
-    } //onPlusClick close
-    
-    @Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent detailsBackIntent) {
-		Log.i(TAG, "On Activity Result"); 
-		//super.onActivityResult(requestCode, resultCode, detailsBackIntent);
-		if (resultCode == RESULT_OK && requestCode == 0) {
-			Log.i(TAG, "onActivityResult resultCode = OK");
-			if (detailsBackIntent.hasExtra("allClients")) {
-				Log.i(TAG, "Back Intent has extra");
-				String passedAllClientsString = detailsBackIntent.getExtras().getString("allClients");
-				MainActivity.forceRefreshListViews(passedAllClientsString);
-//				JSONData.displayDataFromFile(passedAllClientsString);
-//				//Force view pager to rebuild and in turn refresh client listview
-//				myViewPager.setAdapter(mySectionsPagerAdapter); 
-			}
-		} 
-	} //onActivityResult close
-
+		startActivity(newAppointmentIntent);
+    }
 
 }

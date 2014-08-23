@@ -60,9 +60,7 @@ public class NewClientActivity extends Activity{
 		myDataManager = DataManager.getInstance();
 		myContext = this;
 		
-		//Create back intent and set result code to cancel by default
 		detailsBackIntent = new Intent();
-		//setResult(RESULT_CANCELED, detailsBackIntent);
 		
 		//Check if the file exists on the device.
 		//Create a blank one if it does not

@@ -223,7 +223,7 @@ public class JSONData {
 			JSONObject newAllClientsObject = new JSONObject();
 			newAllClientsObject.put("clients", allClientJSONArray);
 			Log.i(TAG, "All Clients JSON: " + newAllClientsObject);
-			allClientJSONString = newAllClientsObject.toString(); 
+			allClientJSONString = newAllClientsObject.toString();
 			
 			if (!allClientJSONString.equalsIgnoreCase("")) {
 				if (myDataManager != null) {

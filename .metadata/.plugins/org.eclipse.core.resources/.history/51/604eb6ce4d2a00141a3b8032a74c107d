@@ -138,23 +138,5 @@ public class AppointmentDetails extends Activity {
 		}
 				
     } //onPlusClick close
-    
-    @Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent detailsBackIntent) {
-		Log.i(TAG, "On Activity Result"); 
-		//super.onActivityResult(requestCode, resultCode, detailsBackIntent);
-		if (resultCode == RESULT_OK && requestCode == 0) {
-			Log.i(TAG, "onActivityResult resultCode = OK");
-			if (detailsBackIntent.hasExtra("allClients")) {
-				Log.i(TAG, "Back Intent has extra");
-				String passedAllClientsString = detailsBackIntent.getExtras().getString("allClients");
-				MainActivity.forceRefreshListViews(passedAllClientsString);
-//				JSONData.displayDataFromFile(passedAllClientsString);
-//				//Force view pager to rebuild and in turn refresh client listview
-//				myViewPager.setAdapter(mySectionsPagerAdapter); 
-			}
-		} 
-	} //onActivityResult close
-
 
 }
