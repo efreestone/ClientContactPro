@@ -22,7 +22,7 @@
 		android:background="@drawable/button_background"
 		android:clickable="true"
 		android:text="@string/editClientButtonString"
-		android:width="200dp" />
+		android:width="200sp" />
     
     <LinearLayout 
         android:layout_width="match_parent"

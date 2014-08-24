@@ -130,7 +130,7 @@ public class ClientDetails extends Activity {
 		
     	if (newAppointmentIntent != null) {
     		startActivityForResult(newAppointmentIntent, 0); 
-		}
+		}  
 				
     } //onPlusClick close
     

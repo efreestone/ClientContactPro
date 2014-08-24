@@ -43,7 +43,7 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 	/* (non-Javadoc)
 	 * @see android.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
 	 */
-	@Override
+	@Override  
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		//Inflate view
@@ -59,7 +59,7 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 			appointmentsListView.setAdapter(JSONData.appointmentListAdapter);
 			appointmentsListView.setOnItemClickListener(this);
 		} else {
-			Log.i(TAG, "appointmentsListView == null"); 
+			Log.i(TAG, "appointmentsListView == null");  
 		}  
 		
 		// Grab cancel button and set onClick

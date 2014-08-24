@@ -63,7 +63,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      */   
     static SectionsPagerAdapter mySectionsPagerAdapter;   
     static ViewPager myViewPager;    
-    ActionBar myActionBar;
+    static ActionBar myActionBar;
     String[] tabNames = {"Clients", "Appointments"};
 
     /* (non-Javadoc) 
@@ -329,19 +329,19 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				//JSONData.displayDataFromFile(passedAllClientsString);
 				//Force view pager to rebuild and in turn refresh client listview
 				myViewPager.setAdapter(mySectionsPagerAdapter); 
-				//myActionBar.setSelectedNavigationItem(tabPosition); 
+				myActionBar.setSelectedNavigationItem(tabPosition); 
 			} 
 		} 
-	} //onActivityResult close
+	} //onActivityResult close 
 	
 	static void forceRefreshListViews(String passedAllClientsString){
 		Log.i(TAG, "Passed string: " + passedAllClientsString);
-		Log.i(TAG, "Force refresh");
+		Log.i(TAG, "Force refresh"); 
 		int tabPosition = 0;
 		//Force view pager to rebuild and in turn refresh client listview
-		myViewPager.setAdapter(mySectionsPagerAdapter); 
-		//myViewPager.setCurrentItem(tabPosition);
+		myActionBar.setSelectedNavigationItem(tabPosition); 
+		myViewPager.setCurrentItem(tabPosition);
 		JSONData.displayDataFromFile(passedAllClientsString);
-	}
+	} //forceRefreshListViews
 
 }
