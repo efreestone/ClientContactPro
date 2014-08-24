@@ -10,7 +10,13 @@
 
 package com.elijahfreestone.clientcontactpro;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -50,7 +56,11 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 	String startTimeAndDate, endTimeAndDate;
 	String appointmentTypeEntered, appointmentAddressEntered;
 	
+	HashMap<String, String> currentClientHashMap;
+	
 	Intent detailsBackIntent;
+	
+	String allClientsString;
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -63,6 +73,17 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		myContext = this;
 		
 		Intent detailsBackIntent = new Intent();
+		setResult(RESULT_CANCELED, detailsBackIntent);
+		
+		JSONArray allClientJSONArray = JSONData.getClientJSONArray();
+		JSONObject allClientsJSONObject = new JSONObject();
+		try {
+			allClientsJSONObject.put("clients", allClientJSONArray);
+			allClientsString = allClientsJSONObject.toString();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//Get current date ints
 		final Calendar myCalendar = Calendar.getInstance();
@@ -159,7 +180,20 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 			@Override
 			public void onClick(View v) {
 				Log.i(TAG, "Done Action Button clicked");
-				onDoneClicked();
+				
+				ArrayList<HashMap<String, String>> clientArrayList = JSONData.getClientArrayList();
+				
+				for (HashMap<String, String> map : clientArrayList)
+			    {
+			        if(map.containsValue(clientName))
+			        {
+			            Log.i(TAG, "HashMap contains clientName");
+			                break;
+			        }
+
+			    }
+				
+				onDoneClicked(); 
 			}
 		});
 
@@ -177,17 +211,17 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 	} //onCreate close
 	
 	/* Apply strings to textviews */
-	void displayClientDetails(){
+	private void displayClientDetails(){
 		clientNameTV.setText(clientName);
 		phoneNumberTV.setText(phoneNumber);
 		emailAddressTV.setText(emailAddress);
 		
 		appointmentAddressET.setText(appointmentAddress);
 		
-	}
+	} //displayClientDetails close
 	
 	/* Present date picker dialog */
-	void showDatePickerDialog(int currentYear, int currentMonth, int currentDay){
+	private void showDatePickerDialog(int currentYear, int currentMonth, int currentDay){
 		DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 			
 			@Override
@@ -202,10 +236,10 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		}, currentYear, currentMonth, currentDay);
 		datePickerDialog.show(); 
 			
-	}
+	} //showDatePickerDialog close
 	
 	/* Present time picker dialog */
-	void showTimePickerDialog(int currentHour, int currentMinute){
+	private void showTimePickerDialog(int currentHour, int currentMinute){
 		TimePickerDialog timePickerDialog = new TimePickerDialog(this,
 		        new TimePickerDialog.OnTimeSetListener() {
 		 
@@ -227,7 +261,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		        }, currentHour, currentMinute, false); //bool is to set 24 hour time 
 		timePickerDialog.show();   
 		
-	}
+	} //showTimePickerDialog close
 
 	@Override
 	public void onClick(View v) {
@@ -311,19 +345,22 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 				startTimeAndDateEntered, endTimeAndDateEntered,
 				appointmentAddressEntered, otherContactsEntered);
 		
-		detailsBackIntent.putExtra("allClients", JSONData.allClientJSONString);
-		setResult(RESULT_OK, detailsBackIntent);
 		
-		finish();
+		
+		Intent detailsBackIntent = new Intent();
+		detailsBackIntent.putExtra("allClients", JSONData.allClientJSONString);
+		setResult(RESULT_OK, detailsBackIntent);  
+		
+		finish(); 
 	} //onDoneClicked close
 	
 	@Override
-	public void finish() {
+	public void finish() { 
 		Log.i(TAG, "Finish called");
 //		Intent detailsBackIntent = new Intent();
 //		detailsBackIntent.putExtra("allClients", JSONData.allClientJSONString);
 //		setResult(RESULT_OK, detailsBackIntent);
 		super.finish();  
-	} // finish Close
+	} // finish Close  
 
 }

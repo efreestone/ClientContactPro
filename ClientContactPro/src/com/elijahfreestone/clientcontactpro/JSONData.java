@@ -11,6 +11,8 @@
 package com.elijahfreestone.clientcontactpro;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import org.json.JSONArray;
@@ -38,6 +40,7 @@ public class JSONData {
 	static JSONObject allClientsJSONObject;
 	static DataManager myDataManager = DataManager.getInstance();
 	static String allClientJSONString;
+	static JSONArray clientJSONArray;
 	
 	/*
 	* Display data from file pulls string from locally stored file and creates
@@ -53,12 +56,15 @@ public class JSONData {
 		clientList = new ArrayList<HashMap<String, String>>();
 		appointmentList = new ArrayList<HashMap<String, String>>();
 		JSONObject jsonObject = null;
-		JSONArray clientJSONArray = null;    
+		clientJSONArray = null;    
 		 
 		try {
 			Log.i(TAG, "displayData try");
 			//Create Object with string passed in when method called
 			jsonObject = new JSONObject(JSONString);
+			
+			allClientsJSONObject = jsonObject;
+			
 			//Grab array object
 			clientJSONArray = jsonObject.getJSONArray("clients");
 			int clientsArraySize = clientJSONArray.length();
@@ -82,15 +88,6 @@ public class JSONData {
 
 				//Instantiate Hash Map for array and pass in strings with key/value pairs
 				HashMap<String, String> clientDisplayMap = new HashMap<String, String>();
-//				clientDisplayMap.put("clientName", clientName);
-//				clientDisplayMap.put("clientAddress", clientAddress);
-//				clientDisplayMap.put("phoneNumber", phoneNumber);
-//				clientDisplayMap.put("emailAddress", emailAddress);
-//				clientDisplayMap.put("contactMethod", contactMethod);
-//				clientDisplayMap.put("basicInfo", basicInfo);
-//				clientDisplayMap.put("nextAppointment", nextAppointment);
-//				clientDisplayMap.put("appointmentType", appointmentType);
-				
 				clientDisplayMap.put("clientName", clientName);
 				clientDisplayMap.put("clientAddress", clientAddress);
 				clientDisplayMap.put("phoneNumber", phoneNumber);
@@ -121,6 +118,16 @@ public class JSONData {
 					appointmentDisplayMap.put("appointmentAddress", appointmentAddress);
 					appointmentDisplayMap.put("otherContacts", otherContacts);
 					appointmentList.add(appointmentDisplayMap);
+					
+					//Comparator to sort client list by clientName in alphabetical order
+					Comparator<HashMap<String, String>> clientMapComparator = new Comparator<HashMap<String, String>>() {
+					    public int compare(HashMap<String, String> clientOne, HashMap<String, String> clientTwo) {
+					        return clientOne.get("startTimeAndDate").compareTo(clientTwo.get("startTimeAndDate"));
+					    }
+					};
+
+					Collections.sort(appointmentList, clientMapComparator);
+					//Log.i(TAG, "appointmentList" + appointmentList);
 				} 
 				
 				//Add hash maps to array list
@@ -131,6 +138,17 @@ public class JSONData {
 			//Create adapters
 			createClientsAdapter();
 			createAppointmentsAdapter();
+			
+			//Comparator to sort client list by clientName in alphabetical order
+			Comparator<HashMap<String, String>> clientMapComparator = new Comparator<HashMap<String, String>>() {
+			    public int compare(HashMap<String, String> clientOne, HashMap<String, String> clientTwo) {
+			        return clientOne.get("clientName").compareTo(clientTwo.get("clientName"));
+			    }
+			};
+
+			Collections.sort(clientList, clientMapComparator);
+			//Log.i(TAG, "clientList string: " + clientList.toString());
+			//Log.i(TAG, "clientList" + clientList);
 
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -138,6 +156,23 @@ public class JSONData {
 			Log.e("displayDataFromFile ERROR", e.getMessage().toString());
 		}
 	} //displayDataFromFile close
+
+	
+	
+	
+	public static ArrayList<HashMap<String, String>> getClientArrayList(){
+		return clientList;
+	}
+	
+	public static JSONArray getClientJSONArray(){
+		if (clientJSONArray != null) {
+			Log.i(TAG, "++++++++++++++ allClientsJSONObject not null!! Length = " + clientJSONArray.length());
+			return clientJSONArray;
+		}
+		return null;
+	}
+	
+	
 	
 	
 	/*
@@ -241,6 +276,8 @@ public class JSONData {
 			Log.e(TAG, e.getMessage().toString());
 		}
 	} // buildJSON close
+	
+	
 	
 	void deleteEntryForAppointmentAdd(int position){
 		

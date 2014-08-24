@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -142,10 +143,28 @@ public class ClientDetails extends Activity {
 			if (detailsBackIntent.hasExtra("allClients")) {
 				Log.i(TAG, "Back Intent has extra");
 				String passedAllClientsString = detailsBackIntent.getExtras().getString("allClients");
+				//Log.i(TAG, "passed string: " + passedAllClientsString);
+				
+				//Delay
+				final Handler handler = new Handler();
+				handler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						/*
+						 * Force refresh by resetting ViewPager adapter.
+						 * forceRefreshListViews does the same thing. Not sure
+						 * why this only works if called twice to work from here
+						 * but it stops refreshing if either called is removed.
+						 */
+						MainActivity.myViewPager.setAdapter(MainActivity.mySectionsPagerAdapter);
+						Log.i(TAG, "Delay Run");
+					}
+				}, 500);
+				
 				MainActivity.forceRefreshListViews(passedAllClientsString);
 //				JSONData.displayDataFromFile(passedAllClientsString);
 //				//Force view pager to rebuild and in turn refresh client listview
-//				myViewPager.setAdapter(mySectionsPagerAdapter); 
+//				MainActivity.myViewPager.setAdapter(MainActivity.mySectionsPagerAdapter); 
 			}
 		}
 	} //onActivityResult close

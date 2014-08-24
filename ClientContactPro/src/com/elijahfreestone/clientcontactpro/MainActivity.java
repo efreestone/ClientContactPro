@@ -42,7 +42,7 @@ import android.widget.Toast;
  * The Class MainActivity.
  */
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
-	String TAG = "MainActivity";
+	static String TAG = "MainActivity";
 	static Context myContext;
 	public static final String PREFS_NAME = "SharedPrefsFile";
 	static SharedPreferences sharedPreferences;
@@ -320,6 +320,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			if (detailsBackIntent.hasExtra("allClients")) {
 				Log.i(TAG, "Back Intent has extra");
 				String passedAllClientsString = detailsBackIntent.getExtras().getString("allClients");
+				//Log.i(TAG, "Passed string: " + passedAllClientsString);
 				int tabPosition = 0;
 				if (!passedAllClientsString.equalsIgnoreCase("")) {
 					forceRefreshListViews(passedAllClientsString);
@@ -329,16 +330,18 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				//Force view pager to rebuild and in turn refresh client listview
 				myViewPager.setAdapter(mySectionsPagerAdapter); 
 				//myActionBar.setSelectedNavigationItem(tabPosition); 
-			}
-		}
+			} 
+		} 
 	} //onActivityResult close
 	
 	static void forceRefreshListViews(String passedAllClientsString){
-		JSONData.displayDataFromFile(passedAllClientsString);
+		Log.i(TAG, "Passed string: " + passedAllClientsString);
+		Log.i(TAG, "Force refresh");
 		int tabPosition = 0;
 		//Force view pager to rebuild and in turn refresh client listview
 		myViewPager.setAdapter(mySectionsPagerAdapter); 
-		myViewPager.setCurrentItem(tabPosition);
+		//myViewPager.setCurrentItem(tabPosition);
+		JSONData.displayDataFromFile(passedAllClientsString);
 	}
 
 }
