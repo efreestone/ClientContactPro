@@ -351,6 +351,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		
 		String basicInfoEntered = basicInfo; 
 		String nextAppointmentEntered = startTimeAndDate;
+		//String appointmentTypeEntered = appointmentTypeET.getText().toString();
 		String startTimeAndDateEntered = startDatePicked + " at " + startTimePicked;
 		String endTimeAndDateEntered = endDatePicked + " at " + endTimePicked;
 		String appointmentAddressEntered = appointmentAddressET.getText().toString();

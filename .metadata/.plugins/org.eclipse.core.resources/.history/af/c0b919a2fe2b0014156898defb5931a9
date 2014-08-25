@@ -117,6 +117,14 @@ public class NewClientActivity extends Activity{
 				Log.i(TAG, "Required Fields = " + requiredFields);
 				
 				if (requiredFields) { 
+//					Log.i(TAG, "Name: " + clientNameEntered + ", Address: "
+//							+ clientAddressEntered + "\nPhone Number: "
+//							+ phoneNumberEntered + ", Email: "
+//							+ emailAddressEntered + "\n" + "Basic Info: "
+//							+ basicInfoEntered); 
+//					JSONData.buildJSONNewClient(clientNameEntered,
+//							clientAddressEntered, phoneNumberEntered,
+//							emailAddressEntered, basicInfoEntered);
 					JSONData.buildJSON(clientNameEntered, clientAddressEntered,
 							phoneNumberEntered, emailAddressEntered,
 							contactMethodEntered, basicInfoEntered,
@@ -133,7 +141,7 @@ public class NewClientActivity extends Activity{
 				}
 				
 			}
-		}); //done button close
+		});
 
 		/*
 		 * Grab action bar and set params to show custom done/cancel bar and
@@ -188,6 +196,42 @@ public class NewClientActivity extends Activity{
 					stringFromFile);
 		}
 	}
+
+//	void buildJSON() {
+//		JSONObject clientJSONObject = new JSONObject();
+//		JSONObject detailsObject = new JSONObject();
+//		try {
+//			detailsObject.put("clientName", clientNameEntered);
+//			detailsObject.put("clientAddress", clientAddressEntered);
+//			detailsObject.put("phoneNumber", phoneNumberEntered);
+//			detailsObject.put("emailAddress", emailAddressEntered);
+//			detailsObject.put("basicInfo", basicInfoEntered);
+//			
+//			detailsObject.put("contactMethod", "text");
+//			detailsObject.put("nextAppointment", "none"); 
+//			detailsObject.put("appointmentType", "none");
+//			
+//			// clientJSONObject.put(clientNameEntered, detailsObject);
+//			// Log.i(TAG, "Client JSON: " + clientJSONObject);
+//			clientJSONObject.put(clientNameEntered, detailsObject);
+//			JSONArray allClientJSONArray = allClientsJSONObject.getJSONArray("clients");
+//			allClientJSONArray.put(detailsObject); 
+//			// allClientsJSONObject.put(clientJSONObject); 
+//			
+//			JSONObject newAllClientsObject = new JSONObject();
+//			newAllClientsObject.put("clients", allClientJSONArray);
+//			Log.i(TAG, "All Clients JSON: " + newAllClientsObject);
+//			allClientJSONString = newAllClientsObject.toString();
+//			myDataManager.writeStringToFile(myContext, myFileName,
+//					allClientJSONString);
+//
+//		} catch (JSONException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			Log.e(TAG, e.getMessage().toString());
+//		}
+//	} // buildJSON close
+	
 	
 	/*
 	 * finish is called when the activity is exited (such as the back button)

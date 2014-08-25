@@ -81,8 +81,6 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		
 		mapPosition = -1;
 		
-		setDefaultDateAndTime();
-		
 		//Grab layout elements
 		clientNameTV = (TextView) findViewById(R.id.newAppClientName);
 		phoneNumberTV = (TextView) findViewById(R.id.newAppPhoneNumber);
@@ -148,7 +146,8 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 				
 				Log.i(TAG, "clientArrayList Length: " + clientArrayList.size());
 				
-				for (HashMap<String, String> map : clientArrayList){
+				for (HashMap<String, String> map : clientArrayList)
+			    {
 					//Check if element with client name exists
 			        if(map.containsValue(clientNameExtra))
 			        {
@@ -159,6 +158,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 			            //clientArrayList.remove(mapPosition);
 			                break;
 			        }
+
 			    }
 				
 				/*
@@ -351,12 +351,12 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		
 		String basicInfoEntered = basicInfo; 
 		String nextAppointmentEntered = startTimeAndDate;
+		//String appointmentTypeEntered = appointmentTypeET.getText().toString();
 		String startTimeAndDateEntered = startDatePicked + " at " + startTimePicked;
 		String endTimeAndDateEntered = endDatePicked + " at " + endTimePicked;
 		String appointmentAddressEntered = appointmentAddressET.getText().toString();
 		String otherContactsEntered = "none"; 
 		
-		//Create hashmap of client with new appointment to be added to arraylis 
 		HashMap<String, String> newAppointmentMap = new HashMap<String, String>(); 
 		newAppointmentMap.put("clientName", clientNameEntered);
 		newAppointmentMap.put("clientAddress", clientAddressEntered);
@@ -375,7 +375,15 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		
 		String newAppAllClientsString = "{clients:" + clientArrayList.toString() + "}";
 		
-		//Log.i(TAG, "List after add: " + newAppAllClientsString);
+		Log.i(TAG, "List after add: " + newAppAllClientsString);
+		
+//		JSONData.buildJSON(clientNameEntered, clientAddressEntered,
+//				phoneNumberEntered, emailAddressEntered,
+//				contactMethodEntered, basicInfoEntered,
+//				nextAppointmentEntered, appointmentTypeEntered,
+//				startTimeAndDateEntered, endTimeAndDateEntered,
+//				appointmentAddressEntered, otherContactsEntered);
+		
 		
 		Intent detailsBackIntent = new Intent();
 		if (!newAppAllClientsString.equalsIgnoreCase("")) {
@@ -383,7 +391,6 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		}
 		setResult(RESULT_OK, detailsBackIntent);  
 		
-		//Pass the new arraylist along to be converted and saved to the device 
 		JSONData.convertArrayListToJSON(clientArrayList);
 		
 		finish(); 

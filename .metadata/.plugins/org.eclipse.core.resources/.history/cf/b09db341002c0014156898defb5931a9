@@ -351,12 +351,12 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		
 		String basicInfoEntered = basicInfo; 
 		String nextAppointmentEntered = startTimeAndDate;
+		//String appointmentTypeEntered = appointmentTypeET.getText().toString();
 		String startTimeAndDateEntered = startDatePicked + " at " + startTimePicked;
 		String endTimeAndDateEntered = endDatePicked + " at " + endTimePicked;
 		String appointmentAddressEntered = appointmentAddressET.getText().toString();
 		String otherContactsEntered = "none"; 
 		
-		//Create hashmap of client with new appointment to be added to arraylis 
 		HashMap<String, String> newAppointmentMap = new HashMap<String, String>(); 
 		newAppointmentMap.put("clientName", clientNameEntered);
 		newAppointmentMap.put("clientAddress", clientAddressEntered);

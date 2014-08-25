@@ -305,7 +305,7 @@ public class JSONData {
 			Log.i("newAllClientsString", "newAllClientsString is blank"); 
 		}
 		//Force refresh of the listviews.
-		MainActivity.forceRefreshListViews(newAllClientsString);
+		MainActivity.myViewPager.setAdapter(MainActivity.mySectionsPagerAdapter); 
 		
 	} //convertArrayListToJSON close 
 	
