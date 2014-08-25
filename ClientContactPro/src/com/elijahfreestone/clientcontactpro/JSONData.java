@@ -161,6 +161,7 @@ public class JSONData {
 	
 	
 	public static ArrayList<HashMap<String, String>> getClientArrayList(){
+		Log.i(TAG, "Get client array list");
 		return clientList;
 	}
 	
@@ -257,7 +258,7 @@ public class JSONData {
 			
 			JSONObject newAllClientsObject = new JSONObject();
 			newAllClientsObject.put("clients", allClientJSONArray);
-			Log.i(TAG, "All Clients JSON: " + newAllClientsObject);
+			//Log.i(TAG, "All Clients JSON: " + newAllClientsObject);
 			allClientJSONString = newAllClientsObject.toString(); 
 			
 			if (!allClientJSONString.equalsIgnoreCase("")) {
@@ -278,8 +279,79 @@ public class JSONData {
 	} // buildJSON close
 	
 	
+	public static void convertArrayListToJSON(ArrayList<HashMap<String, String>> clientsArrayList){
+		
+		String newClientName, newClientAddress, newPhoneNumber, newEmailAddress, newContactMethod, newBasicInfo, newNextAppointment, 
+		newAppointmentType, newStartTimeAndDate, newEndTimeAndDate, newAppointmentAddress, newOtherContacts; 
+		
+		JSONObject newClientObject = new JSONObject();
+		//JSONArray newClientsJSONArray = new JSONArray();
+		JSONObject newAllClientsObject = new JSONObject();
+		
+		JSONArray newClientsJSONArray = new JSONArray(clientsArrayList);
+		
+//		for (int i = 0; i < clientsArrayList.size(); i++) {
+//			newClientName = clientsArrayList.get(i).get("clientName");
+//			newClientAddress = clientsArrayList.get(i).get("clientAddress");
+//			newPhoneNumber = clientsArrayList.get(i).get("phoneNumber");
+//			newEmailAddress = clientsArrayList.get(i).get("emailAddress");
+//			newContactMethod = clientsArrayList.get(i).get("contactMethod");
+//			newBasicInfo = clientsArrayList.get(i).get("basicInfo");
+//			newNextAppointment = clientsArrayList.get(i).get("nextAppointment");
+//			newAppointmentType = clientsArrayList.get(i).get("appointmentType");
+//			newStartTimeAndDate = clientsArrayList.get(i).get("startTimeAndDate");
+//			newEndTimeAndDate = clientsArrayList.get(i).get("endTimeAndDate");
+//			newAppointmentAddress = clientsArrayList.get(i).get("appointmentAddress");
+//			newOtherContacts = clientsArrayList.get(i).get("otherContacts");
+//			
+//			try {
+//				newClientObject.put("clientName", newClientName); 
+//				newClientObject.put("clientAddress", newClientAddress);
+//				newClientObject.put("phoneNumber", newPhoneNumber);
+//				newClientObject.put("emailAddress", newEmailAddress);
+//				newClientObject.put("contactMethod", newContactMethod);
+//				newClientObject.put("basicInfo", newBasicInfo);
+//				newClientObject.put("nextAppointment", newNextAppointment); 
+//				newClientObject.put("appointmentType", newAppointmentType);
+//				newClientObject.put("startTimeAndDate", newStartTimeAndDate);
+//				newClientObject.put("endTimeAndDate", newEndTimeAndDate);
+//				newClientObject.put("appointmentAddress", newAppointmentAddress);
+//				newClientObject.put("otherContacts", newOtherContacts);
+//				
+//				newClientsJSONArray.put(newClientObject);
+//				
+//			} catch (JSONException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+		try {
+			newAllClientsObject.put("clients", newClientsJSONArray);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String newAllClientsString = newAllClientsObject.toString();
+		Log.i("newAllClientsString", "newAllClientsString: " + newAllClientsString);
+		
+		if (!newAllClientsString.equalsIgnoreCase("")) {
+			if (myDataManager != null) {
+				Log.i("newAllClientsString", "Write String called in convert array");
+				myDataManager.writeStringToFile(MainActivity.myContext, myFileName, newAllClientsString); 
+			}   
+			
+		} else {
+			Log.i("newAllClientsString", "newAllClientsString is blank"); 
+		}
+		
+		MainActivity.myViewPager.setAdapter(MainActivity.mySectionsPagerAdapter); 
+		
+	} //convertArrayListToJSON close 
 	
-	void deleteEntryForAppointmentAdd(int position){
+	
+	
+	void deleteEntryForAppointmentAdd(int position){ 
 		
 		
 	}

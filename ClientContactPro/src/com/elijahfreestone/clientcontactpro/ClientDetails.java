@@ -161,7 +161,7 @@ public class ClientDetails extends Activity {
 					}
 				}, 500);
 				
-				MainActivity.forceRefreshListViews(passedAllClientsString);
+				//MainActivity.forceRefreshListViews(passedAllClientsString);
 //				JSONData.displayDataFromFile(passedAllClientsString);
 //				//Force view pager to rebuild and in turn refresh client listview
 //				MainActivity.myViewPager.setAdapter(MainActivity.mySectionsPagerAdapter); 

@@ -10,11 +10,8 @@
 
 package com.elijahfreestone.clientcontactpro;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 import org.json.JSONArray;
@@ -45,7 +42,7 @@ import android.widget.TimePicker;
 public class NewAppointmentActivity extends Activity implements OnClickListener {
 	String TAG = "NewAppointmentActivity";
 	Context myContext; 
-	String clientName, clientAddress, phoneNumber, emailAddress, contactMethod, basicInfo, appointmentAddress, otherContacts;
+	String clientNameExtra, clientAddress, phoneNumber, emailAddress, contactMethod, basicInfo, appointmentAddress, otherContacts;
 	String nextAppointment, appointmentType;
 	TextView clientNameTV , phoneNumberTV, emailAddressTV, basicInfoTV;
 	TextView appStartDateTV, appStartTimeTV, appFinishDateTV, appFinishTimeTV, setTextView;
@@ -61,9 +58,13 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 	
 	HashMap<String, String> currentClientHashMap;
 	
+	ArrayList<HashMap<String, String>> clientArrayList;
+	
 	Intent detailsBackIntent;
 	
 	String allClientsString;
+	
+	int mapPosition;
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -78,39 +79,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		Intent detailsBackIntent = new Intent();
 		setResult(RESULT_CANCELED, detailsBackIntent);
 		
-		JSONArray allClientJSONArray = JSONData.getClientJSONArray();
-		JSONObject allClientsJSONObject = new JSONObject();
-		try {
-			allClientsJSONObject.put("clients", allClientJSONArray);
-			allClientsString = allClientsJSONObject.toString();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		//Get current date ints
-		final Calendar myCalendar = Calendar.getInstance();
-		currentYear = myCalendar.get(Calendar.YEAR);
-		currentMonth = myCalendar.get(Calendar.MONTH);
-		currentDay = myCalendar.get(Calendar.DAY_OF_MONTH);
-		currentHour = myCalendar.get(Calendar.HOUR);
-		currentMinute = myCalendar.get(Calendar.MINUTE);
-		//AMorPM = myCalendar.get(Calendar.AM_PM);
-		
-		int monthPlusOne = currentMonth + 1;
-		startDatePicked = monthPlusOne + "/" + currentDay + "/" + currentYear;
-		String startAMorPM;
-		if(currentHour < 12) {
-			startAMorPM = " AM";
-        } else {
-        	startAMorPM = " PM";
-        	currentHour = currentHour - 12;
-        }
-		startTimePicked = currentHour + ":" + currentMinute + startAMorPM;
-		endDatePicked = startDatePicked;
-		endTimePicked = startTimePicked;
-		
-		//startTimeAndDate = startDatePicked = " at " + startTimePicked;
+		mapPosition = -1;
 		
 		//Grab layout elements
 		clientNameTV = (TextView) findViewById(R.id.newAppClientName);
@@ -131,7 +100,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		
 		// Grab intent extras to be displayed in textviews
 		Intent newAppointmentIntent = getIntent();
-		clientName = newAppointmentIntent.getStringExtra("clientName");
+		clientNameExtra = newAppointmentIntent.getStringExtra("clientName");
 		clientAddress = newAppointmentIntent.getStringExtra("clientAddress");
 		appointmentAddress = newAppointmentIntent.getStringExtra("clientAddress");
 		phoneNumber = newAppointmentIntent.getStringExtra("phoneNumber");
@@ -147,21 +116,10 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		clientID = newAppointmentIntent.getLongExtra("clientID", 1);
 		Log.i(TAG, "clientID: " + clientID);
 		
-		if (!clientName.equalsIgnoreCase("")) {
+		if (!clientNameExtra.equalsIgnoreCase("")) {
 			//Log.i(TAG, "new app intent good: " + clientName);
 			displayClientDetails();
 		}
-		
-//		//Grab current time and date
-//		Time currentTime = new Time();
-//		currentTime.setToNow();
-//		Log.i(TAG, "Current Time: " + currentTime);
-//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
-//		String currentDateAndTime = dateFormat.format(new Date());
-//		Log.i(TAG, "Date and Time: " + currentDateAndTime);
-//		
-//		String myDate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-//		Log.i(TAG, "myDate: " + myDate);
 		
 		// Grab custom done/cancel action bar
 		View customActionBarView = getLayoutInflater().inflate(
@@ -184,19 +142,30 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 			public void onClick(View v) {
 				Log.i(TAG, "Done Action Button clicked");
 				
-				ArrayList<HashMap<String, String>> clientArrayList = JSONData.getClientArrayList();
+				clientArrayList = JSONData.getClientArrayList();
+				
+				Log.i(TAG, "clientArrayList Length: " + clientArrayList.size());
 				
 				for (HashMap<String, String> map : clientArrayList)
 			    {
-			        if(map.containsValue(clientName))
+					//Check if element with client name exists
+			        if(map.containsValue(clientNameExtra))
 			        {
-			            Log.i(TAG, "HashMap contains clientName");
+			        	//Pass position of duplicate element for replacement
+			        	mapPosition = clientArrayList.indexOf(map);
+			        	Log.i(TAG, "HashMap at position" + map);
+			            Log.i(TAG, "Position " + mapPosition);
+			            //clientArrayList.remove(mapPosition);
 			                break;
 			        }
 
 			    }
 				
-				onDoneClicked(); 
+				/*
+				 * Trigger method to delete original element and add new one to
+				 * arraylist before being saved to the device
+				 */
+				onDoneClicked();  
 			}
 		});
 
@@ -215,7 +184,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 	
 	/* Apply strings to textviews */
 	private void displayClientDetails(){
-		clientNameTV.setText(clientName);
+		clientNameTV.setText(clientNameExtra);
 		phoneNumberTV.setText(phoneNumber);
 		emailAddressTV.setText(emailAddress);
 		
@@ -286,6 +255,10 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		
 	} //showTimePickerDialog close
 
+	/*
+	 * onClick is triggered by any of the time/date textviews and triggers date
+	 * pickers from custom methods above
+	 */
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -324,7 +297,17 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		
 	} //onClick close
 	
+	/*
+	 * onDoneClicked deletes object new app is being created and formats input
+	 * data before sending it on to be saved. Called when done is clicked in the
+	 * action bar
+	 */
 	void onDoneClicked(){
+		if (mapPosition != -1) {
+			clientArrayList.remove(mapPosition);
+			Log.i(TAG, "clientArrayList Length after remove: " + clientArrayList.size());
+		}
+		
 		if (!appStartDateTV.getText().toString().equalsIgnoreCase("Start Date")) {
 			startDatePicked = appStartDateTV.getText().toString();
 		}
@@ -341,26 +324,25 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 			endTimePicked = appFinishTimeTV.getText().toString();
 		}
 		
-		startTimeAndDate = startDatePicked + " " + startTimePicked; //+ " at "
+		startTimeAndDate = startDatePicked + " at " + startTimePicked;
 		
-	    SimpleDateFormat dateFormat = new SimpleDateFormat("M/dd/yyyy hh:mm a");
-		Date convertedDate = new Date();
-
-		try {
-			convertedDate = dateFormat.parse(startTimeAndDate);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		SimpleDateFormat newDateFormat = new SimpleDateFormat("MM/dd/yyyy 'at' hh:mm a");
-		String formattedDate = newDateFormat.format(convertedDate);
-	    Log.i(TAG, "convertedDate: " + formattedDate);
+//	    SimpleDateFormat dateFormat = new SimpleDateFormat("M/dd/yyyy 'at' hh:mm a");
+//		Date convertedDate = new Date();
+//		try {
+//			convertedDate = dateFormat.parse(startTimeAndDate);
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		SimpleDateFormat newDateFormat = new SimpleDateFormat("MM/dd/yyyy 'at' hh:mm a");
+//		String formattedDate = newDateFormat.format(convertedDate);
+//	    Log.i(TAG, "convertedDate: " + formattedDate);
 	    
 		endTimeAndDate = endDatePicked + " at " + endTimePicked;
 		appointmentTypeEntered = appointmentTypeET.getText().toString();
 		appointmentAddressEntered = appointmentAddressET.getText().toString();
 		
-		String clientNameEntered = clientName; 
+		String clientNameEntered = clientNameExtra; 
 		String clientAddressEntered = clientAddress;
 		String phoneNumberEntered = phoneNumber;
 		String emailAddressEntered = emailAddress;
@@ -369,27 +351,91 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		
 		String basicInfoEntered = basicInfo; 
 		String nextAppointmentEntered = startTimeAndDate;
-		String appointmentTypeEntered = appointmentTypeET.getText().toString();
+		//String appointmentTypeEntered = appointmentTypeET.getText().toString();
 		String startTimeAndDateEntered = startDatePicked + " at " + startTimePicked;
 		String endTimeAndDateEntered = endDatePicked + " at " + endTimePicked;
 		String appointmentAddressEntered = appointmentAddressET.getText().toString();
 		String otherContactsEntered = "none"; 
 		
-		JSONData.buildJSON(clientNameEntered, clientAddressEntered,
-				phoneNumberEntered, emailAddressEntered,
-				contactMethodEntered, basicInfoEntered,
-				nextAppointmentEntered, appointmentTypeEntered,
-				startTimeAndDateEntered, endTimeAndDateEntered,
-				appointmentAddressEntered, otherContactsEntered);
+		HashMap<String, String> newAppointmentMap = new HashMap<String, String>(); 
+		newAppointmentMap.put("clientName", clientNameEntered);
+		newAppointmentMap.put("clientAddress", clientAddressEntered);
+		newAppointmentMap.put("phoneNumber", phoneNumberEntered);
+		newAppointmentMap.put("emailAddress", emailAddressEntered);
+		newAppointmentMap.put("contactMethod", contactMethodEntered);
+		newAppointmentMap.put("basicInfo", basicInfoEntered);
+		newAppointmentMap.put("nextAppointment", nextAppointmentEntered);
+		newAppointmentMap.put("appointmentType", appointmentTypeEntered);
+		newAppointmentMap.put("startTimeAndDate", startTimeAndDateEntered);
+		newAppointmentMap.put("endTimeAndDate", endTimeAndDateEntered);
+		newAppointmentMap.put("appointmentAddress", appointmentAddressEntered);
+		newAppointmentMap.put("otherContacts", otherContactsEntered);
 		
+		clientArrayList.add(newAppointmentMap);
+		
+		String newAppAllClientsString = "{clients:" + clientArrayList.toString() + "}";
+		
+		Log.i(TAG, "List after add: " + newAppAllClientsString);
+		
+//		JSONData.buildJSON(clientNameEntered, clientAddressEntered,
+//				phoneNumberEntered, emailAddressEntered,
+//				contactMethodEntered, basicInfoEntered,
+//				nextAppointmentEntered, appointmentTypeEntered,
+//				startTimeAndDateEntered, endTimeAndDateEntered,
+//				appointmentAddressEntered, otherContactsEntered);
 		
 		
 		Intent detailsBackIntent = new Intent();
-		detailsBackIntent.putExtra("allClients", JSONData.allClientJSONString);
+		if (!newAppAllClientsString.equalsIgnoreCase("")) {
+			detailsBackIntent.putExtra("allClients", newAppAllClientsString);
+		}
 		setResult(RESULT_OK, detailsBackIntent);  
 		
+		JSONData.convertArrayListToJSON(clientArrayList);
+		
 		finish(); 
-	} //onDoneClicked close
+	} //onDoneClicked close  
+	
+	/*
+	 * Set a default date and time for start/finish if none are selected with
+	 * the picker dialogs.
+	 */
+	void setDefaultDateAndTime() {
+		// Get current date ints
+		final Calendar myCalendar = Calendar.getInstance();
+		currentYear = myCalendar.get(Calendar.YEAR);
+		currentMonth = myCalendar.get(Calendar.MONTH);
+		currentDay = myCalendar.get(Calendar.DAY_OF_MONTH);
+		currentHour = myCalendar.get(Calendar.HOUR);
+		currentMinute = myCalendar.get(Calendar.MINUTE);
+
+		// Set default dates/times if none selected
+		int monthPlusOne = currentMonth + 1;
+		// Cast month and add 0 if below 10
+		String defaultMonthString = String.valueOf(monthPlusOne);
+		if (monthPlusOne < 10) {
+			defaultMonthString = "0" + String.valueOf(monthPlusOne);
+		}
+		// Cast month and add 0 if below 10
+		String defaultDayString = String.valueOf(currentDay);
+		if (currentDay < 10) {
+			defaultDayString = "0" + String.valueOf(currentDay);
+		}
+		startDatePicked = defaultMonthString + "/" + defaultDayString + "/"
+				+ currentYear;
+		// Set am or pm and change to 12 hour
+		String startAMorPM;
+		if (currentHour < 12) {
+			startAMorPM = " AM";
+		} else {
+			startAMorPM = " PM";
+			currentHour = currentHour - 12;
+		}
+		startTimePicked = currentHour + ":" + currentMinute + startAMorPM;
+		endDatePicked = startDatePicked;
+		endTimePicked = startTimePicked;
+
+	} //setDefaultDateAndTime close
 	
 	@Override
 	public void finish() { 
