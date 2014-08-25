@@ -43,6 +43,8 @@ public class ClientDetails extends Activity {
 		ClientDetailsFragment clientDetailsFragment = (ClientDetailsFragment) getFragmentManager()
 				.findFragmentById(R.id.clientDetailsFragment);
 		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		//Grab intent extras to be displayed in textviews
 		Intent clientDetailsIntent = getIntent();
 		clientName = clientDetailsIntent.getStringExtra("clientName");
@@ -105,6 +107,10 @@ public class ClientDetails extends Activity {
 			onPlusClick();
 		}
         
+        if (id == android.R.id.home) {
+        	finish();
+		}
+        
         return super.onOptionsItemSelected(item);
     } //onOptionsItemSelected close
     
@@ -142,28 +148,10 @@ public class ClientDetails extends Activity {
 			Log.i(TAG, "onActivityResult resultCode = OK");
 			if (detailsBackIntent.hasExtra("allClients")) {
 				Log.i(TAG, "Back Intent has extra");
-				String passedAllClientsString = detailsBackIntent.getExtras().getString("allClients");
+				//String passedAllClientsString = detailsBackIntent.getExtras().getString("allClients");
 				//Log.i(TAG, "passed string: " + passedAllClientsString);
 				
-				//Delay
-				final Handler handler = new Handler();
-				handler.postDelayed(new Runnable() {
-					@Override
-					public void run() {
-						/*
-						 * Force refresh by resetting ViewPager adapter.
-						 * forceRefreshListViews does the same thing. Not sure
-						 * why this only works if called twice to work from here
-						 * but it stops refreshing if either called is removed.
-						 */
-						MainActivity.myViewPager.setAdapter(MainActivity.mySectionsPagerAdapter);
-						Log.i(TAG, "Delay Run");
-					}
-				}, 500);
-				
-				//MainActivity.forceRefreshListViews(passedAllClientsString);
-//				JSONData.displayDataFromFile(passedAllClientsString);
-//				//Force view pager to rebuild and in turn refresh client listview
+				//Force view pager to rebuild and in turn refresh client listview
 				MainActivity.myViewPager.setAdapter(MainActivity.mySectionsPagerAdapter); 
 			}
 		}

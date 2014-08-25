@@ -10,13 +10,12 @@
 
 package com.elijahfreestone.clientcontactpro;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -26,7 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.view.View; 
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
@@ -326,17 +325,18 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		
 		startTimeAndDate = startDatePicked + " at " + startTimePicked;
 		
-//	    SimpleDateFormat dateFormat = new SimpleDateFormat("M/dd/yyyy 'at' hh:mm a");
-//		Date convertedDate = new Date();
-//		try {
-//			convertedDate = dateFormat.parse(startTimeAndDate);
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		SimpleDateFormat newDateFormat = new SimpleDateFormat("MM/dd/yyyy 'at' hh:mm a");
-//		String formattedDate = newDateFormat.format(convertedDate);
-//	    Log.i(TAG, "convertedDate: " + formattedDate);
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("M/dd/yyyy 'at' hh:mm a");
+		Date convertedDate = new Date();
+		try {
+			convertedDate = dateFormat.parse(startTimeAndDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		SimpleDateFormat sortFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm a");
+		String formatDateForSort = sortFormat.format(convertedDate);
+	    Log.i(TAG, "Sort Date: " + formatDateForSort);
 	    
 		endTimeAndDate = endDatePicked + " at " + endTimePicked;
 		appointmentTypeEntered = appointmentTypeET.getText().toString();
@@ -370,6 +370,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		newAppointmentMap.put("endTimeAndDate", endTimeAndDateEntered);
 		newAppointmentMap.put("appointmentAddress", appointmentAddressEntered);
 		newAppointmentMap.put("otherContacts", otherContactsEntered);
+		newAppointmentMap.put("formatDateForSort", formatDateForSort);
 		
 		clientArrayList.add(newAppointmentMap);
 		

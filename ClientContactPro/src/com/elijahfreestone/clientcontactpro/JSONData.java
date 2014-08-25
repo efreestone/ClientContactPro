@@ -51,7 +51,7 @@ public class JSONData {
 		myContext = MainActivity.myContext;
 		
 		String clientName, clientAddress, phoneNumber, emailAddress, contactMethod, basicInfo, nextAppointment, 
-		appointmentType, startTimeAndDate, endTimeAndDate, appointmentAddress, otherContacts; 
+		appointmentType, startTimeAndDate, endTimeAndDate, appointmentAddress, otherContacts, formatDateForSort; 
 		
 		clientList = new ArrayList<HashMap<String, String>>();
 		appointmentList = new ArrayList<HashMap<String, String>>();
@@ -85,6 +85,7 @@ public class JSONData {
 				endTimeAndDate = clientJSONArray.getJSONObject(i).getString("endTimeAndDate");
 				appointmentAddress = clientJSONArray.getJSONObject(i).getString("appointmentAddress");
 				otherContacts = clientJSONArray.getJSONObject(i).getString("otherContacts");
+				formatDateForSort = clientJSONArray.getJSONObject(i).getString("formatDateForSort");
 
 				//Instantiate Hash Map for array and pass in strings with key/value pairs
 				HashMap<String, String> clientDisplayMap = new HashMap<String, String>();
@@ -100,6 +101,7 @@ public class JSONData {
 				clientDisplayMap.put("endTimeAndDate", endTimeAndDate);
 				clientDisplayMap.put("appointmentAddress", appointmentAddress);
 				clientDisplayMap.put("otherContacts", otherContacts);
+				clientDisplayMap.put("formatDateForSort", formatDateForSort);
 				
 				//Sort out all entries that contain an appointment
 				HashMap<String, String> appointmentDisplayMap = new HashMap<String, String>();
@@ -117,13 +119,16 @@ public class JSONData {
 					appointmentDisplayMap.put("endTimeAndDate", endTimeAndDate);
 					appointmentDisplayMap.put("appointmentAddress", appointmentAddress);
 					appointmentDisplayMap.put("otherContacts", otherContacts);
+					
+					appointmentDisplayMap.put("formatDateForSort", formatDateForSort);
+					
 					appointmentList.add(appointmentDisplayMap);
 					
 					//Comparator to sort client list by clientName in alphabetical order
 					Comparator<HashMap<String, String>> clientMapComparator = new Comparator<HashMap<String, String>>() {
 					    public int compare(HashMap<String, String> clientOne, HashMap<String, String> clientTwo) {
-					        return clientOne.get("startTimeAndDate").compareTo(clientTwo.get("startTimeAndDate"));
-					    }
+					        return clientOne.get("formatDateForSort").compareTo(clientTwo.get("formatDateForSort"));
+					    } 
 					};
 
 					Collections.sort(appointmentList, clientMapComparator);
@@ -232,7 +237,8 @@ public class JSONData {
 			String startTimeAndDateEntered, 
 			String endTimeAndDateEntered,
 			String appointmentAddressEntered,  
-			String otherContactsEntered) {
+			String otherContactsEntered,
+			String formatDateForSort) { //, String formatDateForSort
 		JSONObject clientJSONObject = new JSONObject();
 		JSONObject detailsObject = new JSONObject();
 		try {
@@ -248,6 +254,7 @@ public class JSONData {
 			detailsObject.put("endTimeAndDate", endTimeAndDateEntered);
 			detailsObject.put("appointmentAddress", appointmentAddressEntered);
 			detailsObject.put("otherContacts", otherContactsEntered);
+			detailsObject.put("formatDateForSort", formatDateForSort);
 			
 			// clientJSONObject.put(clientNameEntered, detailsObject);
 			// Log.i(TAG, "Client JSON: " + clientJSONObject);
@@ -276,11 +283,11 @@ public class JSONData {
 			e.printStackTrace();
 			Log.e(TAG, e.getMessage().toString());
 		}
-	} // buildJSON close
+	} // buildJSON close 
 	
 	
 	public static void convertArrayListToJSON(ArrayList<HashMap<String, String>> clientsArrayList){
-		
+		 
 		JSONObject newAllClientsObject = new JSONObject();
 		//Cast ArrayList into JSONArray. Didn't know this was built into JSONArrays constructor before
 		JSONArray newClientsJSONArray = new JSONArray(clientsArrayList);

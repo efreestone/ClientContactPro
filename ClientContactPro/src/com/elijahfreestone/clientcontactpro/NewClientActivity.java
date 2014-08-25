@@ -111,6 +111,7 @@ public class NewClientActivity extends Activity{
 				String endTimeAndDateEntered = "";
 				String appointmentAddressEntered = clientAddressEntered;
 				String otherContactsEntered = "none";
+				String formatDateForSort = "1234"; 
 				//Check if required fields have been added
 				checkRequiredFields(); 
 				
@@ -122,7 +123,8 @@ public class NewClientActivity extends Activity{
 							contactMethodEntered, basicInfoEntered,
 							nextAppointmentEntered, appointmentTypeEntered,
 							startTimeAndDateEntered, endTimeAndDateEntered,
-							appointmentAddressEntered, otherContactsEntered);
+							appointmentAddressEntered, otherContactsEntered,
+							formatDateForSort);
 					
 					detailsBackIntent.putExtra("allClients", JSONData.allClientJSONString);
 					detailsBackIntent.putExtra("tabPosition", 0);
@@ -130,7 +132,7 @@ public class NewClientActivity extends Activity{
 					
 					finish();
 					//JSONData.displayDataFromFile(allClientJSONString);
-				}
+				} 
 				
 			}
 		}); //done button close

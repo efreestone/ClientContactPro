@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,6 +42,8 @@ public class AppointmentDetails extends Activity {
 		
 		AppointmentDetailsFragment appointmentDetailsFragment = (AppointmentDetailsFragment) getFragmentManager()
 				.findFragmentById(R.id.appointmentDetailsFragment);
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		//Grab intent extras to be displayed in textviews
 		Intent appointmentDetailsIntent = getIntent();
@@ -108,6 +111,12 @@ public class AppointmentDetails extends Activity {
         if (id == R.id.newPlusButton) {
 			Log.i(TAG, "Plus clicked");
 			onPlusClick();
+		}
+        
+        if (id == android.R.id.home) {
+        	int tabPosition = 1;
+        	MainActivity.myActionBar.setSelectedNavigationItem(tabPosition); 
+        	finish();
 		}
         
         return super.onOptionsItemSelected(item);
