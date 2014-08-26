@@ -6,7 +6,27 @@
     <string name="action_settings">Settings</string>
     <string name="logOut">Log Out</string>
     
+    <string name="clientDetailsLabel">Client Details</string>
+    <string name="appDetailsLabel">Appointment Details</string>
+    <string name="cancelAppLabel">Cancel Appointments</string>
     <string name="loginLabel">Login</string>
+    <string name="settingsLabel">Settings</string>
+    
+    <string name="reminderTimeLabel">Reminder Time</string>
+    <string name="defaultReminderMessageLabel">Default Reminder Message</string>
+    <string name="defaultContactMethodLabel">Default Contact Method</string>
+    <string name="defaultCancelMessageLabel">Default Cancel Message</string>
+    
+    <string name="defaultTimeString">24 hours before</string>
+    <string-array name="reminderTimeArray">
+        <item>24 hours before</item>
+        <item>48 hours before</item>
+    </string-array>
+    <string-array name="reminderTimeValueArray">
+        <item>24</item>
+        <item>48</item>
+    </string-array>
+    
     <string name="autoLogLabel">Auto-log</string>
     
     <string name="titleSection1">Clients</string>

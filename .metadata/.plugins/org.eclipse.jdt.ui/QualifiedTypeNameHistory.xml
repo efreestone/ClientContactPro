@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.app.Activity"/>
-<fullyQualifiedTypeName name="com.elijahfreestone.clientcontactpro.AppointmentDetailsFragment"/>
-<fullyQualifiedTypeName name="android.widget.Button"/>
 <fullyQualifiedTypeName name="android.view.View"/>
 <fullyQualifiedTypeName name="java.util.zip.Inflater"/>
 <fullyQualifiedTypeName name="android.widget.LinearLayout"/>
@@ -23,7 +20,6 @@
 <fullyQualifiedTypeName name="com.elijahfreestone.clientcontactpro.NewClientActivity"/>
 <fullyQualifiedTypeName name="com.elijahfreestone.clientcontactpro.ClientsFragment"/>
 <fullyQualifiedTypeName name="android.app.FragmentManager"/>
-<fullyQualifiedTypeName name="android.app.Fragment"/>
 <fullyQualifiedTypeName name="android.app.FragmentTransaction"/>
 <fullyQualifiedTypeName name="android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener"/>
 <fullyQualifiedTypeName name="android.widget.BaseAdapter"/>
@@ -44,10 +40,7 @@
 <fullyQualifiedTypeName name="com.elijahfreestone.clientcontactpro.JSONData.MyComparator"/>
 <fullyQualifiedTypeName name="android.os.Handler"/>
 <fullyQualifiedTypeName name="java.sql.Date"/>
-<fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.text.ParseException"/>
-<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
-<fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="org.json.JSONArray"/>
 <fullyQualifiedTypeName name="org.json.JSONObject"/>
@@ -56,8 +49,15 @@
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="com.elijahfreestone.clientcontactpro.DataManager"/>
 <fullyQualifiedTypeName name="com.elijahfreestone.clientcontactpro.R.id"/>
-<fullyQualifiedTypeName name="android.R"/>
-<fullyQualifiedTypeName name="android.R.id"/>
 <fullyQualifiedTypeName name="android.support.v4.app.NavUtils"/>
 <fullyQualifiedTypeName name="com.elijahfreestone.clientcontactpro.MainActivity"/>
+<fullyQualifiedTypeName name="android.text.format.DateFormat"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="com.elijahfreestone.clientcontactpro.R.xml"/>
+<fullyQualifiedTypeName name="android.app.Fragment"/>
+<fullyQualifiedTypeName name="android.R"/>
+<fullyQualifiedTypeName name="android.R.id"/>
+<fullyQualifiedTypeName name="com.elijahfreestone.clientcontactpro.SettingsFragment"/>
 </qualifiedTypeNameHistroy>

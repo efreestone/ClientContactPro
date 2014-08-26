@@ -86,14 +86,6 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		finishCancelTime.setOnClickListener(this);
 		cancelButton.setOnClickListener(this);
 		
-//		startCancelDate.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				Log.i(TAG, "Start Date");
-//			}
-//		});
-		
 		getCurrentDate();
 		
 	} //onCreate close
@@ -194,43 +186,5 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		}
 		
 	} //onClick close
-	
-//	@Override
-//	public void onClick(View v) {
-//		switch (v.getId()) {
-//		//Start date
-//		case R.id.newAppStartDateTV:
-//			Log.i(TAG, "Start Date Clicked");
-//			//Display dialog with todays date as starting point
-//			showDatePickerDialog(currentYear, currentMonth, currentDay); 
-//			
-//			setTextView = appStartDateTV;
-//			break;
-//		//Start time
-//		case R.id.newAppStartTimeTV:
-//			Log.i(TAG, "Start Time Clicked");
-//			showTimePickerDialog(currentHour, currentMinute);
-//			setTextView = appStartTimeTV;
-//			break;
-//		//End date
-//		case R.id.newAppFinishDateTV:
-//			Log.i(TAG, "Finish Date Clicked");
-//			currentDay = currentDay + 1;
-//			//Display dialog with tomorrows date as starting point
-//			showDatePickerDialog(currentYear, currentMonth, currentDay);
-//			
-//			setTextView = appFinishDateTV;
-//			break;
-//		//End time
-//		case R.id.newAppFinishTimeTV:
-//			Log.i(TAG, "Finish Date Clicked");
-//			showTimePickerDialog(currentHour, currentMinute);
-//			setTextView = appFinishTimeTV;
-//			break;
-//		default:
-//			break;
-//		}
-//		
-//	} //onClick close
 	
 }

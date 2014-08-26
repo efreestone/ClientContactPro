@@ -154,15 +154,17 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+        	Intent settingsIntent = new Intent(myContext, SettingsActivity.class);
+            startActivity(settingsIntent); 
             return true; 
         }
         
         //newPlusButton launches NewClient from everywhere except details screens.
         //Launches NewAppointment from them
-        if (id == R.id.newPlusButton) {
+        if (id == R.id.newPlusButton) { 
 			Log.i(TAG, "Plus clicked");
-			onNewClientClick();
-		}
+			onNewClientClick(); 
+		} 
         
         //Triggers alert and logs user out/finishes MainActivity upon positive click
         if (id == R.id.logOut) {
