@@ -19,9 +19,7 @@ import java.util.HashMap;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.DatePickerDialog;
-import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -35,7 +33,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -59,13 +56,14 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 	String appointmentTypeEntered, appointmentAddressEntered;
 	
 	HashMap<String, String> currentClientHashMap;
-	ArrayList<HashMap<String, String>> clientArrayList;
-	Intent detailsBackIntent;
-	String allClientsString;
-	int mapPosition;
 	
-	Calendar myCalendar;
-	Calendar alarmCalendar;
+	ArrayList<HashMap<String, String>> clientArrayList;
+	
+	Intent detailsBackIntent;
+	
+	String allClientsString;
+	
+	int mapPosition;
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -80,8 +78,8 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		Intent detailsBackIntent = new Intent();
 		setResult(RESULT_CANCELED, detailsBackIntent);
 		
-		myCalendar = Calendar.getInstance();
-		alarmCalendar = (Calendar) myCalendar.clone();
+		Calendar myCalendar = Calendar.getInstance();
+		Calendar alarmCalendat = (Calendar) myCalendar.clone();
 		
 		mapPosition = -1;
 		
@@ -343,8 +341,6 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		
 		startTimeAndDate = startDatePicked + " at " + startTimePicked;
 		
-		seperateDateTimeForReminder(startDatePicked, startTimePicked);
-		
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("M/dd/yyyy 'at' hh:mm a");
 		Date convertedDate = new Date();
 		try {
@@ -416,6 +412,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 	 */
 	void setDefaultDateAndTime() {
 		// Get current date ints
+		
 		currentYear = myCalendar.get(Calendar.YEAR);
 		currentMonth = myCalendar.get(Calendar.MONTH);
 		currentDay = myCalendar.get(Calendar.DAY_OF_MONTH);
@@ -446,8 +443,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		}
 		startTimePicked = currentHour + ":" + currentMinute + startAMorPM;
 		endDatePicked = startDatePicked;
-		int hourPlusOne = currentHour + 1;
-		endTimePicked = hourPlusOne + ":" + currentMinute + startAMorPM ;
+		endTimePicked = startTimePicked;
 
 	} //setDefaultDateAndTime close
 	
@@ -472,43 +468,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		
 	}
 	
-	void seperateDateTimeForReminder(String newStartDatePicked, String newStartTimePicked){
-		String[] dateSplit = newStartDatePicked.split("/");
-		String monthPicked = dateSplit[0];
-		String dayPicked = dateSplit[1];
-		String yearPicked = dateSplit[2];
-		
-		int dayInt = Integer.valueOf(dayPicked);
-		int dayMinusTime = dayInt - 1;
-		
-		String newDateTimeString = monthPicked + "/" + dayMinusTime + "/" + yearPicked + " " + newStartTimePicked;
-		//Log.i(TAG, "New date: " + newDateTimeString); 
-		
-		SimpleDateFormat newDateFormatter = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
-		try {
-			Date newAlarmDate = newDateFormatter.parse(newDateTimeString);
-			Log.i(TAG, "newAlarmDate: " + newAlarmDate);
-			alarmCalendar.setTime(newAlarmDate);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		setReminderAlarm(alarmCalendar);
-		
-	} //seperateDateTimeForReminder close
-	
-	void setReminderAlarm(Calendar newAlarmCalendar){
-		Toast.makeText(getApplicationContext(), "Reminder set for " + newAlarmCalendar.getTime(), Toast.LENGTH_LONG).show();
-		
-		Intent reminderIntent = new Intent(myContext, ReminderReceiver.class);
-		reminderIntent.putExtra("clientName", clientNameExtra);
-		PendingIntent pendingIntent = PendingIntent.getBroadcast(myContext, clientPosition, reminderIntent, 0);
-		AlarmManager reminderManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-		reminderManager.set(AlarmManager.RTC_WAKEUP, newAlarmCalendar.getTimeInMillis(), pendingIntent);
-	} //setReminderAlarm close 
-	
-	@Override 
+	@Override
 	public void finish() { 
 		Log.i(TAG, "Finish called");
 //		Intent detailsBackIntent = new Intent();
@@ -517,4 +477,4 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		super.finish();  
 	} // finish Close  
 
-} 
+}

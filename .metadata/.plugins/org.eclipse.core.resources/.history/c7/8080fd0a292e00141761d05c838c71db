@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         
-        
+        <receiver android:name=".ReminderReceiver" android:process=":remote" />
         
         <activity 
             android:name="LoginActivity"
@@ -55,7 +55,6 @@
             android:parentActivityName=".MainActivity"
            	android:label="@string/settingsLabel" >
         </activity>
-        <receiver android:enabled="true" android:name="com.elijahfreestone.clientcontactpro.ReminderReceiver"></receiver>
     </application>
 
 </manifest>

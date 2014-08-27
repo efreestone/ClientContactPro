@@ -1,0 +1,53 @@
+/*
+ * @author	Elijah Freestone 
+ *
+ * Project	ClientContactPro
+ * 
+ * Package	com.elijahfreestone.clientcontactpro
+ * 
+ * Date		Aug 27, 2014
+ */
+
+package com.elijahfreestone.clientcontactpro;
+
+import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.widget.Toast;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ReminderReceiver.
+ */
+public class ReminderReceiver extends BroadcastReceiver {
+
+	/* (non-Javadoc) 
+	 * @see android.content.BroadcastReceiver#onReceive(android.content.Context, android.content.Intent)
+	 */
+	@Override
+	public void onReceive(Context context, Intent intent) {
+		Toast.makeText(context, "Reminder Received!", Toast.LENGTH_LONG).show();
+		
+		AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+		alertDialog.setTitle("Reminder Received!");
+		String message = "Reminder for app has been received";
+		alertDialog.setMessage(message);
+		alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,  "OK", (DialogInterface.OnClickListener) null);
+		alertDialog.show();
+		
+//		//Create alert dialog for no connection
+//		AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+//		// Set dialog title to Connection Error
+//		alertDialog.setTitle(R.string.noConnectionTitle);
+//		// Set alert message. setMessage only has a charSequence version so egtString must be used.
+//		alertDialog.setMessage(myContext.getString(R.string.noConnectionAlert));
+//		// Set OK Button
+//		alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", (DialogInterface.OnClickListener) null);
+//		// Show Alert Dailog
+//		alertDialog.show();
+
+	}
+
+}

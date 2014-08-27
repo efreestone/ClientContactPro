@@ -19,9 +19,7 @@ import java.util.HashMap;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.DatePickerDialog;
-import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -501,12 +499,8 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 	void setReminderAlarm(Calendar newAlarmCalendar){
 		Toast.makeText(getApplicationContext(), "Reminder set for " + newAlarmCalendar.getTime(), Toast.LENGTH_LONG).show();
 		
-		Intent reminderIntent = new Intent(myContext, ReminderReceiver.class);
-		reminderIntent.putExtra("clientName", clientNameExtra);
-		PendingIntent pendingIntent = PendingIntent.getBroadcast(myContext, clientPosition, reminderIntent, 0);
-		AlarmManager reminderManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-		reminderManager.set(AlarmManager.RTC_WAKEUP, newAlarmCalendar.getTimeInMillis(), pendingIntent);
-	} //setReminderAlarm close 
+		//Intent alarmIntent = new Intent(myContext, ReminderReceiver.class);
+	}
 	
 	@Override 
 	public void finish() { 

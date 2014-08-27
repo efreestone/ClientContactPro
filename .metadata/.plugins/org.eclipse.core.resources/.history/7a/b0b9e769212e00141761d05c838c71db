@@ -23,8 +23,6 @@
             </intent-filter>
         </activity>
         
-        
-        
         <activity 
             android:name="LoginActivity"
             android:label="@string/loginLabel"
@@ -55,7 +53,6 @@
             android:parentActivityName=".MainActivity"
            	android:label="@string/settingsLabel" >
         </activity>
-        <receiver android:enabled="true" android:name="com.elijahfreestone.clientcontactpro.ReminderReceiver"></receiver>
     </application>
 
 </manifest>

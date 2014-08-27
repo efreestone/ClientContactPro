@@ -10,13 +10,12 @@
 
 package com.elijahfreestone.clientcontactpro;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -26,7 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.view.View; 
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
@@ -57,14 +56,13 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 	String appointmentTypeEntered, appointmentAddressEntered;
 	
 	HashMap<String, String> currentClientHashMap;
-	
 	ArrayList<HashMap<String, String>> clientArrayList;
-	
 	Intent detailsBackIntent;
-	
 	String allClientsString;
-	
 	int mapPosition;
+	
+	Calendar myCalendar;
+	Calendar alarmCalendar;
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -78,6 +76,9 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		
 		Intent detailsBackIntent = new Intent();
 		setResult(RESULT_CANCELED, detailsBackIntent);
+		
+		myCalendar = Calendar.getInstance();
+		alarmCalendar = (Calendar) myCalendar.clone();
 		
 		mapPosition = -1;
 		
@@ -110,6 +111,16 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		nextAppointment = newAppointmentIntent.getStringExtra("nextAppointment");
 		appointmentType = newAppointmentIntent.getStringExtra("appointmentType");
 		otherContacts = newAppointmentIntent.getStringExtra("otherContacts");
+		startTimeAndDate = newAppointmentIntent.getStringExtra("startTimeAndDate");
+		endTimeAndDate = newAppointmentIntent.getStringExtra("endTimeAndDate");
+		
+		if (startTimeAndDate.equalsIgnoreCase("none")) {
+			setDefaultDateAndTime();
+			Log.i(TAG, "Start time and date blank");
+		} else {
+			splitTimeAndDate(startTimeAndDate, endTimeAndDate);
+			Log.i(TAG, "start: " + startTimeAndDate); 
+		}
 		
 		clientPosition = newAppointmentIntent.getIntExtra("clientPosition", 1);
 		Log.i(TAG, "clientPosition: " + clientPosition); 
@@ -146,19 +157,23 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 				
 				Log.i(TAG, "clientArrayList Length: " + clientArrayList.size());
 				
-				for (HashMap<String, String> map : clientArrayList)
-			    {
+				for (HashMap<String, String> map : clientArrayList){
+					//Check if element with client name exists
 			        if(map.containsValue(clientNameExtra))
 			        {
+			        	//Pass position of duplicate element for replacement
 			        	mapPosition = clientArrayList.indexOf(map);
 			        	Log.i(TAG, "HashMap at position" + map);
 			            Log.i(TAG, "Position " + mapPosition);
 			            //clientArrayList.remove(mapPosition);
 			                break;
 			        }
-
 			    }
 				
+				/*
+				 * Trigger method to delete original element and add new one to
+				 * arraylist before being saved to the device
+				 */
 				onDoneClicked();  
 			}
 		});
@@ -187,35 +202,40 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 	} //displayClientDetails close
 	
 	/* Present date picker dialog */
-	private void showDatePickerDialog(int currentYear, int currentMonth, int currentDay){
-		DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-			
+	private void showDatePickerDialog(int currentYear, int currentMonth,
+			int currentDay) {
+		//Set up date picker dialog listener
+		DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+
 			@Override
 			public void onDateSet(DatePicker view, int year, int monthOfYear,
 					int dayOfMonth) {
-				//Add 1 to fix 0 based
+				// Add 1 to fix 0 based
 				monthOfYear = monthOfYear + 1;
-				
-				//Cast month to string and add 0 if below 10.
+
+				// Cast month to string and add 0 if below 10.
 				String monthString = String.valueOf(monthOfYear);
 				if (monthOfYear < 10) {
 					monthString = "0" + String.valueOf(monthOfYear);
 				}
-				//Cast day of month to string and add 0 if below 10
+				// Cast day of month to string and add 0 if below 10
 				String dayString = String.valueOf(dayOfMonth);
 				if (dayOfMonth < 10) {
 					dayString = "0" + String.valueOf(monthOfYear);
 				}
-				
+
 				datePicked = monthString + "/" + dayString + "/" + year;
 				setTextView.setText(datePicked);
-				//Log.i(TAG, datePicked);
-				
+				// Log.i(TAG, datePicked);
 			}
-		}, currentYear, currentMonth, currentDay);
-		datePickerDialog.show(); 
-			
-	} //showDatePickerDialog close
+		};
+		//Create date picker dialog
+		DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+				datePickerListener, currentYear, currentMonth, currentDay);
+		//Set minimum date to now minus 1 sec
+		datePickerDialog.getDatePicker().setMinDate(new Date().getTime() - 1000);
+		datePickerDialog.show();
+	} // showDatePickerDialog close
 	
 	/* Present time picker dialog */
 	private void showTimePickerDialog(int currentHour, int currentMinute){
@@ -249,6 +269,10 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		
 	} //showTimePickerDialog close
 
+	/*
+	 * onClick is triggered by any of the time/date textviews and triggers date
+	 * pickers from custom methods above
+	 */
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -280,7 +304,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 			Log.i(TAG, "Finish Date Clicked");
 			showTimePickerDialog(currentHour, currentMinute);
 			setTextView = appFinishTimeTV;
-			break;
+			break; 
 		default:
 			break;
 		}
@@ -316,17 +340,20 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		
 		startTimeAndDate = startDatePicked + " at " + startTimePicked;
 		
-//	    SimpleDateFormat dateFormat = new SimpleDateFormat("M/dd/yyyy 'at' hh:mm a");
-//		Date convertedDate = new Date();
-//		try {
-//			convertedDate = dateFormat.parse(startTimeAndDate);
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		SimpleDateFormat newDateFormat = new SimpleDateFormat("MM/dd/yyyy 'at' hh:mm a");
-//		String formattedDate = newDateFormat.format(convertedDate);
-//	    Log.i(TAG, "convertedDate: " + formattedDate);
+		seperateDateTimeForReminder(startDatePicked, startTimePicked);
+		
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("M/dd/yyyy 'at' hh:mm a");
+		Date convertedDate = new Date();
+		try {
+			convertedDate = dateFormat.parse(startTimeAndDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		SimpleDateFormat sortFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm a");
+		String formatDateForSort = sortFormat.format(convertedDate);
+	    Log.i(TAG, "Sort Date: " + formatDateForSort);
 	    
 		endTimeAndDate = endDatePicked + " at " + endTimePicked;
 		appointmentTypeEntered = appointmentTypeET.getText().toString();
@@ -341,12 +368,12 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		
 		String basicInfoEntered = basicInfo; 
 		String nextAppointmentEntered = startTimeAndDate;
-		//String appointmentTypeEntered = appointmentTypeET.getText().toString();
 		String startTimeAndDateEntered = startDatePicked + " at " + startTimePicked;
 		String endTimeAndDateEntered = endDatePicked + " at " + endTimePicked;
 		String appointmentAddressEntered = appointmentAddressET.getText().toString();
 		String otherContactsEntered = "none"; 
 		
+		//Create hashmap of client with new appointment to be added to arraylis 
 		HashMap<String, String> newAppointmentMap = new HashMap<String, String>(); 
 		newAppointmentMap.put("clientName", clientNameEntered);
 		newAppointmentMap.put("clientAddress", clientAddressEntered);
@@ -360,20 +387,13 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		newAppointmentMap.put("endTimeAndDate", endTimeAndDateEntered);
 		newAppointmentMap.put("appointmentAddress", appointmentAddressEntered);
 		newAppointmentMap.put("otherContacts", otherContactsEntered);
+		newAppointmentMap.put("formatDateForSort", formatDateForSort);
 		
 		clientArrayList.add(newAppointmentMap);
 		
 		String newAppAllClientsString = "{clients:" + clientArrayList.toString() + "}";
 		
-		Log.i(TAG, "List after add: " + newAppAllClientsString);
-		
-//		JSONData.buildJSON(clientNameEntered, clientAddressEntered,
-//				phoneNumberEntered, emailAddressEntered,
-//				contactMethodEntered, basicInfoEntered,
-//				nextAppointmentEntered, appointmentTypeEntered,
-//				startTimeAndDateEntered, endTimeAndDateEntered,
-//				appointmentAddressEntered, otherContactsEntered);
-		
+		//Log.i(TAG, "List after add: " + newAppAllClientsString);
 		
 		Intent detailsBackIntent = new Intent();
 		if (!newAppAllClientsString.equalsIgnoreCase("")) {
@@ -381,6 +401,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		}
 		setResult(RESULT_OK, detailsBackIntent);  
 		
+		//Pass the new arraylist along to be converted and saved to the device 
 		JSONData.convertArrayListToJSON(clientArrayList);
 		
 		finish(); 
@@ -392,15 +413,14 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 	 */
 	void setDefaultDateAndTime() {
 		// Get current date ints
-		final Calendar myCalendar = Calendar.getInstance();
 		currentYear = myCalendar.get(Calendar.YEAR);
 		currentMonth = myCalendar.get(Calendar.MONTH);
 		currentDay = myCalendar.get(Calendar.DAY_OF_MONTH);
 		currentHour = myCalendar.get(Calendar.HOUR);
-		currentMinute = myCalendar.get(Calendar.MINUTE);
+		currentMinute = myCalendar.get(Calendar.MINUTE); 
 
-		// Set default dates/times if none selected
-		int monthPlusOne = currentMonth + 1;
+		// Set default dates/times if none selected 
+		int monthPlusOne = currentMonth + 1; 
 		// Cast month and add 0 if below 10
 		String defaultMonthString = String.valueOf(monthPlusOne);
 		if (monthPlusOne < 10) {
@@ -415,17 +435,53 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 				+ currentYear;
 		// Set am or pm and change to 12 hour
 		String startAMorPM;
-		if (currentHour < 12) {
+		if (currentHour > 12) {
 			startAMorPM = " AM";
+			currentHour = currentHour - 12;
 		} else {
 			startAMorPM = " PM";
-			currentHour = currentHour - 12;
 		}
 		startTimePicked = currentHour + ":" + currentMinute + startAMorPM;
 		endDatePicked = startDatePicked;
-		endTimePicked = startTimePicked;
+		int hourPlusOne = currentHour + 1;
+		endTimePicked = hourPlusOne + ":" + currentMinute + startAMorPM ;
 
 	} //setDefaultDateAndTime close
+	
+	/*
+	 * splitTimeAndDate is used to seperate date/time strings for display in
+	 * case of editing an existing appointment
+	 */
+	void splitTimeAndDate(String newStartTimeAndDate, String newEndTimeAndDate){
+		String[] startArray = newStartTimeAndDate.split(" at ");
+		//Grab start date and time to apply to textviews
+		startDatePicked = startArray[0];
+		appStartDateTV.setText(startDatePicked);
+		startTimePicked = startArray[1];
+		appStartTimeTV.setText(startTimePicked);
+		
+		String[] endArray = newEndTimeAndDate.split(" at ");
+		//Grab end date and time to apply to textviews
+		endDatePicked = endArray[0];
+		appFinishDateTV.setText(endDatePicked);
+		endTimePicked = endArray[1];
+		appFinishTimeTV.setText(endTimePicked);
+		
+	}
+	
+	void seperateDateTimeForReminder(String newStartDatePicked, String newStartTimePicked){
+		String[] dateSplit = newStartDatePicked.split("/");
+		String monthPicked = dateSplit[0];
+		String dayPicked = dateSplit[1];
+		String yearPicked = dateSplit[2];
+		
+		int dayInt = Integer.valueOf(dayPicked);
+		int dayPlusTime = dayInt + 1;
+		
+		String newDateString = monthPicked + "/" + dayPlusTime + "/" + yearPicked;
+		Log.i(TAG, "New date: " + newDateString);
+		
+	} 
 	
 	@Override
 	public void finish() { 
@@ -436,4 +492,4 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		super.finish();  
 	} // finish Close  
 
-}
+} 

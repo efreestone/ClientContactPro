@@ -503,10 +503,10 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		
 		Intent reminderIntent = new Intent(myContext, ReminderReceiver.class);
 		reminderIntent.putExtra("clientName", clientNameExtra);
-		PendingIntent pendingIntent = PendingIntent.getBroadcast(myContext, clientPosition, reminderIntent, 0);
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(myContext, 1, reminderIntent, 0);
 		AlarmManager reminderManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 		reminderManager.set(AlarmManager.RTC_WAKEUP, newAlarmCalendar.getTimeInMillis(), pendingIntent);
-	} //setReminderAlarm close 
+	} //setReminderAlarm close
 	
 	@Override 
 	public void finish() { 
