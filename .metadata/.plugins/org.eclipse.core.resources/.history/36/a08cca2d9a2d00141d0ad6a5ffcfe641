@@ -66,15 +66,13 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 
 		int monthPlusOne = currentMonth + 1;
 		startDatePicked = monthPlusOne + "/" + currentDay + "/" + currentYear;
-		// Set am or pm and change to 12 hour
 		String startAMorPM;
-		if (currentHour > 12) {
+		if (currentHour < 12) {
 			startAMorPM = " AM";
-			currentHour = currentHour - 12;
 		} else {
 			startAMorPM = " PM";
+			currentHour = currentHour - 12;
 		}
-
 		startTimePicked = currentHour + ":" + currentMinute + startAMorPM;
 		int dayPlusOne = currentDay +1;
 		endDatePicked = monthPlusOne + "/" + dayPlusOne + "/" + currentYear;
@@ -87,7 +85,7 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		finishCancelTimeTV = (TextView) findViewById(R.id.finishCancelTime);
 		cancelButton = (Button) findViewById(R.id.cancelAppointmentsButton);
 		
-		//Set onClick 
+		//Set onClick
 		startCancelDateTV.setOnClickListener(this);
 		startCancelTimeTV.setOnClickListener(this);
 		finishCancelDateTV.setOnClickListener(this);
@@ -144,6 +142,20 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		datePickerDialog.getDatePicker()
 				.setMinDate(new Date().getTime() - 1000);
 		datePickerDialog.show();
+		// DatePickerDialog datePickerDialog = new DatePickerDialog(this, new
+		// DatePickerDialog.OnDateSetListener() {
+		//
+		// @Override
+		// public void onDateSet(DatePicker view, int year, int monthOfYear,
+		// int dayOfMonth) {
+		// monthOfYear = monthOfYear + 1;
+		// datePicked = monthOfYear + "/" + dayOfMonth + "/" + year;
+		// setTextView.setText(datePicked);
+		// Log.i(TAG, datePicked);
+		//
+		// }
+		// }, currentYear, currentMonth, currentDay);
+		// datePickerDialog.show();
 	}
 	
 	/* Present time picker dialog */

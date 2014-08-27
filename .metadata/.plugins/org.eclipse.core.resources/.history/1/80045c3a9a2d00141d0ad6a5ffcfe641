@@ -87,7 +87,7 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		finishCancelTimeTV = (TextView) findViewById(R.id.finishCancelTime);
 		cancelButton = (Button) findViewById(R.id.cancelAppointmentsButton);
 		
-		//Set onClick 
+		//Set onClick
 		startCancelDateTV.setOnClickListener(this);
 		startCancelTimeTV.setOnClickListener(this);
 		finishCancelDateTV.setOnClickListener(this);

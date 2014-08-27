@@ -66,18 +66,15 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 
 		int monthPlusOne = currentMonth + 1;
 		startDatePicked = monthPlusOne + "/" + currentDay + "/" + currentYear;
-		// Set am or pm and change to 12 hour
 		String startAMorPM;
-		if (currentHour > 12) {
+		if (currentHour < 12) {
 			startAMorPM = " AM";
-			currentHour = currentHour - 12;
 		} else {
 			startAMorPM = " PM";
+			currentHour = currentHour - 12;
 		}
-
 		startTimePicked = currentHour + ":" + currentMinute + startAMorPM;
-		int dayPlusOne = currentDay +1;
-		endDatePicked = monthPlusOne + "/" + dayPlusOne + "/" + currentYear;
+		endDatePicked = startDatePicked;
 		endTimePicked = startTimePicked;
 		
 		//Grab date/time spinners and cancel button 
@@ -87,7 +84,7 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		finishCancelTimeTV = (TextView) findViewById(R.id.finishCancelTime);
 		cancelButton = (Button) findViewById(R.id.cancelAppointmentsButton);
 		
-		//Set onClick 
+		//Set onClick
 		startCancelDateTV.setOnClickListener(this);
 		startCancelTimeTV.setOnClickListener(this);
 		finishCancelDateTV.setOnClickListener(this);
@@ -144,6 +141,20 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		datePickerDialog.getDatePicker()
 				.setMinDate(new Date().getTime() - 1000);
 		datePickerDialog.show();
+		// DatePickerDialog datePickerDialog = new DatePickerDialog(this, new
+		// DatePickerDialog.OnDateSetListener() {
+		//
+		// @Override
+		// public void onDateSet(DatePicker view, int year, int monthOfYear,
+		// int dayOfMonth) {
+		// monthOfYear = monthOfYear + 1;
+		// datePicked = monthOfYear + "/" + dayOfMonth + "/" + year;
+		// setTextView.setText(datePicked);
+		// Log.i(TAG, datePicked);
+		//
+		// }
+		// }, currentYear, currentMonth, currentDay);
+		// datePickerDialog.show();
 	}
 	
 	/* Present time picker dialog */
@@ -231,12 +242,12 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		if (!finishCancelTimeTV.getText().toString().equalsIgnoreCase("Time")) {
 			endTimePicked = finishCancelTimeTV.getText().toString();
 		}
-		startTimeAndDate = startDatePicked + " " + startTimePicked;
+		startTimeAndDate = startDatePicked + " at " + startTimePicked;
 		Log.i(TAG, "Start Date and Time: " + startTimeAndDate);
-		endTimeAndDate = endDatePicked + " " + endTimePicked;
+		endTimeAndDate = endDatePicked + " at " + endTimePicked;
 		Log.i(TAG, "End Date and Time: " + endTimeAndDate);
 		
-		SimpleDateFormat startEndDateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
+		SimpleDateFormat startEndDateFormat = new SimpleDateFormat("M/dd/yyyy ' at ' hh:mm a");
 		Date startCancelDate = new Date();
 		Date endCancelDate = new Date();
 		try {
@@ -252,41 +263,42 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		ArrayList<HashMap<String, String>> clientsWithAppsArrayList = new ArrayList<HashMap<String,String>>();
 		
 		//int position;
-		Date nextAppointmentDate = new Date();
 		
 		for (int i = 0; i < allClientsArraylist.size(); i++) {
-			HashMap<String, String> clientHashMap = allClientsArraylist.get(i);
 			String nextAppointment = allClientsArraylist.get(i).get("nextAppointment");
-			// String formatDateForSort = allClientsArraylist.get(i).get("formatDateForSort");
-
-			// Search for appointments and make Date object for those that exist
-			if (!nextAppointment.equalsIgnoreCase("none")) {
-				// Create date object of nextAppointment to compare with range entered
-				SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy 'at' hh:mm a");
-
-				try {
-					nextAppointmentDate = dateFormat.parse(nextAppointment);
-					Log.i(TAG, "nextAppointmentDate " + nextAppointmentDate);
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					Log.e(TAG, e1.getMessage().toString());
-				}
-				// Compare appointment date object with range entered
-				if (nextAppointmentDate.before(endCancelDate)
-						&& nextAppointmentDate.after(startCancelDate)) {
-					// Pass position of duplicate element for replacement
-					clientsWithAppsArrayList.add(clientHashMap);
-					// clientArrayList.remove(mapPosition);
-				} else {
-					Log.i(TAG, "No dates in range");
-				}
+			String formatDateForSort = allClientsArraylist.get(i).get("formatDateForSort");
+			
+			SimpleDateFormat dateFormat = new SimpleDateFormat("M/dd/yyyy ' at ' hh:mm a");
+			Date nextAppointmentDate = new Date();
+			try {
+				nextAppointmentDate = dateFormat.parse(nextAppointment);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				Log.e(TAG, e1.getMessage().toString());
 			}
+			
+			for (HashMap<String, String> map : allClientsArraylist){
+				//Check if element with client name exists
+		        if(!nextAppointment.equalsIgnoreCase("none")){
+		        	if (nextAppointmentDate.before(endCancelDate) && nextAppointmentDate.after(startCancelDate)) {
+		        		//integer >= 25 && integer <= 35
+						
+					
+		        	//Pass position of duplicate element for replacement
+		        	//position = allClientsArraylist.indexOf(map);
+		            clientsWithAppsArrayList.add(map);
+		            //clientArrayList.remove(mapPosition);
+		                break;
+		        	}
+		        }
+		    }
 		}
-		//Log.i(TAG, "App array: " + clientsWithAppsArrayList);
 		
-		if (clientsWithAppsArrayList.size() != 0) { 
-			Log.i(TAG, "App array: " + clientsWithAppsArrayList); 
+		if (clientsWithAppsArrayList.size() != 0) {
+			Log.i(TAG, "App array: " + clientsWithAppsArrayList);
+			
+			
 		}
 		
 		
