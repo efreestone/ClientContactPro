@@ -48,7 +48,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	static String myFileName = "string_from_url.txt";
 	ListView clientListView;
 	ListView appointmentsListView;   
-	static boolean fileExists;
+	boolean fileExists;
 	static DataManager myDataManager; 
 	static String JSONString;
 
@@ -343,11 +343,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		myActionBar.setSelectedNavigationItem(tabPosition); 
 		myViewPager.setCurrentItem(tabPosition);
 		boolean checkFile = checkFileExists();
-		if (checkFile) {
-			Log.i(TAG, "Force Refresh File exists");
-		} else {
-			JSONData.displayDataFromFile(passedAllClientsString);
+		if () {
+			
 		}
+		JSONData.displayDataFromFile(passedAllClientsString);
 	} //forceRefreshListViews
 
 }
