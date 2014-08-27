@@ -152,9 +152,9 @@ public class AppointmentDetails extends Activity {
     		startActivityForResult(editAppointmentIntent, 0); 
 		}
 				
-    } //onPlusClick close
+    } //onPlusClick close 
     
-    @Override
+    @Override 
 	protected void onActivityResult(int requestCode, int resultCode, Intent detailsBackIntent) {
 		Log.i("NewAppointment", "On Activity Result"); 
 		//super.onActivityResult(requestCode, resultCode, detailsBackIntent);

@@ -144,7 +144,7 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		datePickerDialog.getDatePicker()
 				.setMinDate(new Date().getTime() - 1000);
 		datePickerDialog.show();
-	}
+	} //showDatePickerDialog close
 	
 	/* Present time picker dialog */
 	void showTimePickerDialog(int currentHour, int currentMinute){
@@ -169,7 +169,7 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		        }, currentHour, currentMinute, false); //bool is to set 24 hour time 
 		timePickerDialog.show();   
 		
-	}
+	} //showTimePickerDialog close
 
 	@Override
 	public void onClick(View v) {
@@ -271,7 +271,7 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 					Log.e(TAG, e1.getMessage().toString());
-				}
+				} 
 				// Compare appointment date object with range entered
 				if (nextAppointmentDate.before(endCancelDate)
 						&& nextAppointmentDate.after(startCancelDate)) {
@@ -282,23 +282,11 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 					Log.i(TAG, "No dates in range");
 				}
 			}
-		}
-		//Log.i(TAG, "App array: " + clientsWithAppsArrayList);
+		} //for loop close
 		
 		if (clientsWithAppsArrayList.size() != 0) { 
 			Log.i(TAG, "App array: " + clientsWithAppsArrayList); 
 		}
-		
-		
-		
-//		List<Integer> ageList = new ArrayList<Integer>();
-//	    //-- add data in ageList
-//
-//	    List<Integer> newList = new ArrayList<Integer>();
-//	    for (Integer integer : ageList) {
-//	        if(integer >= 25 && integer <= 35)
-//	            newList.add(integer);
-//	    }
-	}
+	} //onCancelAppointmentsClicked close
 	
 }

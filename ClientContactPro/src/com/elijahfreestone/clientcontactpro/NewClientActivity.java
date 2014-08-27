@@ -36,7 +36,7 @@ public class NewClientActivity extends Activity{
 	static String TAG = "NewClientActivity";
 	static Context myContext;
 	static DataManager myDataManager;
-	boolean requiredFields;
+	boolean requiredFields; 
 	EditText clientNameEditText, clientAddressEditText, phoneNumberEditText,
 			emailAddressEditText, basicInfoEditText;
 	String clientNameEntered, clientAddressEntered, phoneNumberEntered,
@@ -55,7 +55,7 @@ public class NewClientActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_new_client);
+		setContentView(R.layout.activity_new_client);    
 		//Grab instance of data manager
 		myDataManager = DataManager.getInstance();
 		myContext = this;

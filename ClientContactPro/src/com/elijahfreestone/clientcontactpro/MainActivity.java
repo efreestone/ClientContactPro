@@ -325,13 +325,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				int tabPosition = 0;
 				if (!passedAllClientsString.equalsIgnoreCase("")) {
 					forceRefreshListViews(passedAllClientsString);
-				}
+				} 
 				
 				//JSONData.displayDataFromFile(passedAllClientsString);
 				//Force view pager to rebuild and in turn refresh client listview
 				myViewPager.setAdapter(mySectionsPagerAdapter); 
 				myActionBar.setSelectedNavigationItem(tabPosition); 
-			} 
+			}   
 		} 
 	} //onActivityResult close 
 	

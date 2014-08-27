@@ -414,10 +414,10 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		currentMonth = myCalendar.get(Calendar.MONTH);
 		currentDay = myCalendar.get(Calendar.DAY_OF_MONTH);
 		currentHour = myCalendar.get(Calendar.HOUR);
-		currentMinute = myCalendar.get(Calendar.MINUTE);
+		currentMinute = myCalendar.get(Calendar.MINUTE); 
 
-		// Set default dates/times if none selected
-		int monthPlusOne = currentMonth + 1;
+		// Set default dates/times if none selected 
+		int monthPlusOne = currentMonth + 1; 
 		// Cast month and add 0 if below 10
 		String defaultMonthString = String.valueOf(monthPlusOne);
 		if (monthPlusOne < 10) {

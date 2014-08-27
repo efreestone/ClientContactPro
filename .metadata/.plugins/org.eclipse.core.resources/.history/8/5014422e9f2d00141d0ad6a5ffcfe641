@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <RelativeLayout
+        android:id="@+id/topEmptyBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:id="@+id/cancelLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#303030" >
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/button_background"
+            android:clickable="true"
+            android:text="@string/cancelButtonString"
+            android:textStyle="bold" />
+    </LinearLayout>
+    
+    <ScrollView
+        android:id="@+id/appDetailsScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/cancelLayout"
+        android:layout_below="@id/topEmptyBar" >
+
+        <LinearLayout
+            android:id="@+id/appDetailsLinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/appStartTimeTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="50dp"
+                android:text="@string/startTimeDate"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/appEndTimeTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="End Time/Date"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/appAppointmentTypeTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Appointment Type" />
+
+            <TextView
+                android:id="@+id/appAddressTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="30dp"
+                android:text="Appointment Address" />
+
+            <TextView
+                android:id="@+id/clientTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="50dp"
+                android:text="Client Information"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/appClientNameTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Client Name" />
+
+            <TextView
+                android:id="@+id/appPhoneNumberTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Phone Number" />
+
+            <TextView
+                android:id="@+id/appEmailTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Email Address" />
+
+            <TextView
+                android:id="@+id/appContactMethodTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Contact Method: Text" />
+
+            <TextView
+                android:id="@+id/appBasicInfoTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Basic Info (Due Date, etc)" />
+
+            <TextView
+                android:id="@+id/appOtherContactTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="20dp"
+                android:text="Other Contacts (Spouse, Backup, etc)" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
