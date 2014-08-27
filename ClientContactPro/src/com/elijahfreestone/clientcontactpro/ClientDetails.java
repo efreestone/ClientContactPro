@@ -14,7 +14,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,8 +25,8 @@ import android.view.MenuItem;
 public class ClientDetails extends Activity {
 	String TAG = "ClientDetails";
 	Context myContext = MainActivity.myContext;
-	String clientName, clientAddress, phoneNumber, emailAddress, contactMethod, basicInfo;
-	String nextAppointment, appointmentType;
+	String clientName, clientAddress, phoneNumber, emailAddress, contactMethod, basicInfo, nextAppointment;
+	String appointmentType, startTimeAndDate, endTimeAndDate, appointmentAddress, otherContacts;
 	int clientPosition;
 	long clientID;
 	
@@ -55,6 +54,10 @@ public class ClientDetails extends Activity {
 		basicInfo = clientDetailsIntent.getStringExtra("basicInfo");
 		nextAppointment = clientDetailsIntent.getStringExtra("nextAppointment");
 		appointmentType = clientDetailsIntent.getStringExtra("appointmentType");
+		startTimeAndDate = clientDetailsIntent.getStringExtra("startTimeAndDate");
+		endTimeAndDate = clientDetailsIntent.getStringExtra("endTimeAndDate");
+		appointmentAddress = clientDetailsIntent.getStringExtra("appointmentAddress");
+		otherContacts = clientDetailsIntent.getStringExtra("otherContacts");
 		
 		clientPosition = clientDetailsIntent.getIntExtra("clientPosition", 1);
 		//Log.i(TAG, "clientPosition: " + clientPosition);
@@ -132,6 +135,11 @@ public class ClientDetails extends Activity {
 
     	newAppointmentIntent.putExtra("nextAppointment", nextAppointment);
     	newAppointmentIntent.putExtra("appointmentType", appointmentType);
+    	
+    	newAppointmentIntent.putExtra("startTimeAndDate", startTimeAndDate);
+    	newAppointmentIntent.putExtra("endTimeAndDate", endTimeAndDate);
+    	newAppointmentIntent.putExtra("appointmentAddress", appointmentAddress);
+    	newAppointmentIntent.putExtra("otherContacts", otherContacts);
     	
     	newAppointmentIntent.putExtra("clientPosition", clientPosition);
     	newAppointmentIntent.putExtra("clientID", clientID);

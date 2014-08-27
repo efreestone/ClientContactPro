@@ -39,7 +39,7 @@ public class ClientsFragment extends Fragment implements OnItemClickListener {
 	private static ClientsFragment clientsFragmentInstance;
 	
 	String clientName, clientAddress, phoneNumber, emailAddress, contactMethod, basicInfo;
-	String nextAppointment, appointmentType;
+	String nextAppointment, appointmentType, startTimeAndDate, endTimeAndDate, appointmentAddress, otherContacts;
 	
 	HashMap<String, String> selectedClient;
 	
@@ -107,6 +107,10 @@ public class ClientsFragment extends Fragment implements OnItemClickListener {
 		basicInfo = selectedClient.get("basicInfo");
 		nextAppointment = selectedClient.get("nextAppointment");
 		appointmentType = selectedClient.get("appointmentType");
+		startTimeAndDate = selectedClient.get("startTimeAndDate");
+		endTimeAndDate = selectedClient.get("endTimeAndDate");
+		appointmentAddress = selectedClient.get("appointmentAddress");
+		otherContacts = selectedClient.get("otherContacts");
 		Log.i(TAG, "Client Selected: " + clientName);
 		
 		// Create explicit intent and pass details as extras
@@ -119,6 +123,11 @@ public class ClientsFragment extends Fragment implements OnItemClickListener {
 		clientDetailsIntent.putExtra("basicInfo", basicInfo);
 		clientDetailsIntent.putExtra("nextAppointment", nextAppointment);
 		clientDetailsIntent.putExtra("appointmentType", appointmentType); 
+		clientDetailsIntent.putExtra("startTimeAndDate", startTimeAndDate);
+		clientDetailsIntent.putExtra("endTimeAndDate", endTimeAndDate);
+		clientDetailsIntent.putExtra("appointmentAddress", appointmentAddress);
+		clientDetailsIntent.putExtra("otherContacts", otherContacts);
+		
 		clientDetailsIntent.putExtra("clientPosition", position);
 		clientDetailsIntent.putExtra("clientID", id);
 		

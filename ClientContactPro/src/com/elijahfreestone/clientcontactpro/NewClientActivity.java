@@ -107,8 +107,8 @@ public class NewClientActivity extends Activity{
 				basicInfoEntered = basicInfoEditText.getText().toString();
 				String nextAppointmentEntered = "none";
 				String appointmentTypeEntered = "none";
-				String startTimeAndDateEntered = "";
-				String endTimeAndDateEntered = "";
+				String startTimeAndDateEntered = "none";
+				String endTimeAndDateEntered = "none";
 				String appointmentAddressEntered = clientAddressEntered;
 				String otherContactsEntered = "none";
 				String formatDateForSort = "1234"; 
@@ -135,7 +135,7 @@ public class NewClientActivity extends Activity{
 				} 
 				
 			}
-		}); //done button close
+		}); //done button close 
 
 		/*
 		 * Grab action bar and set params to show custom done/cancel bar and

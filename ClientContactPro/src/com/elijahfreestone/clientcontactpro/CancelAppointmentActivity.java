@@ -11,6 +11,7 @@
 package com.elijahfreestone.clientcontactpro;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import android.app.Activity; 
 import android.app.DatePickerDialog;
@@ -30,7 +31,7 @@ import android.widget.TimePicker;
  */
 public class CancelAppointmentActivity extends Activity implements OnClickListener {
 	String TAG = "CancelAppointmentActivity";
-	TextView startCancelDate, startCancelTime, finishCancelDate, finishCancelTime, setTextView;
+	TextView startCancelDateTV, startCancelTimeTV, finishCancelDateTV, finishCancelTimeTV, setTextView;
 	Button cancelButton;
 	Calendar myCalendar;
 	
@@ -73,17 +74,17 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		endTimePicked = startTimePicked;
 		
 		//Grab date/time spinners and cancel button 
-		startCancelDate = (TextView) findViewById(R.id.startCancelDate);
-		startCancelTime = (TextView) findViewById(R.id.startCancelTime);
-		finishCancelDate = (TextView) findViewById(R.id.finishCancelDate);
-		finishCancelTime = (TextView) findViewById(R.id.finishCancelTime);
+		startCancelDateTV = (TextView) findViewById(R.id.startCancelDate);
+		startCancelTimeTV = (TextView) findViewById(R.id.startCancelTime);
+		finishCancelDateTV = (TextView) findViewById(R.id.finishCancelDate);
+		finishCancelTimeTV = (TextView) findViewById(R.id.finishCancelTime);
 		cancelButton = (Button) findViewById(R.id.cancelAppointmentsButton);
 		
 		//Set onClick
-		startCancelDate.setOnClickListener(this);
-		startCancelTime.setOnClickListener(this);
-		finishCancelDate.setOnClickListener(this);
-		finishCancelTime.setOnClickListener(this);
+		startCancelDateTV.setOnClickListener(this);
+		startCancelTimeTV.setOnClickListener(this);
+		finishCancelDateTV.setOnClickListener(this);
+		finishCancelTimeTV.setOnClickListener(this);
 		cancelButton.setOnClickListener(this);
 		
 		getCurrentDate();
@@ -103,21 +104,53 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 	} //getCurrentDate close
 	
 	/* Present date picker dialog */
-	void showDatePickerDialog(int currentYear, int currentMonth, int currentDay){
-		DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-			
+	void showDatePickerDialog(int currentYear, int currentMonth, int currentDay) {
+		// Set up date picker dialog listener
+		DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+
 			@Override
 			public void onDateSet(DatePicker view, int year, int monthOfYear,
 					int dayOfMonth) {
+				// Add 1 to fix 0 based
 				monthOfYear = monthOfYear + 1;
-				datePicked = monthOfYear + "/" + dayOfMonth + "/" + year;
+
+				// Cast month to string and add 0 if below 10.
+				String monthString = String.valueOf(monthOfYear);
+				if (monthOfYear < 10) {
+					monthString = "0" + String.valueOf(monthOfYear);
+				}
+				// Cast day of month to string and add 0 if below 10
+				String dayString = String.valueOf(dayOfMonth);
+				if (dayOfMonth < 10) {
+					dayString = "0" + String.valueOf(monthOfYear);
+				}
+
+				datePicked = monthString + "/" + dayString + "/" + year;
 				setTextView.setText(datePicked);
-				Log.i(TAG, datePicked);
-				
+				// Log.i(TAG, datePicked);
 			}
-		}, currentYear, currentMonth, currentDay);
-		datePickerDialog.show(); 
-			
+		};
+		// Create date picker dialog
+		DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+				datePickerListener, currentYear, currentMonth, currentDay);
+		// Set minimum date to now minus 1 sec
+		datePickerDialog.getDatePicker()
+				.setMinDate(new Date().getTime() - 1000);
+		datePickerDialog.show();
+		// DatePickerDialog datePickerDialog = new DatePickerDialog(this, new
+		// DatePickerDialog.OnDateSetListener() {
+		//
+		// @Override
+		// public void onDateSet(DatePicker view, int year, int monthOfYear,
+		// int dayOfMonth) {
+		// monthOfYear = monthOfYear + 1;
+		// datePicked = monthOfYear + "/" + dayOfMonth + "/" + year;
+		// setTextView.setText(datePicked);
+		// Log.i(TAG, datePicked);
+		//
+		// }
+		// }, currentYear, currentMonth, currentDay);
+		// datePickerDialog.show();
 	}
 	
 	/* Present time picker dialog */
@@ -154,13 +187,13 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 			//Display dialog with todays date as starting point
 			showDatePickerDialog(currentYear, currentMonth, currentDay); 
 			
-			setTextView = startCancelDate;
+			setTextView = startCancelDateTV;
 			break;
 		//Start time
 		case R.id.startCancelTime:
 			Log.i(TAG, "Start Cancel Time");
 			showTimePickerDialog(currentHour, currentMinute);
-			setTextView = startCancelTime;
+			setTextView = startCancelTimeTV;
 			break;
 		//End date
 		case R.id.finishCancelDate:
@@ -168,17 +201,19 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 			//Display dialog with tomorrows date as starting point
 			showDatePickerDialog(currentYear, currentMonth, currentDay);
 			
-			setTextView = finishCancelDate;
+			setTextView = finishCancelDateTV;
 			break;
 		//End time
 		case R.id.finishCancelTime:
 			Log.i(TAG, "Finish Cancel Time");
 			showTimePickerDialog(currentHour, currentMinute);
-			setTextView = finishCancelTime;
+			setTextView = finishCancelTimeTV;
 			break;
 			
 		case R.id.cancelAppointmentsButton:
 			Log.i(TAG, "Cancel Button");
+			onCancelAppointmentsClicked();
+			
 			break;
 
 		default:
@@ -186,5 +221,27 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		}
 		
 	} //onClick close
+	
+	void onCancelAppointmentsClicked(){
+		if (!startCancelDateTV.getText().toString().equalsIgnoreCase("Start Date")) {
+			startDatePicked = startCancelDateTV.getText().toString();
+		} 
+		
+		if (!startCancelTimeTV.getText().toString().equalsIgnoreCase("Time")) {
+			startTimePicked = startCancelTimeTV.getText().toString();
+		}
+		
+		if (!finishCancelDateTV.getText().toString().equalsIgnoreCase("Finish Date")) {
+			endDatePicked = finishCancelDateTV.getText().toString();
+		}
+		
+		if (!finishCancelTimeTV.getText().toString().equalsIgnoreCase("Time")) {
+			endTimePicked = finishCancelTimeTV.getText().toString();
+		}
+		startTimeAndDate = startDatePicked + " at " + startTimePicked;
+		Log.i(TAG, "Start Date and Time: " + startTimeAndDate);
+		endTimeAndDate = endDatePicked + " at " + endTimePicked;
+		Log.i(TAG, "End Date and Time: " + endTimeAndDate);
+	}
 	
 }

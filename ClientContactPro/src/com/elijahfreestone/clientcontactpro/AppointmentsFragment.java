@@ -89,7 +89,6 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 		
 		// Grab object selected from ArrayList as a HashMap and split into
 		// details strings.
-		//THIS WAS SET TO CLIENTLIST!!!!!!
 		selectedClient = JSONData.appointmentList.get(position);
 		clientName = selectedClient.get("clientName"); 
 		clientAddress = selectedClient.get("clientAddress");

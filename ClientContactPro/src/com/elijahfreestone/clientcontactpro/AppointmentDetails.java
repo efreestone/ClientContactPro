@@ -90,7 +90,7 @@ public class AppointmentDetails extends Activity {
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.action_bar, menu);
+        getMenuInflater().inflate(R.menu.app_details_action_bar, menu);
         return true;
     } 
 
@@ -109,8 +109,8 @@ public class AppointmentDetails extends Activity {
             return true;
         }
         
-        if (id == R.id.newPlusButton) {
-			Log.i(TAG, "Plus clicked");
+        if (id == R.id.editAppointment) {
+			Log.i(TAG, "Edit clicked");
 			onPlusClick();
 		}
         
@@ -129,39 +129,44 @@ public class AppointmentDetails extends Activity {
      */
     void onPlusClick(){
     	// Create explicit intent and pass details as extras
-    	Intent newAppointmentIntent = new Intent(myContext, NewAppointmentActivity.class);
-    	newAppointmentIntent.putExtra("clientName", clientName);
-    	newAppointmentIntent.putExtra("clientAddress", clientAddress);
-    	newAppointmentIntent.putExtra("phoneNumber", phoneNumber);
-    	newAppointmentIntent.putExtra("emailAddress", emailAddress);
-    	newAppointmentIntent.putExtra("contactMethod", contactMethod);
-    	newAppointmentIntent.putExtra("basicInfo", basicInfo);
+    	Intent editAppointmentIntent = new Intent(myContext, NewAppointmentActivity.class);
+    	editAppointmentIntent.putExtra("clientName", clientName);
+    	editAppointmentIntent.putExtra("clientAddress", clientAddress);
+    	editAppointmentIntent.putExtra("phoneNumber", phoneNumber);
+    	editAppointmentIntent.putExtra("emailAddress", emailAddress);
+    	editAppointmentIntent.putExtra("contactMethod", contactMethod);
+    	editAppointmentIntent.putExtra("basicInfo", basicInfo);
 
-    	newAppointmentIntent.putExtra("nextAppointment", nextAppointment);
-    	newAppointmentIntent.putExtra("appointmentType", appointmentType);
+    	editAppointmentIntent.putExtra("nextAppointment", nextAppointment);
+    	editAppointmentIntent.putExtra("appointmentType", appointmentType);
     	
-    	newAppointmentIntent.putExtra("clientPosition", clientPosition);
-    	newAppointmentIntent.putExtra("clientID", clientID);
+    	editAppointmentIntent.putExtra("startTimeAndDate", startTimeAndDate);
+    	editAppointmentIntent.putExtra("endTimeAndDate", endTimeAndDate);
+    	editAppointmentIntent.putExtra("appointmentAddress", appointmentAddress);
+    	editAppointmentIntent.putExtra("otherContacts", otherContacts);
+    	
+    	editAppointmentIntent.putExtra("clientPosition", clientPosition);
+    	editAppointmentIntent.putExtra("clientID", clientID);
 		
-    	if (newAppointmentIntent != null) {
-    		startActivityForResult(newAppointmentIntent, 0); 
+    	if (editAppointmentIntent != null) {
+    		startActivityForResult(editAppointmentIntent, 0); 
 		}
 				
     } //onPlusClick close
     
     @Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent detailsBackIntent) {
-		Log.i(TAG, "On Activity Result"); 
+		Log.i("NewAppointment", "On Activity Result"); 
 		//super.onActivityResult(requestCode, resultCode, detailsBackIntent);
 		if (resultCode == RESULT_OK && requestCode == 0) {
-			Log.i(TAG, "onActivityResult resultCode = OK");
+			Log.i("NewAppointment", "onActivityResult resultCode = OK");
 			if (detailsBackIntent.hasExtra("allClients")) {
-				Log.i(TAG, "Back Intent has extra");
+				Log.i("NewAppointment", "Back Intent has extra");
 				String passedAllClientsString = detailsBackIntent.getExtras().getString("allClients");
 				MainActivity.forceRefreshListViews(passedAllClientsString);
 //				JSONData.displayDataFromFile(passedAllClientsString);
 //				//Force view pager to rebuild and in turn refresh client listview
-//				myViewPager.setAdapter(mySectionsPagerAdapter); 
+				MainActivity.myViewPager.setAdapter(MainActivity.mySectionsPagerAdapter);
 			}
 		} 
 	} //onActivityResult close

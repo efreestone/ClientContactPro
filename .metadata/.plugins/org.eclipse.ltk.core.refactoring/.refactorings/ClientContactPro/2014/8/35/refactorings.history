@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;action_bar.xml&apos; to &apos;menu&apos;&#x0A;- Original project: &apos;ClientContactPro&apos;&#x0A;- Destination element: &apos;menu&apos;&#x0A;- Original element: &apos;action_bar.xml&apos;" description="Copy file" element1="res/menu/action_bar.xml" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1409080672201" target="/ClientContactPro/res/menu" units="0" version="1.0"/>
+</session>

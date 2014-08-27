@@ -19,7 +19,6 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.ClipData.Item;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -37,7 +36,7 @@ import android.widget.ListView;
 import android.widget.Toast;
  
 
-// TODO: Auto-generated Javadoc   
+// TODO: Auto-generated Javadoc     
 /**
  * The Class MainActivity.
  */

@@ -80,8 +80,6 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		
 		mapPosition = -1;
 		
-		setDefaultDateAndTime();
-		
 		//Grab layout elements
 		clientNameTV = (TextView) findViewById(R.id.newAppClientName);
 		phoneNumberTV = (TextView) findViewById(R.id.newAppPhoneNumber);
@@ -111,6 +109,16 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		nextAppointment = newAppointmentIntent.getStringExtra("nextAppointment");
 		appointmentType = newAppointmentIntent.getStringExtra("appointmentType");
 		otherContacts = newAppointmentIntent.getStringExtra("otherContacts");
+		startTimeAndDate = newAppointmentIntent.getStringExtra("startTimeAndDate");
+		endTimeAndDate = newAppointmentIntent.getStringExtra("endTimeAndDate");
+		
+		if (startTimeAndDate.equalsIgnoreCase("none")) {
+			setDefaultDateAndTime();
+			Log.i(TAG, "Start time and date blank");
+		} else {
+			splitTimeAndDate(startTimeAndDate, endTimeAndDate);
+			Log.i(TAG, "start: " + startTimeAndDate); 
+		}
 		
 		clientPosition = newAppointmentIntent.getIntExtra("clientPosition", 1);
 		Log.i(TAG, "clientPosition: " + clientPosition); 
@@ -192,35 +200,40 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 	} //displayClientDetails close
 	
 	/* Present date picker dialog */
-	private void showDatePickerDialog(int currentYear, int currentMonth, int currentDay){
-		DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-			
+	private void showDatePickerDialog(int currentYear, int currentMonth,
+			int currentDay) {
+		//Set up date picker dialog listener
+		DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+
 			@Override
 			public void onDateSet(DatePicker view, int year, int monthOfYear,
 					int dayOfMonth) {
-				//Add 1 to fix 0 based
+				// Add 1 to fix 0 based
 				monthOfYear = monthOfYear + 1;
-				
-				//Cast month to string and add 0 if below 10.
+
+				// Cast month to string and add 0 if below 10.
 				String monthString = String.valueOf(monthOfYear);
 				if (monthOfYear < 10) {
 					monthString = "0" + String.valueOf(monthOfYear);
 				}
-				//Cast day of month to string and add 0 if below 10
+				// Cast day of month to string and add 0 if below 10
 				String dayString = String.valueOf(dayOfMonth);
 				if (dayOfMonth < 10) {
 					dayString = "0" + String.valueOf(monthOfYear);
 				}
-				
+
 				datePicked = monthString + "/" + dayString + "/" + year;
 				setTextView.setText(datePicked);
-				//Log.i(TAG, datePicked);
-				
+				// Log.i(TAG, datePicked);
 			}
-		}, currentYear, currentMonth, currentDay);
-		datePickerDialog.show(); 
-			
-	} //showDatePickerDialog close
+		};
+		//Create date picker dialog
+		DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+				datePickerListener, currentYear, currentMonth, currentDay);
+		//Set minimum date to now minus 1 sec
+		datePickerDialog.getDatePicker().setMinDate(new Date().getTime() - 1000);
+		datePickerDialog.show();
+	} // showDatePickerDialog close
 	
 	/* Present time picker dialog */
 	private void showTimePickerDialog(int currentHour, int currentMinute){
@@ -289,7 +302,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 			Log.i(TAG, "Finish Date Clicked");
 			showTimePickerDialog(currentHour, currentMinute);
 			setTextView = appFinishTimeTV;
-			break;
+			break; 
 		default:
 			break;
 		}
@@ -430,6 +443,27 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		endTimePicked = startTimePicked;
 
 	} //setDefaultDateAndTime close
+	
+	/*
+	 * splitTimeAndDate is used to seperate date/time strings for display in
+	 * case of editing an existing appointment
+	 */
+	void splitTimeAndDate(String newStartTimeAndDate, String newEndTimeAndDate){
+		String[] startArray = newStartTimeAndDate.split(" at ");
+		//Grab start date and time to apply to textviews
+		startDatePicked = startArray[0];
+		appStartDateTV.setText(startDatePicked);
+		startTimePicked = startArray[1];
+		appStartTimeTV.setText(startTimePicked);
+		
+		String[] endArray = newEndTimeAndDate.split(" at ");
+		//Grab end date and time to apply to textviews
+		endDatePicked = endArray[0];
+		appFinishDateTV.setText(endDatePicked);
+		endTimePicked = endArray[1];
+		appFinishTimeTV.setText(endTimePicked);
+		
+	}
 	
 	@Override
 	public void finish() { 
