@@ -116,7 +116,7 @@ public class SignUpDialogFragment extends DialogFragment {
 	void saveToPrefs(){
 		Editor editor = sharedPreferences.edit();
 		//clear out  
-		editor.clear(); 
+		//editor.clear(); 
 		editor.putString("name", nameEntered);
 		editor.putString("email", emailEntered);
 		editor.putString("key", appKeyEntered);

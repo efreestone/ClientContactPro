@@ -7,23 +7,23 @@
         <ListPreference 
             android:title="Time to send reminder"
             android:dialogTitle="@string/reminderTimeLabel"
+            android:key="reminderTime"
             android:entries="@array/reminderTimeArray"
             android:entryValues="@array/reminderTimeValueArray"
             android:defaultValue="24" />
         
         <EditTextPreference
             android:dialogTitle="@string/defaultReminderMessageLabel"
-            android:key="edittextDefaultReminderMessage"
+            android:key="defaultReminderMessage"
             android:summary="@string/defaultReminderHint"
-            android:title="@string/defaultReminderMessageLabel" />
+            android:title="@string/defaultReminderMessageLabel"
+            android:defaultValue="@string/defaultReminderHint" />
     </PreferenceCategory>
     
     
     
-    <PreferenceCategory 
+    <PreferenceCategory  
         android:title="@string/defaultContactMethodLabel" >
-        
-        
         
         <CheckBoxPreference
             android:defaultValue="false"
@@ -37,9 +37,10 @@
         
         <EditTextPreference
             android:dialogTitle="@string/defaultCancelMessageLabel"
-            android:key="edittextDefaultCancelMessage"
+            android:key="defaultCancelMessage"
             android:summary="@string/defaultCancelHint"
-            android:title="@string/defaultCancelMessageLabel" />
+            android:title="@string/defaultCancelMessageLabel"
+            android:defaultValue="@string/defaultCancelHint" />
     </PreferenceCategory>
 
 </PreferenceScreen>

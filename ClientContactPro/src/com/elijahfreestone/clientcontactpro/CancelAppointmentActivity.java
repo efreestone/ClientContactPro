@@ -50,6 +50,9 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 	String startTimeAndDate, endTimeAndDate;
 	String appointmentTypeEntered, appointmentAddressEntered;
 	
+	ArrayList<HashMap<String, String>> textClientsArrayList;
+	ArrayList<HashMap<String, String>> emailClientsArrayList;
+	
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -300,8 +303,8 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		
 		ArrayList<HashMap<String, String>> allClientsArraylist = JSONData.getClientArrayList();
 		ArrayList<HashMap<String, String>> clientsWithAppsArrayList = new ArrayList<HashMap<String,String>>();
-		ArrayList<HashMap<String, String>> textClientsArrayList = new ArrayList<HashMap<String,String>>();
-		ArrayList<HashMap<String, String>> emailClientsArrayList = new ArrayList<HashMap<String,String>>();
+		textClientsArrayList = new ArrayList<HashMap<String,String>>();
+		emailClientsArrayList = new ArrayList<HashMap<String,String>>();
 		
 		//int position;
 		Date nextAppointmentDate = new Date();
@@ -334,7 +337,7 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 					Log.i(TAG, "No dates in range");
 				}
 			} 
-		} //for loop close
+		} //for loop close  
 		
 		//Sort back over arraylist and seperate based on contactMethod
 		if (clientsWithAppsArrayList.size() != 0) { 
@@ -343,7 +346,7 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 				HashMap<String, String> newClientHashMap = allClientsArraylist.get(j);
 				String contactMethod = clientsWithAppsArrayList.get(j).get("contactMethod");
 				
-				if (contactMethod.equalsIgnoreCase("text")) {
+				if (contactMethod.equalsIgnoreCase("text")) { 
 					textClientsArrayList.add(newClientHashMap);
 					
 				} else {
@@ -369,6 +372,12 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 			@Override 
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
+				if (textClientsArrayList.size() > 0) {
+					ClientManager.cancelAppointmens(textClientsArrayList);
+				}
+				if (emailClientsArrayList.size() > 0) {
+					ClientManager.cancelAppointmens(emailClientsArrayList);
+				}
 				
 			}
 		}));

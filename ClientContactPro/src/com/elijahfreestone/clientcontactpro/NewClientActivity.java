@@ -19,6 +19,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Log;
@@ -36,11 +37,12 @@ public class NewClientActivity extends Activity{
 	static String TAG = "NewClientActivity";
 	static Context myContext;
 	static DataManager myDataManager;
+	SharedPreferences sharedPreferences;
 	boolean requiredFields; 
 	EditText clientNameEditText, clientAddressEditText, phoneNumberEditText,
 			emailAddressEditText, basicInfoEditText;
 	String clientNameEntered, clientAddressEntered, phoneNumberEntered,
-			emailAddressEntered, basicInfoEntered;
+			emailAddressEntered, basicInfoEntered, contactMethod;
 	static String myFileName = MainActivity.myFileName;
 	static JSONObject allClientsJSONObject;
 	String allClientJSONString;
@@ -59,6 +61,12 @@ public class NewClientActivity extends Activity{
 		//Grab instance of data manager
 		myDataManager = DataManager.getInstance();
 		myContext = this;
+		
+		sharedPreferences = MainActivity.sharedPreferences;
+		//Check default contact setting and set contactMethod accordingly
+		boolean checkboxEmail = sharedPreferences.getBoolean("checkboxEmail", false);
+		contactMethod = checkboxEmail ? "email" : "text";
+		//Log.i(TAG, "contactMethod: " + contactMethod);
 		
 		//Create back intent and set result code to cancel by default
 		detailsBackIntent = new Intent();

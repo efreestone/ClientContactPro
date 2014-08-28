@@ -45,6 +45,8 @@
     
     <string name="editClientButtonString">Edit Client</string>
     
+    <string name="clientInfoTitle">Client Information</string>
+    
     <string name="appStartTitle">Start:</string>
     <string name="appEndTitle">End:</string>
     

@@ -74,12 +74,28 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);  
         
-        myContext = this;               
+        myContext = this;                  
         
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
+        String reminderString = sharedPreferences.getString("defaultReminderMessage", "reminder");
+        //Check if settings exist and create default if they don't
+        if (reminderString.equalsIgnoreCase("reminder")) {
+        	Log.i(TAG, "Default settings created");
+        	reminderString = getResources().getString(R.string.defaultReminderHint);
+        	String cancelString = getResources().getString(R.string.defaultCancelHint);
+        	
+        	Editor editor = sharedPreferences.edit();
+        	editor.putString("reminderTime", "24"); 
+        	editor.putBoolean("checkboxEmail", false);
+        	editor.putString("defaultReminderMessage", reminderString);
+        	editor.putString("defaultCancelMessage", cancelString);
+        	//editor.putString("", value) 
+			//editor.apply();
+        	editor.commit();
+		}
         
         myDataManager = DataManager.getInstance();
-        myIntentManager = IntentManager.getInstance();
+        myIntentManager = IntentManager.getInstance(); 
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.

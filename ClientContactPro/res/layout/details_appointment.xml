@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingTop="50dp"
-                android:text="Client Information"
+                android:text="@string/clientInfoTitle"
                 android:textSize="20sp" />
 
             <TextView

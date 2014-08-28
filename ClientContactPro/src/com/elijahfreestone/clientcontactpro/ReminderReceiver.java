@@ -34,6 +34,7 @@ public class ReminderReceiver extends BroadcastReceiver {
 		String contactMethod = incomingIntent.getStringExtra("contactMethod");
 		String emailAddress = incomingIntent.getStringExtra("emailAddress");
 		String phoneNumber = incomingIntent.getStringExtra("phoneNumber"); 
+		String startTimeAndDate = incomingIntent.getStringExtra("startTimeAndDate");
 		Log.i(TAG, "Reminder Received for " + clientName);
 		
 		IntentManager myIntentManager = IntentManager.getInstance();
@@ -42,7 +43,7 @@ public class ReminderReceiver extends BroadcastReceiver {
 			clientName = "clientName Extra Blank";
 		}
 		
-		myIntentManager.createReminderIntent(clientName, contactMethod, emailAddress, phoneNumber); 
+		myIntentManager.createReminderIntent(clientName, contactMethod, emailAddress, phoneNumber, startTimeAndDate); 
 		
 //		//start activity
 //        Intent i = new Intent();
