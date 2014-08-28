@@ -53,8 +53,6 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 	TextView appStartDateTV, appStartTimeTV, appFinishDateTV, appFinishTimeTV, setTextView;
 	EditText appointmentTypeET, appointmentAddressET;
 	RadioGroup contactRadioGroup;
-	RadioButton textRadioButton;
-	RadioButton emailRadioButton;
 	int clientPosition;
 	long clientID;
 	
@@ -125,16 +123,8 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		endTimeAndDate = newAppointmentIntent.getStringExtra("endTimeAndDate");
 		
 		contactRadioGroup = (RadioGroup) findViewById(R.id.contactRadioGroup);
-		textRadioButton = (RadioButton) findViewById(R.id.textRadio);
-		emailRadioButton = (RadioButton) findViewById(R.id.emailRadio);
-		
-		if (contactMethod.equalsIgnoreCase("text")) {
-			textRadioButton.setChecked(true);
-		} else {
-			emailRadioButton.setChecked(true);
-		}
-		
-		//Radio on checked verifies that contactMethod selected exists for the client
+		RadioButton textRadioButton = (RadioButton) findViewById(R.id.textRadio);
+		RadioButton emailRadioButton = (RadioButton) findViewById(R.id.emailRadio);
 		contactRadioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -142,23 +132,14 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 				String radioText = selectedButton.getText().toString();
 				if (radioText.equalsIgnoreCase("email")) {
 					if (emailAddress.equalsIgnoreCase("")) {
-						Toast.makeText(myContext, "No email for this client", Toast.LENGTH_LONG).show();
-						textRadioButton.setChecked(true);
-						contactMethod = "text";
+						
 					} else {
 						contactMethod = "email";
 						Log.i(TAG, "Email Radio");
 					}
 				} else {
-					if (phoneNumber.equalsIgnoreCase("")) {
-						Toast.makeText(myContext, "No phone number for this client", Toast.LENGTH_LONG).show();
-						emailRadioButton.setChecked(true);
-						contactMethod = "email";
-					} else {
-						contactMethod = "text";
-						Log.i(TAG, "Text Radio");
-					}
-					
+					contactMethod = "text";
+					Log.i(TAG, "Text Radio");
 				}
 			}
 		});

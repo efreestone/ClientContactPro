@@ -128,13 +128,8 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		textRadioButton = (RadioButton) findViewById(R.id.textRadio);
 		emailRadioButton = (RadioButton) findViewById(R.id.emailRadio);
 		
-		if (contactMethod.equalsIgnoreCase("text")) {
-			textRadioButton.setChecked(true);
-		} else {
-			emailRadioButton.setChecked(true);
-		}
+		textRadioButton.setChecked(true);
 		
-		//Radio on checked verifies that contactMethod selected exists for the client
 		contactRadioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {

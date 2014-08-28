@@ -286,7 +286,6 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 			}
 		} //for loop close
 		
-		//Sort back over arraylist and seperate based on contactMethod
 		if (clientsWithAppsArrayList.size() != 0) { 
 			Log.i(TAG, "App array length: " + clientsWithAppsArrayList.size()); 
 			for (int j = 0; j < clientsWithAppsArrayList.size(); j++) {
@@ -299,10 +298,13 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 				} else {
 					emailClientsArrayList.add(newClientHashMap);
 				}
+				
+				
 			}
-			Log.i(TAG, "Text: " + textClientsArrayList.size());
-			Log.i(TAG, "Email: " + emailClientsArrayList.size());
+			Log.i(TAG, "Text length: " + textClientsArrayList.size());
+			Log.i(TAG, "Email length: " + emailClientsArrayList.size());
 		}
+		
 		
 	} //onCancelAppointmentsClicked close
 	

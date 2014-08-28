@@ -304,6 +304,7 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 			Log.i(TAG, "Email: " + emailClientsArrayList.size());
 		}
 		
+		
 	} //onCancelAppointmentsClicked close
 	
 }

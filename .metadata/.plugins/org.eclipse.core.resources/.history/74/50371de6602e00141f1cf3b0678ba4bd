@@ -128,13 +128,8 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		textRadioButton = (RadioButton) findViewById(R.id.textRadio);
 		emailRadioButton = (RadioButton) findViewById(R.id.emailRadio);
 		
-		if (contactMethod.equalsIgnoreCase("text")) {
-			textRadioButton.setChecked(true);
-		} else {
-			emailRadioButton.setChecked(true);
-		}
+		textRadioButton.setChecked(true);
 		
-		//Radio on checked verifies that contactMethod selected exists for the client
 		contactRadioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -144,21 +139,14 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 					if (emailAddress.equalsIgnoreCase("")) {
 						Toast.makeText(myContext, "No email for this client", Toast.LENGTH_LONG).show();
 						textRadioButton.setChecked(true);
-						contactMethod = "text";
 					} else {
+						
 						contactMethod = "email";
 						Log.i(TAG, "Email Radio");
 					}
 				} else {
-					if (phoneNumber.equalsIgnoreCase("")) {
-						Toast.makeText(myContext, "No phone number for this client", Toast.LENGTH_LONG).show();
-						emailRadioButton.setChecked(true);
-						contactMethod = "email";
-					} else {
-						contactMethod = "text";
-						Log.i(TAG, "Text Radio");
-					}
-					
+					contactMethod = "text";
+					Log.i(TAG, "Text Radio");
 				}
 			}
 		});
