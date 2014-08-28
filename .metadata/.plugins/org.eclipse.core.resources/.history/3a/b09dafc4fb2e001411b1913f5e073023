@@ -14,12 +14,13 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +43,7 @@ public class AppointmentDetailsFragment extends Fragment{
 			Bundle savedInstanceState) {
 		View detailsView = inflater.inflate(R.layout.details_appointment, container);
 		
-		myContext = AppointmentDetails.myContext;
+		myContext = MainActivity.myContext;
 		
 		//Grab textviews
 		appStartTimeTV = (TextView) detailsView.findViewById(R.id.appStartTimeTV);
@@ -78,10 +79,9 @@ public class AppointmentDetailsFragment extends Fragment{
 	void onCancelClick(View view){ 
 		Log.i(TAG, "Cancel Appointment clicked");
 		
-//		Intent cancelButtonIntent = new Intent(myContext, CancelAppointmentActivity.class);
-//		//Intent cancelButtonIntent = new Intent()
-//		startActivity(cancelButtonIntent);
-		showCancelAlert();
+		Intent cancelButtonIntent = new Intent(myContext, CancelAppointmentActivity.class);
+		//Intent cancelButtonIntent = new Intent()
+		startActivity(cancelButtonIntent);
 	} //onCancelClick close
 	
 	/*
@@ -113,7 +113,7 @@ public class AppointmentDetailsFragment extends Fragment{
 	void showCancelAlert(){
 		//AlertDialog alertDialog = new AlertDialog.Builder(myContext)
 		
-		AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+		AlertDialog alertDialog = new AlertDialog.Builder(myContext).create();
 		alertDialog.setTitle("Cancel Appointment?");
 		alertDialog.setMessage("Cancel this appointment only?");
 		alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "YES", (new DialogInterface.OnClickListener() {
@@ -122,10 +122,10 @@ public class AppointmentDetailsFragment extends Fragment{
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 				
-				ClientManager.removeAppFromHashMap(AppointmentDetails.clientName);
+				ClientManager.editClientHashMap(clientName);
 				//ClientManager.cancelAppointments(clientsWithAppsArrayList);
-
 				
+
 			}
 		}));
 		alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "NO", (new DialogInterface.OnClickListener() {
@@ -137,6 +137,6 @@ public class AppointmentDetailsFragment extends Fragment{
 			}
 		}));
 		alertDialog.show();
-	} //showCancelAlert close
+	} //
 	
 }

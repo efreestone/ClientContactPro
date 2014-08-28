@@ -24,16 +24,9 @@ import android.view.MenuItem;
  */
 public class AppointmentDetails extends Activity {
 	String TAG = "AppointmentDetails";
-	static Context myContext = MainActivity.myContext;
-	String startTimeAndDate, endTimeAndDate, appointmentType, appointmentAddress;
-	static String clientName;
-	String phoneNumber;
-	String emailAddress;
-	String contactMethod;
-	String basicInfo;
-	String otherContacts;
-	String clientAddress;
-	String nextAppointment;
+	Context myContext = MainActivity.myContext;
+	String startTimeAndDate, endTimeAndDate, appointmentType, appointmentAddress, clientName, 
+	phoneNumber, emailAddress, contactMethod, basicInfo, otherContacts, clientAddress, nextAppointment;
 	int clientPosition;
 	long clientID;
 	
@@ -177,5 +170,6 @@ public class AppointmentDetails extends Activity {
 			}
 		} 
 	} //onActivityResult close
+
 
 }

@@ -140,9 +140,40 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 	void onCancelClick(View view) {
 		Log.i(TAG, "Cancel Appointment clicked");
 
-		Intent cancelButtonIntent = new Intent(myContext,
-				CancelAppointmentActivity.class);
-		startActivity(cancelButtonIntent);
+//		Intent cancelButtonIntent = new Intent(myContext,
+//				CancelAppointmentActivity.class);
+//		startActivity(cancelButtonIntent);
+		showCancelAlert();
 	} // onCancelClick close
+	
+	
+	void showCancelAlert(){
+		//AlertDialog alertDialog = new AlertDialog.Builder(myContext)
+		
+		AlertDialog alertDialog = new AlertDialog.Builder(myContext).create();
+		alertDialog.setTitle("Cancel Appointment?");
+		alertDialog.setMessage("Cancel this appointment only?");
+		alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "YES", (new DialogInterface.OnClickListener() {
+			//Cancel confirmed
+			@Override 
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+				ClientManager.editClientHashMap(clientName);
+				//ClientManager.cancelAppointments(clientsWithAppsArrayList);
+				
+
+			}
+		}));
+		alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "NO", (new DialogInterface.OnClickListener() {
+			//Cancel aborted
+			@Override 
+			public void onClick(DialogInterface dialog, int which) {
+				Toast.makeText(myContext, "No appointments canceled!", Toast.LENGTH_LONG).show();
+				//finish();
+			}
+		}));
+		alertDialog.show();
+	}
 
 }

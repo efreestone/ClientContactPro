@@ -7,8 +7,7 @@ import android.util.Log;
 
 public class ClientManager {
 	static String TAG = "ClientManager";
-	static ArrayList<HashMap<String, String>> fullClientArrayList = JSONData.getClientArrayList();
-	static String passedAllClientsString;
+	static ArrayList<HashMap<String, String>> fullClientArrayList;
 	
 	public static void cancelAppointments(ArrayList<HashMap<String, String>> clientArrayList){
 		Log.i(TAG, "clientArrayList: " + clientArrayList);
@@ -29,19 +28,18 @@ public class ClientManager {
 			
 			Log.i(TAG, "clientArrayList Length: " + clientArrayList.size());
 			
-			removeAppFromHashMap(clientName);
+			editClientHashMap(clientName);
 		} 
-//		JSONData.convertArrayListToJSON(fullClientArrayList);
-//		 
-//		MainActivity.myViewPager.setAdapter(MainActivity.mySectionsPagerAdapter); 
-//		MainActivity.forceRefreshListViews(passedAllClientsString); 
-	} //cancelAppointments close
-	
-	static void removeAppFromHashMap(String clientName){
-		if (fullClientArrayList.size() == 0) {
-			fullClientArrayList = JSONData.getClientArrayList();
-		}
+		JSONData.convertArrayListToJSON(fullClientArrayList);
 		
+		String passedAllClientsString = fullClientArrayList.toString();
+		 
+		MainActivity.myViewPager.setAdapter(MainActivity.mySectionsPagerAdapter); 
+		MainActivity.forceRefreshListViews(passedAllClientsString); 
+		
+	}
+	
+	static void editClientHashMap(String clientName){
 		for (HashMap<String, String> map : fullClientArrayList){
 			//Check if element with client name exists
 	        if(map.containsValue(clientName))
@@ -60,12 +58,8 @@ public class ClientManager {
 	                break;
 	        }
 	    }
-		passedAllClientsString = fullClientArrayList.toString();
 		
-		JSONData.convertArrayListToJSON(fullClientArrayList);
-		 
-		MainActivity.myViewPager.setAdapter(MainActivity.mySectionsPagerAdapter); 
-		MainActivity.forceRefreshListViews(passedAllClientsString); 
-	} //editClientHashMap close
+		
+	}
 
 }
