@@ -175,7 +175,6 @@ public class NewClientActivity extends Activity{
 		return requiredFields;
 	} //checkRequiredFields close	
 	
-	/* check the device for the clients file and create default if none exists */
 	public void checkDeviceForFile() {
 		// Check if the file already exists
 		File file = this.getFileStreamPath(myFileName);

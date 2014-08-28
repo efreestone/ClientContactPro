@@ -39,7 +39,7 @@ public class ClientManager {
 		
 	}
 	
-	static void editClientHashMap(String clientName){
+	void editClientHashMap(String clientName){
 		for (HashMap<String, String> map : fullClientArrayList){
 			//Check if element with client name exists
 	        if(map.containsValue(clientName))
@@ -47,8 +47,8 @@ public class ClientManager {
 	        	//Pass position of duplicate element for replacement
 	        	int mapPosition = fullClientArrayList.indexOf(map);
 	        	Log.i(TAG, "HashMap at position" + map);
-	            //Log.i(TAG, "Position " + mapPosition);
-	            //fullClientArrayList.remove(mapPosition); 
+	            Log.i(TAG, "Position " + mapPosition);
+	            //fullClientArrayList.remove(mapPosition);
 	            //map.remove("nextAppointment");
 	            map.put("nextAppointment", "none");
 	            map.put("appointmentType", "none");

@@ -52,7 +52,6 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 	
 	ArrayList<HashMap<String, String>> textClientsArrayList;
 	ArrayList<HashMap<String, String>> emailClientsArrayList;
-	ArrayList<HashMap<String, String>> clientsWithAppsArrayList;
 	
 	
 	/* (non-Javadoc)
@@ -303,7 +302,7 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		}
 		
 		ArrayList<HashMap<String, String>> allClientsArraylist = JSONData.getClientArrayList();
-		clientsWithAppsArrayList = new ArrayList<HashMap<String,String>>();
+		ArrayList<HashMap<String, String>> clientsWithAppsArrayList = new ArrayList<HashMap<String,String>>();
 		textClientsArrayList = new ArrayList<HashMap<String,String>>();
 		emailClientsArrayList = new ArrayList<HashMap<String,String>>();
 		
@@ -373,14 +372,12 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 			@Override 
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
-//				if (textClientsArrayList.size() > 0) {
-//					ClientManager.cancelAppointments(textClientsArrayList);
-//				}
-//				if (emailClientsArrayList.size() > 0) {
-//					ClientManager.cancelAppointments(emailClientsArrayList);
-//				}
-				
-				ClientManager.cancelAppointments(clientsWithAppsArrayList);
+				if (textClientsArrayList.size() > 0) {
+					ClientManager.cancelAppointments(textClientsArrayList);
+				}
+				if (emailClientsArrayList.size() > 0) {
+					ClientManager.cancelAppointments(emailClientsArrayList);
+				}
 				
 			}
 		}));

@@ -28,8 +28,25 @@ public class ClientManager {
 			
 			Log.i(TAG, "clientArrayList Length: " + clientArrayList.size());
 			
-			editClientHashMap(clientName);
-		} 
+			for (HashMap<String, String> map : fullClientArrayList){
+				//Check if element with client name exists
+		        if(map.containsValue(clientName))
+		        {
+		        	//Pass position of duplicate element for replacement
+		        	int mapPosition = fullClientArrayList.indexOf(map);
+		        	Log.i(TAG, "HashMap at position" + map);
+		            Log.i(TAG, "Position " + mapPosition);
+		            //fullClientArrayList.remove(mapPosition);
+		            //map.remove("nextAppointment");
+		            map.put("nextAppointment", "none");
+		            map.put("appointmentType", "none");
+		            map.put("startTimeAndDate", "none");
+		            map.put("endTimeAndDate", "none");
+		            map.put("formatDateForSort", "none");
+		                break;
+		        }
+		    }
+		}
 		JSONData.convertArrayListToJSON(fullClientArrayList);
 		
 		String passedAllClientsString = fullClientArrayList.toString();
@@ -39,26 +56,7 @@ public class ClientManager {
 		
 	}
 	
-	static void editClientHashMap(String clientName){
-		for (HashMap<String, String> map : fullClientArrayList){
-			//Check if element with client name exists
-	        if(map.containsValue(clientName))
-	        {
-	        	//Pass position of duplicate element for replacement
-	        	int mapPosition = fullClientArrayList.indexOf(map);
-	        	Log.i(TAG, "HashMap at position" + map);
-	            //Log.i(TAG, "Position " + mapPosition);
-	            //fullClientArrayList.remove(mapPosition); 
-	            //map.remove("nextAppointment");
-	            map.put("nextAppointment", "none");
-	            map.put("appointmentType", "none");
-	            map.put("startTimeAndDate", "none");
-	            map.put("endTimeAndDate", "none");
-	            map.put("formatDateForSort", "none");
-	                break;
-	        }
-	    }
-		
+	void editClientHashMap(){
 		
 	}
 

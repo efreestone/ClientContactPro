@@ -303,7 +303,7 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		}
 		
 		ArrayList<HashMap<String, String>> allClientsArraylist = JSONData.getClientArrayList();
-		clientsWithAppsArrayList = new ArrayList<HashMap<String,String>>();
+		ArrayList<HashMap<String, String>> clientsWithAppsArrayList = new ArrayList<HashMap<String,String>>();
 		textClientsArrayList = new ArrayList<HashMap<String,String>>();
 		emailClientsArrayList = new ArrayList<HashMap<String,String>>();
 		
