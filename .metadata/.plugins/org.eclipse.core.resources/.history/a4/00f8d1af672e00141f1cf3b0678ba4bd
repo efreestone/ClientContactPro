@@ -133,18 +133,14 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 				}
 				// Cast day of month to string and add 0 if below 10
 				String dayString = String.valueOf(dayOfMonth);
-				int intDayPlusOne = dayOfMonth + 1;
-				String dayPlusOne = String.valueOf(intDayPlusOne);
+				String dayPlusOne = String.valueOf(dayOfMonth);
 				if (dayOfMonth < 10) {
 					dayString = "0" + String.valueOf(dayOfMonth);
-				}
-				if (intDayPlusOne < 10) {
-					dayPlusOne = "0" + String.valueOf(intDayPlusOne);
+					dayPlusOne = "0" + String.valueOf(dayOfMonth + 1);
 				}
 
 				datePicked = monthString + "/" + dayString + "/" + year;
 				startCancelDateTV.setText(datePicked);
-				//Set end date to 1 day later
 				String defaultEndDate = monthString + "/" + dayPlusOne + "/" + year;
 				finishCancelDateTV.setText(defaultEndDate);
 				// Log.i(TAG, datePicked);

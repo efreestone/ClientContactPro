@@ -115,52 +115,8 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		
 	} //getCurrentDate close
 	
-	/* Present start date picker dialog */
-	void showStartDatePickerDialog(int currentYear, int currentMonth, int currentDay) {
-		// Set up date picker dialog listener
-		DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
-
-			@Override
-			public void onDateSet(DatePicker view, int year, int monthOfYear,
-					int dayOfMonth) {
-				// Add 1 to fix 0 based
-				monthOfYear = monthOfYear + 1;
-
-				// Cast month to string and add 0 if below 10.
-				String monthString = String.valueOf(monthOfYear);
-				if (monthOfYear < 10) {
-					monthString = "0" + String.valueOf(monthOfYear);
-				}
-				// Cast day of month to string and add 0 if below 10
-				String dayString = String.valueOf(dayOfMonth);
-				int intDayPlusOne = dayOfMonth + 1;
-				String dayPlusOne = String.valueOf(intDayPlusOne);
-				if (dayOfMonth < 10) {
-					dayString = "0" + String.valueOf(dayOfMonth);
-				}
-				if (intDayPlusOne < 10) {
-					dayPlusOne = "0" + String.valueOf(intDayPlusOne);
-				}
-
-				datePicked = monthString + "/" + dayString + "/" + year;
-				startCancelDateTV.setText(datePicked);
-				//Set end date to 1 day later
-				String defaultEndDate = monthString + "/" + dayPlusOne + "/" + year;
-				finishCancelDateTV.setText(defaultEndDate);
-				// Log.i(TAG, datePicked);
-			}
-		};
-		// Create date picker dialog
-		DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-				datePickerListener, currentYear, currentMonth, currentDay);
-		// Set minimum date to now minus 1 sec
-		datePickerDialog.getDatePicker()
-				.setMinDate(new Date().getTime() - 1000);
-		datePickerDialog.show();
-	} //showStartDatePickerDialog close
-	
 	/* Present date picker dialog */
-	void showEndDatePickerDialog(int currentYear, int currentMonth, int currentDay) {
+	void showDatePickerDialog(int currentYear, int currentMonth, int currentDay) {
 		// Set up date picker dialog listener
 		DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
 
@@ -182,7 +138,7 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 				}
 
 				datePicked = monthString + "/" + dayString + "/" + year;
-				finishCancelDateTV.setText(datePicked);
+				setTextView.setText(datePicked);
 				// Log.i(TAG, datePicked);
 			}
 		};
@@ -193,7 +149,7 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		datePickerDialog.getDatePicker()
 				.setMinDate(new Date().getTime() - 1000);
 		datePickerDialog.show();
-	} //showEndDatePickerDialog close
+	} //showDatePickerDialog close
 	
 	/* Present time picker dialog */
 	void showTimePickerDialog(int currentHour, int currentMinute){
@@ -227,9 +183,9 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		case R.id.startCancelDate:
 			Log.i(TAG, "Start Cancel Date");
 			//Display dialog with todays date as starting point
-			showStartDatePickerDialog(currentYear, currentMonth, currentDay); 
+			showDatePickerDialog(currentYear, currentMonth, currentDay); 
 			
-			//setTextView = startCancelDateTV;
+			setTextView = startCancelDateTV;
 			break;
 		//Start time
 		case R.id.startCancelTime:
@@ -240,11 +196,10 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 		//End date
 		case R.id.finishCancelDate:
 			Log.i(TAG, "Finish Cancel Date");
-			int dayPlusOne = currentDay + 1;
 			//Display dialog with tomorrows date as starting point
-			showEndDatePickerDialog(currentYear, currentMonth, dayPlusOne);
+			showDatePickerDialog(currentYear, currentMonth, currentDay);
 			
-			//setTextView = finishCancelDateTV;
+			setTextView = finishCancelDateTV;
 			break;
 		//End time
 		case R.id.finishCancelTime:

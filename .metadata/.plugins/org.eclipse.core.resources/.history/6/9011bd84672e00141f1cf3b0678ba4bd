@@ -133,20 +133,12 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 				}
 				// Cast day of month to string and add 0 if below 10
 				String dayString = String.valueOf(dayOfMonth);
-				int intDayPlusOne = dayOfMonth + 1;
-				String dayPlusOne = String.valueOf(intDayPlusOne);
 				if (dayOfMonth < 10) {
-					dayString = "0" + String.valueOf(dayOfMonth);
-				}
-				if (intDayPlusOne < 10) {
-					dayPlusOne = "0" + String.valueOf(intDayPlusOne);
+					dayString = "0" + String.valueOf(monthOfYear);
 				}
 
 				datePicked = monthString + "/" + dayString + "/" + year;
-				startCancelDateTV.setText(datePicked);
-				//Set end date to 1 day later
-				String defaultEndDate = monthString + "/" + dayPlusOne + "/" + year;
-				finishCancelDateTV.setText(defaultEndDate);
+				setTextView.setText(datePicked);
 				// Log.i(TAG, datePicked);
 			}
 		};
@@ -182,7 +174,7 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 				}
 
 				datePicked = monthString + "/" + dayString + "/" + year;
-				finishCancelDateTV.setText(datePicked);
+				setTextView.setText(datePicked);
 				// Log.i(TAG, datePicked);
 			}
 		};
@@ -229,7 +221,7 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 			//Display dialog with todays date as starting point
 			showStartDatePickerDialog(currentYear, currentMonth, currentDay); 
 			
-			//setTextView = startCancelDateTV;
+			setTextView = startCancelDateTV;
 			break;
 		//Start time
 		case R.id.startCancelTime:
@@ -244,7 +236,7 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 			//Display dialog with tomorrows date as starting point
 			showEndDatePickerDialog(currentYear, currentMonth, dayPlusOne);
 			
-			//setTextView = finishCancelDateTV;
+			setTextView = finishCancelDateTV;
 			break;
 		//End time
 		case R.id.finishCancelTime:

@@ -144,7 +144,6 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 
 				datePicked = monthString + "/" + dayString + "/" + year;
 				startCancelDateTV.setText(datePicked);
-				//Set end date to 1 day later
 				String defaultEndDate = monthString + "/" + dayPlusOne + "/" + year;
 				finishCancelDateTV.setText(defaultEndDate);
 				// Log.i(TAG, datePicked);
