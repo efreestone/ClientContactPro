@@ -288,7 +288,9 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 				} else { 
 					Log.i(TAG, "No dates in range");
 				}
-			} 
+			} else {
+				Toast.makeText(myContext, "No appointments in date range", Toast.LENGTH_LONG).show();
+			}
 		} //for loop close
 		
 		//Sort back over arraylist and seperate based on contactMethod
@@ -307,12 +309,10 @@ public class CancelAppointmentActivity extends Activity implements OnClickListen
 			}
 			Log.i(TAG, "Text: " + textClientsArrayList.size());
 			Log.i(TAG, "Email: " + emailClientsArrayList.size());
-			//Call alert method
-			showCancelConfrimAlert(); 
-		} else {
-			//No appointments in the range selected
-			Toast.makeText(this, "No appointments in date range", Toast.LENGTH_LONG).show();
 		}
+		//Call alert method
+		showCancelConfrimAlert(); 
+		
 	} //onCancelAppointmentsClicked close
 	
 	void showCancelConfrimAlert(){
