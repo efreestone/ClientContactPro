@@ -2,9 +2,11 @@
 <typeInfoHistroy>
 <typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{LoginActivity.java[LoginActivity" modifiers="1" timestamp="1409007769000"/>
 <typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{ClientDetails.java[ClientDetails" modifiers="1" timestamp="1409095097000"/>
-<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{AppointmentDetails.java[AppointmentDetails" modifiers="1" timestamp="1409110709000"/>
-<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{NewAppointmentActivity.java[NewAppointmentActivity" modifiers="1" timestamp="1409163840000"/>
-<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{NewClientActivity.java[NewClientActivity" modifiers="1" timestamp="1409113200000"/>
+<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{AppointmentDetails.java[AppointmentDetails" modifiers="1" timestamp="1409178151000"/>
+<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{NewAppointmentActivity.java[NewAppointmentActivity" modifiers="1" timestamp="1409179288000"/>
+<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{NewClientActivity.java[NewClientActivity" modifiers="1" timestamp="1409178098000"/>
 <typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{CancelAppointmentActivity.java[CancelAppointmentActivity" modifiers="1" timestamp="1409110858000"/>
 <typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{SettingsActivity.java[SettingsActivity" modifiers="1" timestamp="1409080024000"/>
+<typeInfo handle="=ClientContactPro/\/Applications\/adt-bundle-mac-x86_64\/sdk\/platforms\/android-19\/android.jar&lt;android.content(BroadcastReceiver.class[BroadcastReceiver" modifiers="1057" timestamp="1407875430000"/>
+<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{ReminderReceiver.java[ReminderReceiver" modifiers="1" timestamp="1409181686000"/>
 </typeInfoHistroy>

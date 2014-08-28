@@ -50,6 +50,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	ListView appointmentsListView;   
 	static boolean fileExists;
 	static DataManager myDataManager; 
+	static IntentManager myIntentManager;
 	static String JSONString;
 
     /**   
@@ -78,6 +79,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
         
         myDataManager = DataManager.getInstance();
+        myIntentManager = IntentManager.getInstance();
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.

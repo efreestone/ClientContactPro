@@ -45,10 +45,10 @@ public class NewClientActivity extends Activity{
 	static JSONObject allClientsJSONObject;
 	String allClientJSONString;
 	ClientsFragment clientsFragment;
-	Intent detailsBackIntent;
+	Intent detailsBackIntent;  
 	
 	
-	/* (non-Javadoc)
+	/* (non-Javadoc) 
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
 	@Override

@@ -496,14 +496,17 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		
 		setReminderAlarm(alarmCalendar);
 		
-	} //seperateDateTimeForReminder close
+	} //seperateDateTimeForReminder close 
 	
-	void setReminderAlarm(Calendar newAlarmCalendar){
+	void setReminderAlarm(Calendar newAlarmCalendar){ 
 		Toast.makeText(getApplicationContext(), "Reminder set for " + newAlarmCalendar.getTime(), Toast.LENGTH_LONG).show();
 		
 		Intent reminderIntent = new Intent(myContext, ReminderReceiver.class);
 		reminderIntent.putExtra("clientName", clientNameExtra);
-		PendingIntent pendingIntent = PendingIntent.getBroadcast(myContext, clientPosition, reminderIntent, 0);
+		reminderIntent.putExtra("contactMethod", contactMethod);
+		reminderIntent.putExtra("emailAddress", emailAddress);
+		reminderIntent.putExtra("phoneNumber", phoneNumber);
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(myContext, clientPosition, reminderIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		AlarmManager reminderManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 		reminderManager.set(AlarmManager.RTC_WAKEUP, newAlarmCalendar.getTimeInMillis(), pendingIntent);
 	} //setReminderAlarm close 

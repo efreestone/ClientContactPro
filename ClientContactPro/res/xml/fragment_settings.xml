@@ -10,10 +10,6 @@
             android:entries="@array/reminderTimeArray"
             android:entryValues="@array/reminderTimeValueArray"
             android:defaultValue="24" />
-    </PreferenceCategory>
-    
-    <PreferenceCategory 
-        android:title="@string/defaultReminderMessageLabel" >
         
         <EditTextPreference
             android:dialogTitle="@string/defaultReminderMessageLabel"
@@ -21,6 +17,8 @@
             android:summary="@string/defaultReminderHint"
             android:title="@string/defaultReminderMessageLabel" />
     </PreferenceCategory>
+    
+    
     
     <PreferenceCategory 
         android:title="@string/defaultContactMethodLabel" >

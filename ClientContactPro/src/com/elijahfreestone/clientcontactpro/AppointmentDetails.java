@@ -152,7 +152,7 @@ public class AppointmentDetails extends Activity {
     		startActivityForResult(editAppointmentIntent, 0); 
 		}
 				
-    } //onPlusClick close 
+    } //onPlusClick close  
     
     @Override 
 	protected void onActivityResult(int requestCode, int resultCode, Intent detailsBackIntent) {
