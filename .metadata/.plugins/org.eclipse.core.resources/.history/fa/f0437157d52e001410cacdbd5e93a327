@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory 
+        android:title="@string/reminderTimeLabel" >
+        
+        <ListPreference 
+            android:title="Time to send reminder"
+            android:dialogTitle="@string/reminderTimeLabel"
+            android:key="reminderTime"
+            android:entries="@array/reminderTimeArray"
+            android:entryValues="@array/reminderTimeValueArray"
+            android:defaultValue="24" />
+        
+        <EditTextPreference
+            android:dialogTitle="@string/defaultReminderMessageLabel"
+            android:key="edittextDefaultReminderMessage"
+            android:summary="@string/defaultReminderHint"
+            android:title="@string/defaultReminderMessageLabel" />
+    </PreferenceCategory>
+    
+    
+    
+    <PreferenceCategory  
+        android:title="@string/defaultContactMethodLabel" >
+        
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="checkboxEmail"
+            android:summary="Set default contact method to email"
+            android:title="Email" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory 
+        android:title="@string/defaultCancelMessageLabel">
+        
+        <EditTextPreference
+            android:dialogTitle="@string/defaultCancelMessageLabel"
+            android:key="edittextDefaultCancelMessage"
+            android:summary="@string/defaultCancelHint"
+            android:title="@string/defaultCancelMessageLabel" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

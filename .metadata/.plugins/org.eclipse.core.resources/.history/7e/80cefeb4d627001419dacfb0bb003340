@@ -1,7 +1,0 @@
-package com.elijahfreestone.clientcontactpro;
-
-import android.app.Activity;
-
-public class CancelAppointmentActivity extends Activity {
-	
-}

@@ -1,0 +1,25 @@
+/*
+ * @author	Elijah Freestone 
+ *
+ * Project	ClientContactPro
+ * 
+ * Package	com.elijahfreestone.clientcontactpro
+ * 
+ * Date		Aug 27, 2014
+ */
+
+package com.elijahfreestone.clientcontactpro;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+
+public class ReminderReceiver extends BroadcastReceiver {
+
+	@Override
+	public void onReceive(Context context, Intent intent) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

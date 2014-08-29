@@ -5,8 +5,11 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="16"
         android:targetSdkVersion="19" />
+    
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+    <uses-permission android:name="android.permission.SEND_SMS" android:maxSdkVersion="19"/>
 
     <application
         android:allowBackup="true"
@@ -22,16 +25,38 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         <activity 
             android:name="LoginActivity"
             android:label="@string/loginLabel"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
-        <activity android:name="ClientDetails"></activity>
-        <activity android:name="AppointmentDetails"></activity>
+        
+        <activity 
+            android:name="ClientDetails"
+            android:label="@string/clientDetailsLabel" >
+        </activity>
+        
+        <activity 
+            android:name="AppointmentDetails"
+            android:label="@string/appDetailsLabel" >
+        </activity>
+        
         <activity android:name="NewAppointmentActivity"></activity>
         <activity android:name="NewClientActivity"></activity>
-        <activity android:name="CancelAppointmentActivity"></activity>
+        
+        <activity 
+            android:name="CancelAppointmentActivity"
+            android:parentActivityName=".MainActivity"
+            android:label="@string/cancelAppLabel" >
+        </activity>
+        
+        <activity 
+            android:name="SettingsActivity"
+            android:parentActivityName=".MainActivity"
+           	android:label="@string/settingsLabel" >
+        </activity>
+        <receiver android:enabled="true" android:name="com.elijahfreestone.clientcontactpro.ReminderReceiver"></receiver>
     </application>
 
 </manifest>

@@ -11,6 +11,8 @@
 package com.elijahfreestone.clientcontactpro;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +21,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Log;
@@ -36,28 +39,60 @@ public class NewClientActivity extends Activity{
 	static String TAG = "NewClientActivity";
 	static Context myContext;
 	static DataManager myDataManager;
-	boolean requiredFields;
+	SharedPreferences sharedPreferences;
+	boolean requiredFields; 
 	EditText clientNameEditText, clientAddressEditText, phoneNumberEditText,
 			emailAddressEditText, basicInfoEditText;
 	String clientNameEntered, clientAddressEntered, phoneNumberEntered,
-			emailAddressEntered, basicInfoEntered;
+			emailAddressEntered, basicInfoEntered, contactMethod;
 	static String myFileName = MainActivity.myFileName;
 	static JSONObject allClientsJSONObject;
 	String allClientJSONString;
 	ClientsFragment clientsFragment;
+	Intent detailsBackIntent;  
 	
+	String startTimeAndDate, endTimeAndDate, appointmentType,
+			appointmentAddress, clientName, phoneNumber, emailAddress,
+			basicInfo, otherContacts, clientAddress, nextAppointment;
+	boolean isEdit;
 	
-	/* (non-Javadoc)
+	/* (non-Javadoc) 
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_new_client);
+		setContentView(R.layout.activity_new_client);    
 		//Grab instance of data manager
 		myDataManager = DataManager.getInstance();
 		myContext = this;
+		
+		sharedPreferences = MainActivity.sharedPreferences;
+		//Check default contact setting and set contactMethod accordingly
+		boolean checkboxEmail = sharedPreferences.getBoolean("checkboxEmail", false);
+		contactMethod = checkboxEmail ? "email" : "text";
+		//Log.i(TAG, "contactMethod: " + contactMethod);
+		
+		//Check for and get editClient intent from new appointments
+		Intent editClientIntent = getIntent();
+		startTimeAndDate = editClientIntent.getStringExtra("startTimeAndDate");
+		endTimeAndDate = editClientIntent.getStringExtra("endTimeAndDate");
+		appointmentType = editClientIntent.getStringExtra("appointmentType");
+		appointmentAddress = editClientIntent.getStringExtra("appointmentAddress");
+		clientName = editClientIntent.getStringExtra("clientName");
+		phoneNumber = editClientIntent.getStringExtra("phoneNumber");
+		emailAddress = editClientIntent.getStringExtra("emailAddress");
+		contactMethod = editClientIntent.getStringExtra("contactMethod");
+		basicInfo = editClientIntent.getStringExtra("basicInfo");
+		otherContacts = editClientIntent.getStringExtra("otherContacts");
+		clientAddress = editClientIntent.getStringExtra("clientAddress");
+		nextAppointment = editClientIntent.getStringExtra("nextAppointment");
+		isEdit = editClientIntent.getBooleanExtra("isEdit", false);
+		
+		//Create back intent and set result code to cancel by default
+		detailsBackIntent = new Intent();
+		//setResult(RESULT_CANCELED, detailsBackIntent);
 		
 		//Check if the file exists on the device.
 		//Create a blank one if it does not
@@ -70,7 +105,13 @@ public class NewClientActivity extends Activity{
 		//Format phone number as it is being entered
 		phoneNumberEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher()); 
 		emailAddressEditText = (EditText) findViewById(R.id.newEmailAddress);
-		basicInfoEditText = (EditText) findViewById(R.id.newBasicInfo); 
+		basicInfoEditText = (EditText) findViewById(R.id.newBasicInfo);
+		
+		clientNameEditText.setText(clientName);
+		clientAddressEditText.setText(clientAddress);
+		phoneNumberEditText.setText(phoneNumber);
+		emailAddressEditText.setText(emailAddress);
+		basicInfoEditText.setText(basicInfo);
 		
 		// Grab custom done/cancel action bar
 		View customActionBarView = getLayoutInflater().inflate(
@@ -102,36 +143,43 @@ public class NewClientActivity extends Activity{
 				basicInfoEntered = basicInfoEditText.getText().toString();
 				String nextAppointmentEntered = "none";
 				String appointmentTypeEntered = "none";
-				String startTimeAndDateEntered = "";
-				String endTimeAndDateEntered = "";
+				String startTimeAndDateEntered = "none";
+				String endTimeAndDateEntered = "none";
 				String appointmentAddressEntered = clientAddressEntered;
 				String otherContactsEntered = "none";
+				String formatDateForSort = "1234"; 
 				//Check if required fields have been added
 				checkRequiredFields(); 
 				
 				Log.i(TAG, "Required Fields = " + requiredFields);
 				
-				if (requiredFields) { 
-//					Log.i(TAG, "Name: " + clientNameEntered + ", Address: "
-//							+ clientAddressEntered + "\nPhone Number: "
-//							+ phoneNumberEntered + ", Email: "
-//							+ emailAddressEntered + "\n" + "Basic Info: "
-//							+ basicInfoEntered); 
-//					JSONData.buildJSONNewClient(clientNameEntered,
-//							clientAddressEntered, phoneNumberEntered,
-//							emailAddressEntered, basicInfoEntered);
-					JSONData.buildJSON(clientNameEntered, clientAddressEntered,
-							phoneNumberEntered, emailAddressEntered,
-							contactMethodEntered, basicInfoEntered,
-							nextAppointmentEntered, appointmentTypeEntered,
-							startTimeAndDateEntered, endTimeAndDateEntered,
-							appointmentAddressEntered, otherContactsEntered);
-					finish();
-					//JSONData.displayDataFromFile(allClientJSONString);
+				if (requiredFields) {
+					if (!isEdit) {
+						JSONData.buildJSON(clientNameEntered,
+								clientAddressEntered, phoneNumberEntered,
+								emailAddressEntered, contactMethodEntered,
+								basicInfoEntered, nextAppointmentEntered,
+								appointmentTypeEntered,
+								startTimeAndDateEntered, endTimeAndDateEntered,
+								appointmentAddressEntered,
+								otherContactsEntered, formatDateForSort);
+
+						detailsBackIntent.putExtra("allClients",
+								JSONData.allClientJSONString);
+						detailsBackIntent.putExtra("tabPosition", 0);
+						setResult(RESULT_OK, detailsBackIntent);
+
+						finish();
+						// JSONData.displayDataFromFile(allClientJSONString);
+					} else {
+						editClient();
+						
+						finish();
+						
+					}
 				}
-				
 			}
-		});
+		}); //done button close 
 
 		/*
 		 * Grab action bar and set params to show custom done/cancel bar and
@@ -163,6 +211,7 @@ public class NewClientActivity extends Activity{
 		return requiredFields;
 	} //checkRequiredFields close	
 	
+	/* check the device for the clients file and create default if none exists */
 	public void checkDeviceForFile() {
 		// Check if the file already exists
 		File file = this.getFileStreamPath(myFileName);
@@ -185,43 +234,38 @@ public class NewClientActivity extends Activity{
 			myDataManager.writeStringToFile(myContext, myFileName,
 					stringFromFile);
 		}
-	}
-
-//	void buildJSON() {
-//		JSONObject clientJSONObject = new JSONObject();
-//		JSONObject detailsObject = new JSONObject();
-//		try {
-//			detailsObject.put("clientName", clientNameEntered);
-//			detailsObject.put("clientAddress", clientAddressEntered);
-//			detailsObject.put("phoneNumber", phoneNumberEntered);
-//			detailsObject.put("emailAddress", emailAddressEntered);
-//			detailsObject.put("basicInfo", basicInfoEntered);
-//			
-//			detailsObject.put("contactMethod", "text");
-//			detailsObject.put("nextAppointment", "none"); 
-//			detailsObject.put("appointmentType", "none");
-//			
-//			// clientJSONObject.put(clientNameEntered, detailsObject);
-//			// Log.i(TAG, "Client JSON: " + clientJSONObject);
-//			clientJSONObject.put(clientNameEntered, detailsObject);
-//			JSONArray allClientJSONArray = allClientsJSONObject.getJSONArray("clients");
-//			allClientJSONArray.put(detailsObject); 
-//			// allClientsJSONObject.put(clientJSONObject); 
-//			
-//			JSONObject newAllClientsObject = new JSONObject();
-//			newAllClientsObject.put("clients", allClientJSONArray);
-//			Log.i(TAG, "All Clients JSON: " + newAllClientsObject);
-//			allClientJSONString = newAllClientsObject.toString();
-//			myDataManager.writeStringToFile(myContext, myFileName,
-//					allClientJSONString);
-//
-//		} catch (JSONException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			Log.e(TAG, e.getMessage().toString());
-//		}
-//	} // buildJSON close
+	} //checkDeviceForFile close
 	
+	void editClient(){
+		Log.i(TAG, "editClient");
+		ArrayList<HashMap<String, String>> fullClientArrayList = JSONData.getClientArrayList();
+		for (HashMap<String, String> map : fullClientArrayList){
+			//Check if element with client name exists
+	        if(map.containsValue(clientName))
+	        {
+	        	//Pass position of duplicate element for replacement
+	        	Log.i(TAG, "HashMap at position" + map);
+	            //Log.i(TAG, "Position " + mapPosition);
+	        	map.put("clientName", clientNameEntered);
+	            map.put("clientAddress", clientAddressEntered);
+	            map.put("phoneNumber", phoneNumberEntered);
+	            map.put("emailAddress", emailAddressEntered);
+	            map.put("basicInfo", basicInfoEntered);
+	                break;
+	        }
+	    }
+		String passedAllClientsString = fullClientArrayList.toString();
+		
+		detailsBackIntent.putExtra("allClients",
+				passedAllClientsString);
+		detailsBackIntent.putExtra("tabPosition", 0);
+		setResult(RESULT_OK, detailsBackIntent);
+		
+		JSONData.convertArrayListToJSON(fullClientArrayList);
+		 
+		MainActivity.myViewPager.setAdapter(MainActivity.mySectionsPagerAdapter); 
+		MainActivity.forceRefreshListViews(passedAllClientsString);
+	} //editClient close
 	
 	/*
 	 * finish is called when the activity is exited (such as the back button)
@@ -230,9 +274,10 @@ public class NewClientActivity extends Activity{
 	@Override
 	public void finish() {
 		Log.i("Details Activity", "Finish called");
-		Intent detailsBackIntent = new Intent();
-		detailsBackIntent.putExtra("allClients", JSONData.allClientJSONString);
-		setResult(RESULT_OK, detailsBackIntent);
+//		Intent detailsBackIntent = new Intent();
+//		detailsBackIntent.putExtra("allClients", JSONData.allClientJSONString);
+//		detailsBackIntent.putExtra("tabPosition", 0);
+//		setResult(RESULT_OK, detailsBackIntent);
 		super.finish();
 	} // finish Close
 

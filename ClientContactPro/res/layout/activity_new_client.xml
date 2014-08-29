@@ -11,56 +11,91 @@
         android:gravity="center"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:paddingTop="35dp"
+        android:paddingTop="25dp"
         android:text="@string/newClientTitle" />
     
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:paddingTop="25dp"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content" >
 
-        <EditText
-            android:id="@+id/newClientName"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:hint="@string/clientNameHint" />
-        
-        <EditText
-            android:id="@+id/newClientAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:hint="@string/clientAddressHint" />
-        
-        <EditText
-            android:id="@+id/newPhoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="phone"
-            android:layout_gravity="center"
-            android:hint="@string/phoneNumberHint" />
-        
-        <EditText
-            android:id="@+id/newEmailAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:layout_gravity="center"
-            android:hint="@string/emailAddresshint" />
-        
-        <EditText
-            android:id="@+id/newBasicInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:imeOptions="actionDone"
-            android:inputType="textMultiLine"
-            android:hint="@string/basicInfoHint" />
-        
-    </LinearLayout>
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="20dp"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:paddingTop="15dp" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="5dp"
+                    android:text="@string/detailsSectionTitle"
+                    style="?android:attr/listSeparatorTextViewStyle" />
+
+                <EditText
+                    android:id="@+id/newClientName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:hint="@string/clientNameHint" />
+
+                <EditText
+                    android:id="@+id/newClientAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:hint="@string/clientAddressHint" />
+
+                <EditText
+                    android:id="@+id/newBasicInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:hint="@string/basicInfoHint"
+                    android:imeOptions="actionDone"
+                    android:inputType="textMultiLine" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="5dp"
+                    android:text="@string/contactMethodSectionTitle"
+                    style="?android:attr/listSeparatorTextViewStyle" />
+
+                <EditText
+                    android:id="@+id/newPhoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:hint="@string/phoneNumberHint"
+                    android:inputType="phone" />
+
+                <EditText
+                    android:id="@+id/newEmailAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:hint="@string/emailAddresshint"
+                    android:inputType="textEmailAddress" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

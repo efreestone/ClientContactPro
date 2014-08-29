@@ -3,10 +3,37 @@
 
     <string name="app_name">Client Contact Pro</string>
     <string name="newPlusButton">New Client</string>
+    <string name="editButton">Edit Appointment</string>
     <string name="action_settings">Settings</string>
     <string name="logOut">Log Out</string>
     
+    <string name="clientDetailsLabel">Client Details</string>
+    <string name="appDetailsLabel">Appointment Details</string>
+    <string name="cancelAppLabel">Cancel Appointments</string>
     <string name="loginLabel">Login</string>
+    <string name="settingsLabel">Settings</string>
+    
+    <string name="deleteClient">Delete Client</string>
+    
+    <string name="reminderTimeLabel">Reminder Time</string>
+    <string name="defaultReminderMessageLabel">Default Reminder Message</string>
+    <string name="defaultContactMethodLabel">Default Contact Method</string>
+    <string name="defaultCancelMessageLabel">Default Cancel Message</string>
+    <string name="defaultReminderHint">Reminder: You have an appointment scheduled</string>
+    <string name="defaultCancelHint">I must cancel our appointment due to an emergency. I will contact you ASAP to reschedule.</string>
+    
+    <string name="defaultTimeString">24 hours before</string>
+    <string-array name="reminderTimeArray">
+        <item>24 hours before</item>
+        <item>48 hours before</item>
+    </string-array>
+    <string-array name="reminderTimeValueArray">
+        <item>24</item>
+        <item>48</item>
+    </string-array>
+    
+    <string name="autoLogLabel">Auto-log</string>
+    
     <string name="titleSection1">Clients</string>
     <string name="titleSection2">Appointments</string>
     
@@ -20,6 +47,8 @@
     
     <string name="editClientButtonString">Edit Client</string>
     
+    <string name="clientInfoTitle">Client Information</string>
+    
     <string name="appStartTitle">Start:</string>
     <string name="appEndTitle">End:</string>
     
@@ -28,9 +57,13 @@
     <string name="spinnerTimePrompt">Time</string>
     
     <string name="cancelButtonString">CANCEL APPOINTMENTS</string>
+    <string name="contactCheckBox">Notify Client?</string>
 
     <string name="newClientTitle">New Client</string>
     <string name="clientDetailsTitle">Client Details</string>
+    
+    <string name="detailsSectionTitle">Details</string>
+    <string name="contactMethodSectionTitle">Contact Methods</string>
     
     <string name="clientNameHint">Client Name</string>
     <string name="clientAddressHint">Client Address</string>

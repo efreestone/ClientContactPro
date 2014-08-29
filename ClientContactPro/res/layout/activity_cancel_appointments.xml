@@ -82,7 +82,7 @@
 		android:background="@drawable/button_background"
 		android:clickable="true"
 		android:text="@string/cancelAppsButtonString"
-		android:width="200dp" />
+		android:width="200sp" />
     
     <TextView
         android:id="@+id/cancelNotice"

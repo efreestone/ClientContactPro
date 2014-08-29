@@ -4,7 +4,7 @@
 		<item value="263" key="DIALOG_WIDTH"/>
 		<item value="258" key="DIALOG_Y_ORIGIN"/>
 		<item value="399" key="DIALOG_HEIGHT"/>
-		<item value="860" key="DIALOG_X_ORIGIN"/>
+		<item value="1046" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
@@ -15,14 +15,14 @@
 		<item value="false" key="wholeword"/>
 		<item value="" key="selection"/>
 		<list key="findhistory">
+			<item value="Client In"/>
+			<item value="this"/>
+			<item value="Start"/>
+			<item value="contact"/>
+			<item value="sortDate"/>
+			<item value="getJ"/>
+			<item value="onPage"/>
 			<item value="invalidate"/>
-			<item value="refresh"/>
-			<item value="refreshF"/>
-			<item value="PagerA"/>
-			<item value="PageC"/>
-			<item value="FragmentPager"/>
-			<item value="Pager"/>
-			<item value="TAG"/>
 		</list>
 		<list key="replacehistory">
 		</list>

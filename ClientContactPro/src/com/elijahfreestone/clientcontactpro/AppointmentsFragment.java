@@ -43,7 +43,7 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 	/* (non-Javadoc)
 	 * @see android.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
 	 */
-	@Override
+	@Override  
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		//Inflate view
@@ -59,7 +59,7 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 			appointmentsListView.setAdapter(JSONData.appointmentListAdapter);
 			appointmentsListView.setOnItemClickListener(this);
 		} else {
-			Log.i(TAG, "appointmentsListView == null"); 
+			Log.i(TAG, "appointmentsListView == null");  
 		}  
 		
 		// Grab cancel button and set onClick
@@ -84,15 +84,13 @@ public class AppointmentsFragment extends Fragment implements OnItemClickListene
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		//Intent appointmentDetailsIntent = new Intent(MainActivity.myContext, AppointmentDetails.class);
-		//startActivity(); 
 		
 		// Grab object selected from ArrayList as a HashMap and split into
 		// details strings.
-		selectedClient = JSONData.clientList.get(position);
-		clientName = selectedClient.get("clientName");
+		selectedClient = JSONData.appointmentList.get(position);
+		clientName = selectedClient.get("clientName"); 
 		clientAddress = selectedClient.get("clientAddress");
-		phoneNumber = selectedClient.get("phoneNumber");
+		phoneNumber = selectedClient.get("phoneNumber"); 
 		emailAddress = selectedClient.get("emailAddress");
 		contactMethod = selectedClient.get("contactMethod");
 		basicInfo = selectedClient.get("basicInfo");

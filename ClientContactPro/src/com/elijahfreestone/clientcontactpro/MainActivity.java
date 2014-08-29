@@ -36,20 +36,21 @@ import android.widget.ListView;
 import android.widget.Toast;
  
 
-// TODO: Auto-generated Javadoc   
+// TODO: Auto-generated Javadoc     
 /**
  * The Class MainActivity.
  */
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
-	String TAG = "MainActivity";
+	static String TAG = "MainActivity";
 	static Context myContext;
 	public static final String PREFS_NAME = "SharedPrefsFile";
 	static SharedPreferences sharedPreferences;
 	static String myFileName = "string_from_url.txt";
 	ListView clientListView;
 	ListView appointmentsListView;   
-	boolean fileExists;
+	static boolean fileExists;
 	static DataManager myDataManager; 
+	static IntentManager myIntentManager;
 	static String JSONString;
 
     /**   
@@ -62,7 +63,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      */   
     static SectionsPagerAdapter mySectionsPagerAdapter;   
     static ViewPager myViewPager;    
-    ActionBar myActionBar;
+    static ActionBar myActionBar;
     String[] tabNames = {"Clients", "Appointments"};
 
     /* (non-Javadoc) 
@@ -73,11 +74,28 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);  
         
-        myContext = this;            
+        myContext = this;                  
         
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
+        String reminderString = sharedPreferences.getString("defaultReminderMessage", "reminder");
+        //Check if settings exist and create default if they don't
+        if (reminderString.equalsIgnoreCase("reminder")) {
+        	Log.i(TAG, "Default settings created");
+        	reminderString = getResources().getString(R.string.defaultReminderHint);
+        	String cancelString = getResources().getString(R.string.defaultCancelHint);
+        	
+        	Editor editor = sharedPreferences.edit();
+        	editor.putString("reminderTime", "24"); 
+        	editor.putBoolean("checkboxEmail", false);
+        	editor.putString("defaultReminderMessage", reminderString);
+        	editor.putString("defaultCancelMessage", cancelString);
+        	//editor.putString("", value) 
+			//editor.apply();
+        	editor.commit();
+		}
         
         myDataManager = DataManager.getInstance();
+        myIntentManager = IntentManager.getInstance(); 
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -113,7 +131,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			@Override 
 			public void onPageSelected(int position) {
 				Log.i(TAG, "onPageSelected position: " + position);
-				myActionBar.setSelectedNavigationItem(position);	
+				myActionBar.setSelectedNavigationItem(position);	 
 			}
 			
 			@Override
@@ -153,15 +171,17 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+        	Intent settingsIntent = new Intent(myContext, SettingsActivity.class);
+            startActivity(settingsIntent); 
             return true; 
         }
         
         //newPlusButton launches NewClient from everywhere except details screens.
         //Launches NewAppointment from them
-        if (id == R.id.newPlusButton) {
+        if (id == R.id.newPlusButton) { 
 			Log.i(TAG, "Plus clicked");
-			onNewClientClick();
-		}
+			onNewClientClick(); 
+		} 
         
         //Triggers alert and logs user out/finishes MainActivity upon positive click
         if (id == R.id.logOut) {
@@ -172,9 +192,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         return super.onOptionsItemSelected(item);
     } //onOptionsItemSelected close
     
-    boolean checkFileExists() {
+    static boolean checkFileExists() {
 		// Check if the file already exists
-		File file = this.getFileStreamPath(myFileName);
+		File file = myContext.getFileStreamPath(myFileName);
 		fileExists = file.exists();
 		if (fileExists) {
 			JSONString = DataManager.readStringFromFile(myContext, myFileName);
@@ -305,7 +325,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			public void onClick(DialogInterface dialog, int which) {
 				logUserOut();
 			}
-		}));
+		})); 
 		alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", (DialogInterface.OnClickListener) null);
 		alertDialog.show();
 	} //showLogOutAlert close
@@ -319,17 +339,33 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			if (detailsBackIntent.hasExtra("allClients")) {
 				Log.i(TAG, "Back Intent has extra");
 				String passedAllClientsString = detailsBackIntent.getExtras().getString("allClients");
-				JSONData.displayDataFromFile(passedAllClientsString);
+				//Log.i(TAG, "Passed string: " + passedAllClientsString);
+				int tabPosition = 0;
+				if (!passedAllClientsString.equalsIgnoreCase("")) {
+					forceRefreshListViews(passedAllClientsString);
+				} 
+				
+				//JSONData.displayDataFromFile(passedAllClientsString);
 				//Force view pager to rebuild and in turn refresh client listview
 				myViewPager.setAdapter(mySectionsPagerAdapter); 
-			}
-		}
-	} //onActivityResult close
+				myActionBar.setSelectedNavigationItem(tabPosition); 
+			}   
+		} 
+	} //onActivityResult close 
 	
 	static void forceRefreshListViews(String passedAllClientsString){
-		JSONData.displayDataFromFile(passedAllClientsString);
+		Log.i(TAG, "Passed string: " + passedAllClientsString);
+		Log.i(TAG, "Force refresh"); 
+		int tabPosition = 0;
 		//Force view pager to rebuild and in turn refresh client listview
-		myViewPager.setAdapter(mySectionsPagerAdapter); 
-	}
+		myActionBar.setSelectedNavigationItem(tabPosition); 
+		myViewPager.setCurrentItem(tabPosition);
+		boolean checkFile = checkFileExists();
+		if (checkFile) {
+			Log.i(TAG, "Force Refresh File exists");
+		} else {
+			JSONData.displayDataFromFile(passedAllClientsString);
+		}
+	} //forceRefreshListViews
 
 }

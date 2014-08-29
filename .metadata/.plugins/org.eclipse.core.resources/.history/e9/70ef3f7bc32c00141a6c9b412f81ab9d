@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory 
+        android:title="@string/reminderTimeLabel" >
+        
+        <ListPreference 
+            android:title="@string/defaultTimeString"
+            android:dialogTitle="@string/reminderTimeLabel"
+            android:entries="@array/reminderTimeArray"
+            android:entryValues="@array/reminderTimeValueArray" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory 
+        android:title="@string/defaultReminderMessageLabel" >
+        
+        <EditTextPreference
+            android:dialogTitle="@string/defaultReminderMessageLabel"
+            android:key="edittextDefaultReminderMessage"
+            android:summary="Reminder: You have an appointment scheduled for "
+            android:title="@string/defaultReminderMessageLabel" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory 
+        android:title="@string/defaultContactMethodLabel" >
+        
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="checkboxText"
+            android:summary="This preference can be true or false"
+            android:title="Text" />
+        
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="checkboxEmail"
+            android:summary="This preference can be true or false"
+            android:title="Email" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory 
+        android:title="@string/defaultCancelMessageLabel">
+        
+        <EditTextPreference
+            android:dialogTitle="@string/defaultCancelMessageLabel"
+            android:key="edittextDefaultCancelMessage"
+            android:summary="summary_edittext_preference"
+            android:title="@string/defaultCancelMessageLabel" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

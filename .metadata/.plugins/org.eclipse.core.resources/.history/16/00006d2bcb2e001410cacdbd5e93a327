@@ -1,0 +1,16 @@
+package com.elijahfreestone.clientcontactpro;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import android.util.Log;
+
+public class ClientManager {
+	static String TAG = "ClientManager";
+	
+	public static void cancelAppointmens(ArrayList<HashMap<String, String>> clientArrayList){
+		Log.i(TAG, "HashMap: " + clientArrayList);
+		
+	}
+
+}
