@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
 <typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{LoginActivity.java[LoginActivity" modifiers="1" timestamp="1409007769000"/>
-<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{ClientDetails.java[ClientDetails" modifiers="1" timestamp="1409095097000"/>
-<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{AppointmentDetails.java[AppointmentDetails" modifiers="1" timestamp="1409178151000"/>
-<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{NewAppointmentActivity.java[NewAppointmentActivity" modifiers="1" timestamp="1409243085000"/>
-<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{NewClientActivity.java[NewClientActivity" modifiers="1" timestamp="1409178098000"/>
-<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{CancelAppointmentActivity.java[CancelAppointmentActivity" modifiers="1" timestamp="1409245231000"/>
+<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{ClientDetails.java[ClientDetails" modifiers="1" timestamp="1409271009000"/>
+<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{AppointmentDetails.java[AppointmentDetails" modifiers="1" timestamp="1409270392000"/>
+<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{NewAppointmentActivity.java[NewAppointmentActivity" modifiers="1" timestamp="1409268946000"/>
+<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{NewClientActivity.java[NewClientActivity" modifiers="1" timestamp="1409270802000"/>
+<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{CancelAppointmentActivity.java[CancelAppointmentActivity" modifiers="1" timestamp="1409260632000"/>
 <typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{SettingsActivity.java[SettingsActivity" modifiers="1" timestamp="1409080024000"/>
-<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{ReminderReceiver.java[ReminderReceiver" modifiers="1" timestamp="1409194796000"/>
+<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{ReminderReceiver.java[ReminderReceiver" modifiers="1" timestamp="1409261154000"/>
 </typeInfoHistroy>

@@ -325,7 +325,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			public void onClick(DialogInterface dialog, int which) {
 				logUserOut();
 			}
-		}));
+		})); 
 		alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", (DialogInterface.OnClickListener) null);
 		alertDialog.show();
 	} //showLogOutAlert close

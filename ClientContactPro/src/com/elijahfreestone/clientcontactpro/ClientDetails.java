@@ -173,7 +173,7 @@ public class ClientDetails extends Activity {
 				//Log.i(TAG, "passed string: " + passedAllClientsString);
 				
 				//Force view pager to rebuild and in turn refresh client listview
-				MainActivity.myViewPager.setAdapter(MainActivity.mySectionsPagerAdapter); 
+				MainActivity.myViewPager.setAdapter(MainActivity.mySectionsPagerAdapter);  
 			}
 		}
 	} //onActivityResult close
