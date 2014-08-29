@@ -24,10 +24,10 @@ public class ClientManager {
 	static ArrayList<HashMap<String, String>> fullClientArrayList = JSONData.getClientArrayList();
 	static String passedAllClientsString;
 	
-	/*
-	 * Cancel appointments triggers intents for each appointment that falls
-	 * within the timeframe selected. The client Hashmap is then handed to
-	 * removeAppHashMap to clear appointment info
+	/**
+	 * Cancel appointments.
+	 *
+	 * @param clientArrayList the client array list
 	 */
 	public static void cancelAppointments(ArrayList<HashMap<String, String>> clientArrayList){
 		Log.i(TAG, "clientArrayList: " + clientArrayList);

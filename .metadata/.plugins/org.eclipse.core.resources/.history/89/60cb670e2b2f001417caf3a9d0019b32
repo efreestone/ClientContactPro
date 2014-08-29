@@ -15,20 +15,11 @@ import java.util.HashMap;
 
 import android.util.Log;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class ClientManager.
- */
 public class ClientManager {
 	static String TAG = "ClientManager";
 	static ArrayList<HashMap<String, String>> fullClientArrayList = JSONData.getClientArrayList();
 	static String passedAllClientsString;
 	
-	/*
-	 * Cancel appointments triggers intents for each appointment that falls
-	 * within the timeframe selected. The client Hashmap is then handed to
-	 * removeAppHashMap to clear appointment info
-	 */
 	public static void cancelAppointments(ArrayList<HashMap<String, String>> clientArrayList){
 		Log.i(TAG, "clientArrayList: " + clientArrayList);
 		
@@ -52,10 +43,6 @@ public class ClientManager {
 		} 
 	} //cancelAppointments close
 	
-	/*
-	 * Grab HashMap of the client and replace all fields related to an
-	 * appointment. This is called from appointment details as well as cancel
-	 */
 	static void removeAppFromHashMap(String clientName){ 
 		if (fullClientArrayList.size() == 0) {
 			fullClientArrayList = JSONData.getClientArrayList();

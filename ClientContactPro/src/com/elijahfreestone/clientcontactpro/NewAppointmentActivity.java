@@ -28,8 +28,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ActionMode;
-import android.view.View; 
+import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -576,6 +575,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		endMinute = Integer.valueOf(splitEndMinAMPM[0]);
 	}
 	
+	/* parse date and time to be used for reminder alarms */
 	void seperateDateTimeForReminder(String newStartDatePicked, String newStartTimePicked){
 		String[] dateSplit = newStartDatePicked.split("/");
 		String monthPicked = dateSplit[0];
@@ -626,6 +626,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		reminderManager.set(AlarmManager.RTC_WAKEUP, newAlarmCalendar.getTimeInMillis(), pendingIntent);
 	} //setReminderAlarm close 
 	
+	//Pass client details to New Client to edit
 	void onEditClicked(){
 		Intent editClientIntent = new Intent(myContext, NewClientActivity.class);
 		editClientIntent.putExtra("clientName", clientNameExtra);
@@ -642,9 +643,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		editClientIntent.putExtra("endTimeAndDate", endTimeAndDate);
 		editClientIntent.putExtra("isEdit", true);
 		
-		startActivityForResult(editClientIntent, 0);
-		
-//		endTimeAndDate = newAppointmentIntent.getStringExtra("endTimeAndDate");		
+		startActivityForResult(editClientIntent, 0);	
 	} //onEditClicked close
 	
 	@Override

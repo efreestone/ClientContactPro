@@ -180,8 +180,8 @@ public class ClientDetails extends Activity {
     
     void onDeleteClient(){
     	AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-		alertDialog.setTitle("Cancel Appointments?");
-		alertDialog.setMessage("Cancel all appointments from " + startTimeAndDate + " to " + endTimeAndDate + "?");
+		alertDialog.setTitle("Delete Client?");
+		alertDialog.setMessage("Remove this client from the device? This can not be undone.");
 		alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "YES", (new DialogInterface.OnClickListener() {
 			//Cancel confirmed
 			@Override 

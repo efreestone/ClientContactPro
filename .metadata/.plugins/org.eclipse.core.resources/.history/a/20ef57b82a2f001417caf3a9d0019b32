@@ -51,7 +51,7 @@ public class JSONData {
 		myContext = MainActivity.myContext;
 		
 		String clientName, clientAddress, phoneNumber, emailAddress, contactMethod, basicInfo, nextAppointment, 
-		appointmentType, startTimeAndDate, endTimeAndDate, appointmentAddress, otherContacts; 
+		appointmentType, startTimeAndDate, endTimeAndDate, appointmentAddress, otherContacts, formatDateForSort; 
 		
 		clientList = new ArrayList<HashMap<String, String>>();
 		appointmentList = new ArrayList<HashMap<String, String>>();
@@ -63,7 +63,7 @@ public class JSONData {
 			//Create Object with string passed in when method called
 			jsonObject = new JSONObject(JSONString);
 			
-			//allClientsJSONObject = jsonObject;
+			allClientsJSONObject = jsonObject;
 			
 			//Grab array object
 			clientJSONArray = jsonObject.getJSONArray("clients");
@@ -85,6 +85,7 @@ public class JSONData {
 				endTimeAndDate = clientJSONArray.getJSONObject(i).getString("endTimeAndDate");
 				appointmentAddress = clientJSONArray.getJSONObject(i).getString("appointmentAddress");
 				otherContacts = clientJSONArray.getJSONObject(i).getString("otherContacts");
+				formatDateForSort = clientJSONArray.getJSONObject(i).getString("formatDateForSort");
 
 				//Instantiate Hash Map for array and pass in strings with key/value pairs
 				HashMap<String, String> clientDisplayMap = new HashMap<String, String>();
@@ -100,6 +101,7 @@ public class JSONData {
 				clientDisplayMap.put("endTimeAndDate", endTimeAndDate);
 				clientDisplayMap.put("appointmentAddress", appointmentAddress);
 				clientDisplayMap.put("otherContacts", otherContacts);
+				clientDisplayMap.put("formatDateForSort", formatDateForSort);
 				
 				//Sort out all entries that contain an appointment
 				HashMap<String, String> appointmentDisplayMap = new HashMap<String, String>();
@@ -117,16 +119,19 @@ public class JSONData {
 					appointmentDisplayMap.put("endTimeAndDate", endTimeAndDate);
 					appointmentDisplayMap.put("appointmentAddress", appointmentAddress);
 					appointmentDisplayMap.put("otherContacts", otherContacts);
+					
+					appointmentDisplayMap.put("formatDateForSort", formatDateForSort);
+					
 					appointmentList.add(appointmentDisplayMap);
 					
 					//Comparator to sort client list by clientName in alphabetical order
-					Comparator<HashMap<String, String>> mapComparator = new Comparator<HashMap<String, String>>() {
-					    public int compare(HashMap<String, String> m1, HashMap<String, String> m2) {
-					        return m1.get("nextAppointment").compareTo(m2.get("nextAppointment"));
-					    }
+					Comparator<HashMap<String, String>> clientMapComparator = new Comparator<HashMap<String, String>>() {
+					    public int compare(HashMap<String, String> clientOne, HashMap<String, String> clientTwo) {
+					        return clientOne.get("formatDateForSort").compareTo(clientTwo.get("formatDateForSort"));
+					    } 
 					};
 
-					Collections.sort(appointmentList, mapComparator);
+					Collections.sort(appointmentList, clientMapComparator);
 					//Log.i(TAG, "appointmentList" + appointmentList);
 				} 
 				
@@ -140,13 +145,13 @@ public class JSONData {
 			createAppointmentsAdapter();
 			
 			//Comparator to sort client list by clientName in alphabetical order
-			Comparator<HashMap<String, String>> mapComparator = new Comparator<HashMap<String, String>>() {
-			    public int compare(HashMap<String, String> m1, HashMap<String, String> m2) {
-			        return m1.get("clientName").compareTo(m2.get("clientName"));
+			Comparator<HashMap<String, String>> clientMapComparator = new Comparator<HashMap<String, String>>() {
+			    public int compare(HashMap<String, String> clientOne, HashMap<String, String> clientTwo) {
+			        return clientOne.get("clientName").compareTo(clientTwo.get("clientName"));
 			    }
 			};
 
-			Collections.sort(clientList, mapComparator);
+			Collections.sort(clientList, clientMapComparator);
 			//Log.i(TAG, "clientList string: " + clientList.toString());
 			//Log.i(TAG, "clientList" + clientList);
 
@@ -160,13 +165,15 @@ public class JSONData {
 	
 	
 	
-	public ArrayList<HashMap<String, String>> getClientArrayList(){
+	public static ArrayList<HashMap<String, String>> getClientArrayList(){
+		Log.i(TAG, "Get client array list");
 		return clientList;
 	}
 	
 	public static JSONArray getClientJSONArray(){
 		if (clientJSONArray != null) {
 			Log.i(TAG, "++++++++++++++ allClientsJSONObject not null!! Length = " + clientJSONArray.length());
+			return clientJSONArray;
 		}
 		return null;
 	}
@@ -230,7 +237,8 @@ public class JSONData {
 			String startTimeAndDateEntered, 
 			String endTimeAndDateEntered,
 			String appointmentAddressEntered,  
-			String otherContactsEntered) {
+			String otherContactsEntered,
+			String formatDateForSort) { //, String formatDateForSort
 		JSONObject clientJSONObject = new JSONObject();
 		JSONObject detailsObject = new JSONObject();
 		try {
@@ -246,6 +254,7 @@ public class JSONData {
 			detailsObject.put("endTimeAndDate", endTimeAndDateEntered);
 			detailsObject.put("appointmentAddress", appointmentAddressEntered);
 			detailsObject.put("otherContacts", otherContactsEntered);
+			detailsObject.put("formatDateForSort", formatDateForSort);
 			
 			// clientJSONObject.put(clientNameEntered, detailsObject);
 			// Log.i(TAG, "Client JSON: " + clientJSONObject);
@@ -256,7 +265,7 @@ public class JSONData {
 			
 			JSONObject newAllClientsObject = new JSONObject();
 			newAllClientsObject.put("clients", allClientJSONArray);
-			Log.i(TAG, "All Clients JSON: " + newAllClientsObject);
+			//Log.i(TAG, "All Clients JSON: " + newAllClientsObject);
 			allClientJSONString = newAllClientsObject.toString(); 
 			
 			if (!allClientJSONString.equalsIgnoreCase("")) {
@@ -274,11 +283,42 @@ public class JSONData {
 			e.printStackTrace();
 			Log.e(TAG, e.getMessage().toString());
 		}
-	} // buildJSON close
+	} // buildJSON close 
+	
+	
+	public static void convertArrayListToJSON(ArrayList<HashMap<String, String>> clientsArrayList){
+		 
+		JSONObject newAllClientsObject = new JSONObject();
+		//Cast ArrayList into JSONArray. Didn't know this was built into JSONArrays constructor before
+		JSONArray newClientsJSONArray = new JSONArray(clientsArrayList);
+		
+		try {
+			newAllClientsObject.put("clients", newClientsJSONArray);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace(); 
+		}
+		
+		String newAllClientsString = newAllClientsObject.toString();
+		Log.i("newAllClientsString", "newAllClientsString: " + newAllClientsString);
+		
+		//Make sure all clients string isn't blank before saving to the device
+		if (!newAllClientsString.equalsIgnoreCase("")) {
+			if (myDataManager != null) {
+				Log.i("newAllClientsString", "Write String called in convert array");
+				myDataManager.writeStringToFile(MainActivity.myContext, myFileName, newAllClientsString); 
+			}   
+		} else {
+			Log.i("newAllClientsString", "newAllClientsString is blank"); 
+		}
+		//Force refresh of the listviews.
+		MainActivity.forceRefreshListViews(newAllClientsString);
+		
+	} //convertArrayListToJSON close 
 	
 	
 	
-	void deleteEntryForAppointmentAdd(int position){
+	void deleteEntryForAppointmentAdd(int position){ 
 		
 		
 	}
