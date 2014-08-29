@@ -25,17 +25,22 @@ import android.view.MenuItem;
 public class AppointmentDetails extends Activity {
 	String TAG = "AppointmentDetails";
 	static Context myContext = MainActivity.myContext;
-	String startTimeAndDate, endTimeAndDate, appointmentType, appointmentAddress;
+	static String startTimeAndDate;
+	String endTimeAndDate;
+	String appointmentType;
+	String appointmentAddress;
 	static String clientName;
-	String phoneNumber;
-	String emailAddress;
-	String contactMethod;
+	static String phoneNumber;
+	static String emailAddress;
+	static String contactMethod;
 	String basicInfo;
 	String otherContacts;
 	String clientAddress;
 	String nextAppointment;
 	int clientPosition;
 	long clientID;
+	
+	static Activity detailsActivity;
 	
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -45,6 +50,8 @@ public class AppointmentDetails extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_details_appointment);
+		
+		detailsActivity = this;
 		
 		AppointmentDetailsFragment appointmentDetailsFragment = (AppointmentDetailsFragment) getFragmentManager()
 				.findFragmentById(R.id.appointmentDetailsFragment);
@@ -177,5 +184,12 @@ public class AppointmentDetails extends Activity {
 			}
 		} 
 	} //onActivityResult close
+    
+    /* create contact intent to notify client */
+    public static void startContactIntent(){
+    	IntentManager myIntentManager = IntentManager.getInstance();
+		myIntentManager.createCancelInten(clientName, contactMethod, emailAddress, phoneNumber, startTimeAndDate);
+		//detailsActivity.finish();  
+    }
 
 }

@@ -21,6 +21,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +36,9 @@ public class AppointmentDetailsFragment extends Fragment{
 	Context myContext;
 	TextView appStartTimeTV, appEndTimeTV, appAppointmentTypeTV, appAddressTV, appClientNameTV, 
 	appPhoneNumberTV, appEmailTV, appContactMethodTV, appBasicInfoTV, appOtherContactTV;
+	boolean notifyIsChecked;
+	
+	String clientName, contactMethod, emailAddress, phoneNumber, startTimeAndDate;
 	
 	/* (non-Javadoc)
 	 * @see android.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
@@ -41,6 +47,12 @@ public class AppointmentDetailsFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View detailsView = inflater.inflate(R.layout.details_appointment, container);
+		
+		clientName = AppointmentDetails.clientName;
+		contactMethod = AppointmentDetails.contactMethod;
+		emailAddress = AppointmentDetails.emailAddress;
+		phoneNumber = AppointmentDetails.phoneNumber;
+		startTimeAndDate = AppointmentDetails.startTimeAndDate;
 		
 		myContext = AppointmentDetails.myContext;
 		
@@ -96,36 +108,49 @@ public class AppointmentDetailsFragment extends Fragment{
 
 		// Set top section textviews to passed strings
 		appStartTimeTV.setText(startTimeAndDate);
-		appEndTimeTV.setText(endTimeAndDate);
-		appAppointmentTypeTV.setText(appointmentType);
+		appEndTimeTV.setText(endTimeAndDate); 
+		appAppointmentTypeTV.setText(appointmentType); 
 		appAddressTV.setText(appointmentAddress);
-		//Bottom section
-		appClientNameTV.setText(clientName);
-		appPhoneNumberTV.setText(phoneNumber);
+		//Bottom section  
+		appClientNameTV.setText(clientName); 
+		appPhoneNumberTV.setText(phoneNumber); 
 		appEmailTV.setText(emailAddress);
 		appContactMethodTV.setText(contactMethod);
 		appBasicInfoTV.setText(basicInfo);
-		appOtherContactTV.setText(otherContacts);
+		appOtherContactTV.setText(otherContacts);  
 
-		Log.i(TAG, "displayAppointmentDetails called");
+		Log.i(TAG, "displayAppointmentDetails called");  
 	} // displayClientDetails close
 	
 	void showCancelAlert(){
 		//AlertDialog alertDialog = new AlertDialog.Builder(myContext)
+		View checkboxView = View.inflate(myContext, R.layout.checkbox_view, null);
+		CheckBox contactCheckbox = (CheckBox) checkboxView.findViewById(R.id.contactCheckbox);
+		contactCheckbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				notifyIsChecked = isChecked;
+				
+			}
+		});
 		
 		AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
 		alertDialog.setTitle("Cancel Appointment?");
+		alertDialog.setView(checkboxView);
 		alertDialog.setMessage("Cancel this appointment only?");
 		alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "YES", (new DialogInterface.OnClickListener() {
 			//Cancel confirmed
 			@Override 
 			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
 				
-				ClientManager.removeAppFromHashMap(AppointmentDetails.clientName);
+				ClientManager.removeAppFromHashMap(clientName);
 				//ClientManager.cancelAppointments(clientsWithAppsArrayList);
-
-				
+				if (notifyIsChecked) {
+					Log.i(TAG, "Notify checked");
+					AppointmentDetails.startContactIntent();
+				}
+				AppointmentDetails.detailsActivity.finish();
 			}
 		}));
 		alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "NO", (new DialogInterface.OnClickListener() {
@@ -133,10 +158,9 @@ public class AppointmentDetailsFragment extends Fragment{
 			@Override 
 			public void onClick(DialogInterface dialog, int which) {
 				Toast.makeText(myContext, "No appointments canceled!", Toast.LENGTH_LONG).show();
-				//finish();
 			}
 		}));
-		alertDialog.show();
+		alertDialog.show(); 
 	} //showCancelAlert close
 	
 }

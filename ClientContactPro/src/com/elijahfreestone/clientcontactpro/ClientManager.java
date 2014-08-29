@@ -37,7 +37,7 @@ public class ClientManager {
 //		MainActivity.forceRefreshListViews(passedAllClientsString); 
 	} //cancelAppointments close
 	
-	static void removeAppFromHashMap(String clientName){
+	static void removeAppFromHashMap(String clientName){ 
 		if (fullClientArrayList.size() == 0) {
 			fullClientArrayList = JSONData.getClientArrayList();
 		}

@@ -13,6 +13,8 @@
     <string name="loginLabel">Login</string>
     <string name="settingsLabel">Settings</string>
     
+    <string name="deleteClient">Delete Client</string>
+    
     <string name="reminderTimeLabel">Reminder Time</string>
     <string name="defaultReminderMessageLabel">Default Reminder Message</string>
     <string name="defaultContactMethodLabel">Default Contact Method</string>
@@ -55,6 +57,7 @@
     <string name="spinnerTimePrompt">Time</string>
     
     <string name="cancelButtonString">CANCEL APPOINTMENTS</string>
+    <string name="contactCheckBox">Notify Client?</string>
 
     <string name="newClientTitle">New Client</string>
     <string name="clientDetailsTitle">Client Details</string>

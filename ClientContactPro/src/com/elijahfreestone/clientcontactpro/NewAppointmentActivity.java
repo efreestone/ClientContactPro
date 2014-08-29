@@ -28,9 +28,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.View; 
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -58,6 +60,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 	RadioButton emailRadioButton;
 	int clientPosition;
 	long clientID;
+	Button editButton;
 	
 	SharedPreferences sharedPreferences;
 	
@@ -105,6 +108,9 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		clientNameTV = (TextView) findViewById(R.id.newAppClientName);
 		phoneNumberTV = (TextView) findViewById(R.id.newAppPhoneNumber);
 		emailAddressTV = (TextView) findViewById(R.id.newAppEmailAddress);
+		
+		editButton = (Button) findViewById(R.id.editClientbutton); 
+		editButton.setOnClickListener(this);
 		
 		appointmentTypeET = (EditText) findViewById(R.id.appointmentTypeET);
 		appointmentAddressET = (EditText) findViewById(R.id.appointmentAddressET);
@@ -376,6 +382,10 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 			showTimePickerDialog(endHour, endMinute);
 			setTextView = appFinishTimeTV;
 			break; 
+		//Edit client button
+		case R.id.editClientbutton:
+			//Log.i(TAG, "Edit");
+			onEditClicked();
 		default:
 			break;
 		}
@@ -458,7 +468,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		newAppointmentMap.put("endTimeAndDate", endTimeAndDateEntered);
 		newAppointmentMap.put("appointmentAddress", appointmentAddressEntered);
 		newAppointmentMap.put("otherContacts", otherContactsEntered);
-		newAppointmentMap.put("formatDateForSort", formatDateForSort);
+		newAppointmentMap.put("formatDateForSort", formatDateForSort); 
 		
 		clientArrayList.add(newAppointmentMap);
 		
@@ -601,6 +611,7 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		
 	} //seperateDateTimeForReminder close 
 	
+	/* Create intents and alarm manager to snd reminders */
 	void setReminderAlarm(Calendar newAlarmCalendar){ 
 		Toast.makeText(getApplicationContext(), "Reminder set for " + newAlarmCalendar.getTime(), Toast.LENGTH_LONG).show(); 
 		
@@ -614,6 +625,35 @@ public class NewAppointmentActivity extends Activity implements OnClickListener 
 		AlarmManager reminderManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 		reminderManager.set(AlarmManager.RTC_WAKEUP, newAlarmCalendar.getTimeInMillis(), pendingIntent);
 	} //setReminderAlarm close 
+	
+	void onEditClicked(){
+		Intent editClientIntent = new Intent(myContext, NewClientActivity.class);
+		editClientIntent.putExtra("clientName", clientNameExtra);
+		editClientIntent.putExtra("clientAddress", clientAddress);
+		editClientIntent.putExtra("emailAddress", emailAddress);
+		editClientIntent.putExtra("appointmentAddress", appointmentAddress);
+		editClientIntent.putExtra("phoneNumber", phoneNumber);
+		editClientIntent.putExtra("contactMethod", contactMethod);
+		editClientIntent.putExtra("basicInfo", basicInfo);
+		editClientIntent.putExtra("nextAppointment", nextAppointment);
+		editClientIntent.putExtra("appointmentType", appointmentType);
+		editClientIntent.putExtra("otherContacts", otherContacts);
+		editClientIntent.putExtra("startTimeAndDate", startTimeAndDate);
+		editClientIntent.putExtra("endTimeAndDate", endTimeAndDate);
+		editClientIntent.putExtra("isEdit", true);
+		
+		startActivityForResult(editClientIntent, 0);
+		
+//		endTimeAndDate = newAppointmentIntent.getStringExtra("endTimeAndDate");		
+	} //onEditClicked close
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_OK && requestCode == 0) {
+			finish();
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
 	
 	@Override 
 	public void finish() {  

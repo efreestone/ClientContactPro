@@ -10,8 +10,13 @@
 
 package com.elijahfreestone.clientcontactpro;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -88,7 +93,8 @@ public class ClientDetails extends Activity {
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.action_bar, menu);
+        getMenuInflater().inflate(R.menu.details_action_bar, menu);
+		
         return true;
     } //onCreateOptionsMenu close
 
@@ -115,6 +121,10 @@ public class ClientDetails extends Activity {
         if (id == android.R.id.home) {
         	finish();
 		}
+        
+        if (id == R.id.deleteClient) {
+        	onDeleteClient();
+        }
         
         return super.onOptionsItemSelected(item);
     } //onOptionsItemSelected close
@@ -155,6 +165,7 @@ public class ClientDetails extends Activity {
 		Log.i(TAG, "On Activity Result"); 
 		//super.onActivityResult(requestCode, resultCode, detailsBackIntent);
 		if (resultCode == RESULT_OK && requestCode == 0) {
+			//finish();
 			Log.i(TAG, "onActivityResult resultCode = OK");
 			if (detailsBackIntent.hasExtra("allClients")) {
 				Log.i(TAG, "Back Intent has extra");
@@ -166,5 +177,44 @@ public class ClientDetails extends Activity {
 			}
 		}
 	} //onActivityResult close
+    
+    void onDeleteClient(){
+    	AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+		alertDialog.setTitle("Cancel Appointments?");
+		alertDialog.setMessage("Cancel all appointments from " + startTimeAndDate + " to " + endTimeAndDate + "?");
+		alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "YES", (new DialogInterface.OnClickListener() {
+			//Cancel confirmed
+			@Override 
+			public void onClick(DialogInterface dialog, int which) {
+				ArrayList<HashMap<String, String>> fullClientArrayList = JSONData.getClientArrayList();
+				int mapPosition = -1;
+				for (HashMap<String, String> map : fullClientArrayList){
+					//Check if element with client name exists
+			        if(map.containsValue(clientName))
+			        {
+			        	mapPosition = fullClientArrayList.indexOf(map);
+			        	//Pass position of duplicate element for replacement
+			        	Log.i(TAG, "HashMap at position" + map);
+			            //Log.i(TAG, "Position " + mapPosition);
+			        	if (mapPosition != -1) {
+			        		//Remove client
+							fullClientArrayList.remove(mapPosition);
+						}
+			                break;
+			        }
+			    }
+				String passedAllClientsString = fullClientArrayList.toString();
+
+				JSONData.convertArrayListToJSON(fullClientArrayList);
+				 
+				MainActivity.myViewPager.setAdapter(MainActivity.mySectionsPagerAdapter); 
+				MainActivity.forceRefreshListViews(passedAllClientsString);
+				finish();
+			}
+		}));
+		alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "NO", (DialogInterface.OnClickListener) null);
+		alertDialog.show();
+    	
+    } //onDeleteClient close
 
 }
