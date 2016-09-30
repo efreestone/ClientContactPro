@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
 <typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{LoginActivity.java[LoginActivity" modifiers="1" timestamp="1409282125000"/>
-<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{ClientDetails.java[ClientDetails" modifiers="1" timestamp="1409276879000"/>
-<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{AppointmentDetails.java[AppointmentDetails" modifiers="1" timestamp="1409282126000"/>
-<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{NewAppointmentActivity.java[NewAppointmentActivity" modifiers="1" timestamp="1409282533000"/>
-<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{NewClientActivity.java[NewClientActivity" modifiers="1" timestamp="1409270802000"/>
-<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{CancelAppointmentActivity.java[CancelAppointmentActivity" modifiers="1" timestamp="1409260632000"/>
-<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{SettingsActivity.java[SettingsActivity" modifiers="1" timestamp="1409282125000"/>
-<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{ReminderReceiver.java[ReminderReceiver" modifiers="1" timestamp="1409261154000"/>
+<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{ClientDetails.java[ClientDetails" modifiers="1" timestamp="1409283115000"/>
+<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{AppointmentDetails.java[AppointmentDetails" modifiers="1" timestamp="1409283115000"/>
+<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{NewAppointmentActivity.java[NewAppointmentActivity" modifiers="1" timestamp="1409283115000"/>
+<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{NewClientActivity.java[NewClientActivity" modifiers="1" timestamp="1409283115000"/>
+<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{CancelAppointmentActivity.java[CancelAppointmentActivity" modifiers="1" timestamp="1409283115000"/>
+<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{SettingsActivity.java[SettingsActivity" modifiers="1" timestamp="1409283115000"/>
+<typeInfo handle="=ClientContactPro/src&lt;com.elijahfreestone.clientcontactpro{ReminderReceiver.java[ReminderReceiver" modifiers="1" timestamp="1409283115000"/>
 </typeInfoHistroy>

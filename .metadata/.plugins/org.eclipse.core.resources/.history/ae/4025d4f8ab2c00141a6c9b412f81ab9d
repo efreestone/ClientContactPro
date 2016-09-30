@@ -1,7 +1,0 @@
-package com.elijahfreestone.clientcontactpro;
-
-import android.preference.PreferenceFragment;
-
-public class SettingsFragment extends PreferenceFragment {
-
-}

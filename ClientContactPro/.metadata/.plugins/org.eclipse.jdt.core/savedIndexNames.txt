@@ -1,0 +1,1 @@
+INDEX VERSION 1.126+/Volumes/Second HD/Second Docs/School/Classes/Finished/24 - Application Deployment 2/ClientContactPro repo/ClientContactPro/.metadata/.plugins/org.eclipse.jdt.core
