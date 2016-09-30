@@ -6,10 +6,10 @@
 
     <uses-sdk
         android:minSdkVersion="16"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="20" />
     
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
-    <uses-permission android:name="android.permission.SEND_SMS" android:maxSdkVersion="19"/>
+    <uses-permission android:name="android.permission.SEND_SMS" android:maxSdkVersion="20"/>
 
     <application
         android:allowBackup="true"

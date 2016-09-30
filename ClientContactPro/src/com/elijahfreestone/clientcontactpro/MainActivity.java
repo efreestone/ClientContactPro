@@ -314,7 +314,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	/*
 	 * Displays an alert asking the user to confirm logging out.
 	 * triggers logUserOut on positive button click
-	 */
+	 */ 
 	void showLogOutAlert(){
 		AlertDialog alertDialog = new AlertDialog.Builder(myContext).create();
 		alertDialog.setTitle("Log Out");
