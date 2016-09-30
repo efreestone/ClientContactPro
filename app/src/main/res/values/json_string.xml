@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="clientString">{\"total\":15, \"clients\":[
+	{\"name\":\"Client One\", \"next_appointment\":\"none\"},
+	{\"name\":\"Client Two\", \"next_appointment\":\"Oct 15, 2014 at 8:30am\"},
+	{\"name\":\"Client Three\", \"next_appointment\":\"Aug 17, 2014 at 11:00am\"},
+	{\"name\":\"Client Four\", \"next_appointment\":\"Sep 21, 2014 at 1:00pm\"},
+	{\"name\":\"Client Five\", \"next_appointment\":\"none\"},
+	{\"name\":\"Client Six\", \"next_appointment\":\"none\"},
+	{\"name\":\"Client Seven\", \"next_appointment\":\"Aug 24, 2014 at 11:00am\"},
+	{\"name\":\"Client Eight\", \"next_appointment\":\"Sep 25, 2014 at 1:00pm\"},
+	{\"name\":\"Client Nine\", \"next_appointment\":\"Nov 27, 2014 at 10:30am\"},
+	{\"name\":\"Client Ten\", \"next_appointment\":\"none\"},
+	{\"name\":\"Client Eleven\", \"next_appointment\":\"Aug 27, 2014 at 3:15pm\"},
+	{\"name\":\"Client Twelve\", \"next_appointment\":\"Dec 29, 2014 at 2:00pm\"},
+	{\"name\":\"Client Thirteen\", \"next_appointment\":\"none\"},
+	{\"name\":\"Client Fourteen\", \"next_appointment\":\"Sep 2, 2014 at 9:00am\"},
+	{\"name\":\"Client Fifteen\", \"next_appointment\":\"none\"}]}
+	</string>
+    
+</resources>
